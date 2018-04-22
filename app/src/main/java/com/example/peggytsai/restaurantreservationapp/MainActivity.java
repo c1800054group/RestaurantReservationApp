@@ -12,6 +12,7 @@ public class MainActivity extends AppCompatActivity {
         //12345
         //資策會金城武
         // 哈囉你好
+        //安安
 
     }//jim135135153131
 
