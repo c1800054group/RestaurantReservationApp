@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">RestaurantReservationApp</string>
+    <string name="app_name">智慧點餐系統</string>
+    <string name="text_member">會員中心</string>
+    <string name="text_check">訂單查詢</string>
+    <string name="text_menu">菜單</string>
+    <string name="text_message">優惠資訊</string>
+    <string name="text_rating">評分</string>
 </resources>

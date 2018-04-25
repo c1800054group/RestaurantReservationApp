@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/item_Member"
+        android:icon="@drawable/btn_tab_member"
+        android:title="@string/text_member" />
+
+    <item
+        android:id="@+id/item_Check"
+        android:icon="@drawable/btn_tab_check"
+        android:title="@string/text_check" />
+
+    <item
+        android:id="@+id/item_Menu"
+        android:icon="@drawable/btn_tab_menu"
+        android:title="@string/text_menu" />
+
+    <item
+        android:id="@+id/item_Message"
+        android:icon="@drawable/btn_tab_message"
+        android:title="@string/text_message" />
+
+    <item
+        android:id="@+id/item_Rating"
+        android:icon="@drawable/btn_tab_rating"
+        android:title="@string/text_rating" />
+
+</menu>
