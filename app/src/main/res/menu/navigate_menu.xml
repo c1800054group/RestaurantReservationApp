@@ -26,5 +26,4 @@
         android:icon="@drawable/btn_tab_rating"
         android:title="@string/text_rating" />
 
-
 </menu>

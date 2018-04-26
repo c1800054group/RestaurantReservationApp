@@ -1,14 +1,22 @@
 package com.example.peggytsai.restaurantreservationapp;
 
+import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MenuItem;
 
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
+
+import com.example.peggytsai.restaurantreservationapp.HomePage.HomeFragment;
 import com.example.peggytsai.restaurantreservationapp.Login.LoginFragment;
 import com.example.peggytsai.restaurantreservationapp.Member.MemberFragment;
 import com.example.peggytsai.restaurantreservationapp.Menu.MenuFragment;
@@ -17,15 +25,26 @@ import com.example.peggytsai.restaurantreservationapp.Rating.RatingFragment;
 
 public class MainActivity extends AppCompatActivity {
 
+
+
+    @SuppressLint("StringFormatInvalid")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
 
         initContent();
+
+        Fragment homeFragment = new HomeFragment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.content, homeFragment);
+        fragmentTransaction.commit();
+
+
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener
@@ -35,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment fragment;
             switch (item.getItemId()) {
-                case R.id.item_Member:
+                case  R.id.item_Member:
                     fragment = new LoginFragment();
                     switchFragment(fragment);
                     setTitle(R.string.text_member);
@@ -82,5 +101,6 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.content, fragment);
         fragmentTransaction.commit();
     }
+
 
 }
