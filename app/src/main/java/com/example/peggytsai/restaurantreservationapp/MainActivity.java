@@ -14,8 +14,11 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.peggytsai.restaurantreservationapp.Check.CheckFragment;
 import com.example.peggytsai.restaurantreservationapp.HomePage.HomeFragment;
 import com.example.peggytsai.restaurantreservationapp.Login.LoginFragment;
 import com.example.peggytsai.restaurantreservationapp.Member.MemberFragment;
@@ -36,13 +39,15 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
 
+
+
         initContent();
 
-        Fragment homeFragment = new HomeFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.content, homeFragment);
-        fragmentTransaction.commit();
+//        Fragment homeFragment = new HomeFragment();
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        fragmentTransaction.replace(R.id.content, homeFragment);
+//        fragmentTransaction.commit();
 
 
     }
@@ -55,12 +60,12 @@ public class MainActivity extends AppCompatActivity {
             Fragment fragment;
             switch (item.getItemId()) {
                 case  R.id.item_Member:
-                    fragment = new LoginFragment();
+                    fragment = new MemberFragment();
                     switchFragment(fragment);
                     setTitle(R.string.text_member);
                     return true;
                 case R.id.item_Check:
-                    fragment = new MemberFragment();
+                    fragment = new CheckFragment();
                     switchFragment(fragment);
                     setTitle(R.string.text_check);
                     return true;
@@ -89,9 +94,9 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private void initContent() {
-        Fragment fragment = new MessageFragment();
+        Fragment fragment = new HomeFragment();
         switchFragment(fragment);
-        setTitle(R.string.text_message);
+
     }
 
     private void switchFragment(Fragment fragment) {
