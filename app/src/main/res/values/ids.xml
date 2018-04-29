@@ -2,4 +2,5 @@
 <resources>
     <item name="tvPrice" type="id">tvPrice</item>
     <item name="tvName" type="id">tvName</item>
+    <item name="tvMessageTitle" type="id">tvMessageTitle</item>
 </resources>

@@ -6,17 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".Main.MainActivity">
 
 
     <FrameLayout
-        android:id="@+id/content"
+        android:id="@+id/Content"
         android:layout_width="match_parent"
         android:layout_height="438dp"
         android:layout_weight="1" />
 
     <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation"
+        android:id="@+id/Navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"

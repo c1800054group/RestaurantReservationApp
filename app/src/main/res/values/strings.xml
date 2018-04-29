@@ -6,5 +6,11 @@
     <string name="text_message">優惠資訊</string>
     <string name="text_rating">評分</string>
     <string name="Service">Service</string>
+    <string name="msg_NoMessagesFound">無優惠訊息</string>
+    <string name="text_Update">更新</string>
+    <string name="text_Delete">刪除</string>
+    <string name="msg_DeleteFail">刪除失敗</string>
+    <string name="msg_DeleteSuccess">刪除成功</string>
+    <string name="msg_NoNetwork">無網路服務</string>
 
 </resources>
