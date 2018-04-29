@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,7 +24,7 @@ public class HomeFragment extends Fragment {
 
         TextView tvtoolBarTitle = view.findViewById(R.id.tvTool_bar_title);
         tvtoolBarTitle.setText(R.string.app_name);
-        btService = view.findViewById(R.id.btService1);
+        btService = view.findViewById(R.id.btService);
         btService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
