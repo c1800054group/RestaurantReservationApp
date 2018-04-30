@@ -55,13 +55,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
         //        ImageView imageView;
         TextView tvMessageTitle;
         TextView tvMessageContent;
-        ImageView imageView;
+        ImageView imageVie;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             tvMessageTitle = itemView.findViewById(R.id.tvMessageTitle);
             tvMessageContent = itemView.findViewById(R.id.tvMessageContent);
-            imageView = itemView.findViewById(R.id.ivMessage);
+            imageVie = itemView.findViewById(R.id.rvMessage);
         }
     }
 
@@ -73,7 +73,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
         String url = Common.URL + "/MessageServlet";
         int id = message.getId();
         //開啟asynctask做事，做完事情再來顯示
-        messageGetImageTask = new MessageGetImageTask(url, id, imageSize, myViewHolder.imageView);
+        messageGetImageTask = new MessageGetImageTask(url, id, imageSize, myViewHolder.imageVie);
         //主程序先往下執行，將文字的部分貼好，事件處理
         messageGetImageTask.execute();
         myViewHolder.tvMessageTitle.setText(message.getMessage_title());
@@ -88,55 +88,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
                 switchFragment(fragment);
             }
         });
-        myViewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                PopupMenu popupMenu = new PopupMenu(context, view, Gravity.END);
-                popupMenu.inflate(R.menu.popup_menu);
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.update:
-                                Fragment fragment = new MessageUpdateFragment();
-                                Bundle bundle = new Bundle();
-                                bundle.putSerializable("message", message);
-                                fragment.setArguments(bundle);
-                                switchFragment(fragment);
-                                break;
-                            case R.id.delete:
-                                if (Common.networkConnected(context)) {
-                                    String url = Common.URL + "/SpotServlet";
-                                    JsonObject jsonObject = new JsonObject();
-                                    jsonObject.addProperty("action", "spotDelete");
-                                    jsonObject.addProperty("spot", new Gson().toJson(message));
-                                    int count = 0;
-                                    try {
-                                        messageDeleteTask = new MyTask(url, jsonObject.toString());
-                                        String result = messageDeleteTask.execute().get();
-                                        count = Integer.valueOf(result);
-                                    } catch (Exception e) {
-                                        Log.e(TAG, e.toString());
-                                    }
-                                    if (count == 0) {
-                                        Common.showToast(context, R.string.msg_DeleteFail);
-                                    } else {
-                                        messages.remove(message);
-                                        notifyDataSetChanged();
-                                        Common.showToast(context, R.string.msg_DeleteSuccess);
-                                    }
-                                } else {
-                                    Common.showToast(context, R.string.msg_NoNetwork);
-                                }
-                        }
-                        return true;
-                    }
-                });
-                popupMenu.show();
-                return true;
-            }
-        });
-
 
     }
 
