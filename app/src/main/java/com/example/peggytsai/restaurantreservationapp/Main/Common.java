@@ -14,14 +14,14 @@ import android.widget.Toast;
 import com.example.peggytsai.restaurantreservationapp.R;
 public class Common {
     // Android官方模擬器連結本機web server可以直接使用 http://10.0.2.2
-    public final static String URL = "http://10.0.2.2:8080/Restaurant";
+    public final static String URL = "http://10.0.2.2:8080/RestaurantReservationApp_Web";
     public final static String PREF_FILE = "preference";
 
 
     public static boolean networkConnected(Activity activity) {
         ConnectivityManager conManager =
                 (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = conManager.getActiveNetworkInfo();
+        NetworkInfo networkInfo = conManager != null ? conManager.getActiveNetworkInfo() : null;
         return networkInfo != null && networkInfo.isConnected();
     }
 
