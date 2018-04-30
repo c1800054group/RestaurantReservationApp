@@ -12,5 +12,6 @@
     <string name="msg_DeleteFail">刪除失敗</string>
     <string name="msg_DeleteSuccess">刪除成功</string>
     <string name="msg_NoNetwork">無網路服務</string>
+    <string name="msg_MessageWarning">*此優惠卷無法跟其他優惠卷合併使用。</string>
 
 </resources>
