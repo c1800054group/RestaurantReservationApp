@@ -7,14 +7,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.view.MenuItem;
 
 import com.example.peggytsai.restaurantreservationapp.Check.CheckFragment;
-import com.example.peggytsai.restaurantreservationapp.Login.LoginFragment;
 import com.example.peggytsai.restaurantreservationapp.Member.MemberIndexFragment;
+import com.example.peggytsai.restaurantreservationapp.Login.LoginFragment;
 import com.example.peggytsai.restaurantreservationapp.Menu.MenuFragment;
 import com.example.peggytsai.restaurantreservationapp.Message.MessageFragment;
 import com.example.peggytsai.restaurantreservationapp.R;
@@ -93,5 +94,6 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.Content, fragment);
         fragmentTransaction.commit();
     }
+
 
 }

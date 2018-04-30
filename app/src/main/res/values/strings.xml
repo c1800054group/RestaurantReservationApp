@@ -41,5 +41,33 @@
     <string name="msg_UpdateFail">修改失敗</string>
     <string name="msg_UpdateSuccess">修改成功</string>
     <string name="msg_MessageWarning">*此優惠卷無法跟其他優惠卷合併使用。</string>
+    <string name="hint_etUser">請輸入e-mail</string>
+    <string name="hint_etPassword">請輸入密碼（4-8字元）</string>
+    <string name="text_Login">登入</string>
+    <string name="text_forget_password">忘記密碼</string>
+    <string name="text_register">註冊新帳戶</string>
+    <string name="text_name">姓名</string>
+    <string name="hint_insertName">請輸入姓名</string>
+    <string name="text_title">稱謂</string>
+    <string name="text_account">帳號</string>
+    <string name="text_password">密     碼</string>
+    <string name="text_CheckPassword">確認密碼</string>
+    <string name="hint_CheckPassword">請再次輸入密碼</string>
+    <string name="text_Phone">手機號碼</string>
+    <string name="hint_Phone">請輸入手機號碼</string>
+    <string name="text_Register">註冊</string>
+    <string name="msg_PasswordError">確認密碼錯誤！</string>
+    <string name="msg_InsertFail">帳號已存在！！</string>
+    <string name="msg_InsertSuccess">InsertSuccess</string>
+    <string name="text_rbMale">先生</string>
+    <string name="text_rbFemale">小姐</string>
+    <string name="msg_ColumnNull">欄位不得空白</string>
+    <string name="msg_InvalidEmailOrPassword">帳號密碼錯誤</string>
+    <string name="msg_InvalidUserOrPassword">帳號密碼錯誤！！</string>
+    <string name="text_Revise">修改會員資料</string>
+    <string name="msg_noLogin">尚未登入</string>
+    <string name="text_Save">儲存</string>
+    <string name="msg_UpdateFail">修改失敗</string>
+    <string name="msg_UpdateSuccess">修改成功</string>
 
 </resources>
