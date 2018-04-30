@@ -23,7 +23,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class MemberIndexFragment extends Fragment {
     private static final String TAG = "MemberIndexFragment";
     private View view;
-    private TextView tvAccount,tvName,tvSex,tvPhone;
+    private TextView tvAccount,tvName,tvSex,tvPhone,tvMemberLogOut;
     private MyTask memberTask;
     private int prefID;
     private Button btRevise;
@@ -33,7 +33,7 @@ public class MemberIndexFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_member_index,container,false);
-        TextView tvtoolBarTitle = view.findViewById(R.id.tvTool_bar_title);
+        TextView tvtoolBarTitle = view.findViewById(R.id.tvTool_bar_title_logout);
         tvtoolBarTitle.setText(R.string.text_member);
         findView();
         return view;
@@ -45,6 +45,17 @@ public class MemberIndexFragment extends Fragment {
         tvSex = view.findViewById(R.id.tvSex);
         tvPhone = view.findViewById(R.id.tvPhone);
         btRevise = view.findViewById(R.id.btRevise);
+        tvMemberLogOut = view.findViewById(R.id.tvMemberLogOut);
+
+        tvMemberLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
+                pref.edit().clear().apply();
+                Fragment loginFragment = new LoginFragment();
+                Common.switchFragment(loginFragment,getActivity(),false);
+            }
+        });
 
         SharedPreferences pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
         boolean login = pref.getBoolean("login", false);//後面是沒取得值的話預設給false

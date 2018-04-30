@@ -41,7 +41,7 @@ public class LoginFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_login,container,false);
         findView();
         navigation = getActivity().findViewById(R.id.Navigation);
-        navigation.setVisibility(BottomNavigationView.VISIBLE);
+        navigation.setVisibility(BottomNavigationView.GONE);
         return view;
     }
 
@@ -77,6 +77,7 @@ public class LoginFragment extends Fragment {
                             .putString("password", password)
                             .apply();
                     getActivity().setResult(RESULT_OK);
+                    navigation.setVisibility(BottomNavigationView.VISIBLE);
                     Fragment messaFragment = new MessageFragment();
                     Common.switchFragment(messaFragment,getActivity(),false);
 
@@ -98,6 +99,7 @@ public class LoginFragment extends Fragment {
             String password = pref.getString("password", "");
             if (isUserValid(name, password)) {
                 getActivity().setResult(getActivity().RESULT_OK);
+                navigation.setVisibility(BottomNavigationView.VISIBLE);
                 //已登入的話直接進到首頁
                 Fragment messageFragment = new MessageFragment();
                 Common.switchFragment(messageFragment,getActivity(),false);
