@@ -41,5 +41,6 @@
     <string name="msg_UpdateFail">修改失敗</string>
     <string name="msg_UpdateSuccess">修改成功</string>
     <string name="msg_MessageWarning">*此優惠卷無法跟其他優惠卷合併使用。</string>
+    <string name="text_LogOut">登出</string>
 
 </resources>
