@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="16dp"
+        android:layout_gravity="center"
+        android:src="@drawable/pot" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/text_name"
+            android:textSize="20dp"/>
+
+        <EditText
+            android:id="@+id/etInputName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:hint="@string/hint_insertName"
+            android:textSize="20dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/text_title"
+            android:textSize="20dp"/>
+
+        <RadioGroup
+            android:id="@+id/rgGender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="16dp">
+
+            <RadioButton
+                android:id="@+id/rbMale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/text_rbMale"
+                android:textSize="20dp"/>
+
+            <RadioButton
+                android:id="@+id/rbFemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_rbFemale"
+                android:layout_marginStart="16dp"
+                android:textSize="20dp"/>
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/text_account"
+            android:textSize="20dp"/>
+
+        <EditText
+            android:id="@+id/etInputAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:hint="@string/hint_etUser"
+            android:textSize="20dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/text_password"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/etInputPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:hint="@string/hint_etPassword"
+            android:inputType="textPassword"
+            android:textSize="20dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/text_CheckPassword"
+            android:textSize="20dp"/>
+
+        <EditText
+            android:id="@+id/etInputCheckPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:hint="@string/hint_CheckPassword"
+            android:inputType="textPassword"
+            android:textSize="20dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/text_Phone"
+            android:textSize="20dp"/>
+
+        <EditText
+            android:id="@+id/etInputPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:hint="@string/hint_Phone"
+            android:inputType="number"
+            android:textSize="20dp"/>
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/button_menus"
+        android:text="@string/text_Register" />
+
+    <TextView
+        android:id="@+id/tvRegisterMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>

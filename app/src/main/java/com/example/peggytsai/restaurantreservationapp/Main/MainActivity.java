@@ -7,21 +7,22 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.view.MenuItem;
 
 import com.example.peggytsai.restaurantreservationapp.Check.CheckFragment;
-import com.example.peggytsai.restaurantreservationapp.HomePage.HomeFragment;
-import com.example.peggytsai.restaurantreservationapp.Member.MemberFragment;
+import com.example.peggytsai.restaurantreservationapp.Member.LoginFragment;
+import com.example.peggytsai.restaurantreservationapp.Member.MemberIndexFragment;
 import com.example.peggytsai.restaurantreservationapp.Menu.MenuFragment;
 import com.example.peggytsai.restaurantreservationapp.Message.MessageFragment;
 import com.example.peggytsai.restaurantreservationapp.R;
 import com.example.peggytsai.restaurantreservationapp.Rating.RatingFragment;
 
 public class MainActivity extends AppCompatActivity {
-
+    private BottomNavigationView navigation;
 
 
     @SuppressLint("StringFormatInvalid")
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView navigation = findViewById(R.id.Navigation);
+        navigation = findViewById(R.id.Navigation);
         navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
 
         initContent();
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
             Fragment fragment;
             switch (item.getItemId()) {
                 case  R.id.item_Member:
-                    fragment = new MemberFragment();
+                    fragment = new MemberIndexFragment();
                     switchFragment(fragment);
                     setTitle(R.string.text_member);
                     return true;
@@ -80,7 +81,8 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private void initContent() {
-        Fragment fragment = new MessageFragment();
+        Fragment fragment = new LoginFragment();
+        navigation.setVisibility(BottomNavigationView.GONE);
         switchFragment(fragment);
 
     }
@@ -92,6 +94,5 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.Content, fragment);
         fragmentTransaction.commit();
     }
-
 
 }
