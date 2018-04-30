@@ -4,8 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!--<include layout="@layout/tool_bar_title"></include>-->
-
     <ImageView
         android:layout_width="150dp"
         android:layout_height="150dp"
