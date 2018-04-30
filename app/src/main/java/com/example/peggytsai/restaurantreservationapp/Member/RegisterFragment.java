@@ -12,8 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-
-
+import android.widget.TextView;
+import com.example.peggytsai.restaurantreservationapp.Login.LoginFragment;
 import com.example.peggytsai.restaurantreservationapp.Main.Common;
 import com.example.peggytsai.restaurantreservationapp.Main.MyTask;
 import com.example.peggytsai.restaurantreservationapp.R;
@@ -31,7 +31,9 @@ public class RegisterFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.registerfragment,container,false);
+        view = inflater.inflate(R.layout.fragment_member_register,container,false);
+        TextView tvtoolBarTitle = view.findViewById(R.id.tvTool_bar_title);
+        tvtoolBarTitle.setText(R.string.text_member);
         findViews();
         return view;
     }

@@ -1,5 +1,6 @@
 package com.example.peggytsai.restaurantreservationapp.Message;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -28,14 +29,14 @@ import static android.content.ContentValues.TAG;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHolder>{
     private List<Message> messages;
-    private Context context;
+    private Activity context;
     private FragmentManager fragmentManager;
     private MessageGetImageTask messageGetImageTask;
     private MyTask messageDeleteTask;
     private int imageSize;
 
 
-    public MessageAdapter(List<Message> messages, Context context, FragmentManager fragmentManager) {
+    public MessageAdapter(List<Message> messages, Activity context, FragmentManager fragmentManager) {
         this.messages = messages;
         this.context = context;
         this.fragmentManager = fragmentManager;

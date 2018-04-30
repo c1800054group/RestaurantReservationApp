@@ -16,8 +16,7 @@
         android:layout_height="56dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        tools:ignore="RtlCompat"
-        android:background="@color/colorBackground">
+        tools:ignore="RtlCompat">
 
         <ImageButton
             android:id="@+id/btService"

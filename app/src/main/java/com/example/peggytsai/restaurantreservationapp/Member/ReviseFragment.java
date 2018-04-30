@@ -16,6 +16,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 
+import com.example.peggytsai.restaurantreservationapp.Login.LoginFragment;
 import com.example.peggytsai.restaurantreservationapp.Main.Common;
 import com.example.peggytsai.restaurantreservationapp.Main.MyTask;
 import com.example.peggytsai.restaurantreservationapp.R;
@@ -35,11 +36,12 @@ public class ReviseFragment extends Fragment {
     private Button btReviseSave;
     private String name,sex,password,checkPassword,phone,email,id;
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.revise_fragment,container,false);
+        view = inflater.inflate(R.layout.fragment_member_revise,container,false);
+        TextView tvtoolBarTitle = view.findViewById(R.id.tvTool_bar_title);
+        tvtoolBarTitle.setText(R.string.text_member);
         Bundle bundle = this.getArguments();
         member = (Member)bundle.getSerializable("member");
         findView();
@@ -116,8 +118,8 @@ public class ReviseFragment extends Fragment {
                         Common.showToast(getActivity(), R.string.msg_UpdateFail);
                     } else {
                         Common.showToast(getActivity(), R.string.msg_UpdateSuccess);
-                        Fragment loginFragment = new LoginFragment();
-                        Common.switchFragment(loginFragment,getActivity(),false);
+                        Fragment memberIndexFragment = new MemberIndexFragment();
+                        Common.switchFragment(memberIndexFragment,getActivity(),false);
                     }
                 } else {
                     Common.showToast(getActivity(), R.string.msg_NoNetwork);

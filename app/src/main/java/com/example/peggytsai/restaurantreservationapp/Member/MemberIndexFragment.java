@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
+import com.example.peggytsai.restaurantreservationapp.Login.LoginFragment;
 import com.example.peggytsai.restaurantreservationapp.Main.MyTask;
 import com.example.peggytsai.restaurantreservationapp.R;
 import com.example.peggytsai.restaurantreservationapp.Main.Common;
@@ -32,7 +32,9 @@ public class MemberIndexFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.member_index_fragment,container,false);
+        view = inflater.inflate(R.layout.fragment_member_index,container,false);
+        TextView tvtoolBarTitle = view.findViewById(R.id.tvTool_bar_title);
+        tvtoolBarTitle.setText(R.string.text_member);
         findView();
         return view;
     }

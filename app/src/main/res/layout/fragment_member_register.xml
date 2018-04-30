@@ -4,6 +4,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include layout="@layout/tool_bar_title"></include>
+
+
     <ImageView
         android:layout_width="150dp"
         android:layout_height="150dp"
@@ -26,7 +29,7 @@
             android:textSize="20dp"/>
 
         <EditText
-            android:id="@+id/etReviseName"
+            android:id="@+id/etInputName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -49,14 +52,14 @@
             android:textSize="20dp"/>
 
         <RadioGroup
-            android:id="@+id/rgReviseGender"
+            android:id="@+id/rgGender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginStart="16dp">
 
             <RadioButton
-                android:id="@+id/rbReviseMale"
+                android:id="@+id/rbMale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
@@ -64,7 +67,7 @@
                 android:textSize="20dp"/>
 
             <RadioButton
-                android:id="@+id/rbReviseFemale"
+                android:id="@+id/rbFemale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/text_rbFemale"
@@ -88,8 +91,8 @@
             android:text="@string/text_account"
             android:textSize="20dp"/>
 
-        <TextView
-            android:id="@+id/etReviseEmail"
+        <EditText
+            android:id="@+id/etInputAccount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -111,7 +114,7 @@
             android:textSize="20dp" />
 
         <EditText
-            android:id="@+id/etRevisePassword"
+            android:id="@+id/etInputPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -134,7 +137,7 @@
             android:textSize="20dp"/>
 
         <EditText
-            android:id="@+id/etReviseCheckPassword"
+            android:id="@+id/etInputCheckPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -157,7 +160,7 @@
             android:textSize="20dp"/>
 
         <EditText
-            android:id="@+id/etRevisePhone"
+            android:id="@+id/etInputPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -168,14 +171,19 @@
 
 
     <Button
-        android:id="@+id/btReviseSave"
+        android:id="@+id/btRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="30dp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/button_menus"
-        android:text="@string/text_Save" />
+        android:text="@string/text_Register" />
 
+    <TextView
+        android:id="@+id/tvRegisterMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp" />
 
 </LinearLayout>
