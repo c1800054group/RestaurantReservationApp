@@ -47,10 +47,9 @@ public class OrderFragment extends Fragment {
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.Content, reserveFragment);
                 fragmentTransaction.commit();
-                Toast toast = Toast.makeText(getContext(),
-                        "Hello world!", Toast.LENGTH_LONG);
 
-                toast.show();
+
+
 
             }
         });

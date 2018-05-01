@@ -32,8 +32,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="30dp"
+            android:layout_alignTop="@+id/tvReserveDate"
             android:scaleType="centerCrop"
             android:src="@drawable/date" />
 
@@ -76,7 +75,7 @@
             android:layout_height="50dp"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/imageDate"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="30dp"
             android:scaleType="centerCrop"
             android:src="@drawable/time" />
 
@@ -85,8 +84,8 @@
             android:id="@+id/tvReserveTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="130dp"
-            android:layout_toRightOf="@id/imageTime"
+            android:layout_alignTop="@+id/imageTime"
+            android:layout_toEndOf="@+id/imageTime"
             android:padding="10dp"
             android:text="@string/timeName"
             android:textSize="20sp" />
@@ -95,7 +94,7 @@
             android:id="@+id/tvTimeContent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="130dp"
+            android:layout_marginTop="110dp"
             android:layout_toRightOf="@id/tvReserveTime"
             android:padding="10dp"
             android:text="@string/typeDate"
@@ -106,7 +105,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="280dp"
-            android:layout_marginTop="130dp"
+            android:layout_marginTop="110dp"
             android:padding="10dp"
             android:text="@string/btTime" />
 
@@ -116,7 +115,7 @@
             android:layout_height="50dp"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/imageDate"
-            android:layout_marginTop="140dp"
+            android:layout_marginTop="120dp"
             android:scaleType="centerCrop"
             android:src="@drawable/reservation" />
 
@@ -124,23 +123,35 @@
             android:id="@+id/tvReservePerson"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="220dp"
+            android:layout_marginTop="200dp"
             android:layout_toRightOf="@id/imageTime"
             android:padding="10dp"
             android:text="@string/personName"
             android:textSize="20sp" />
 
 
+
         <EditText
-            android:id="@+id/edPersonContent"
+            android:id="@+id/edPersonNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="220dp"
+            android:layout_marginTop="200dp"
             android:textColorHint="@color/edPersonColor"
             android:layout_toRightOf="@id/tvReserveTime"
             android:hint="@string/personNumber"
             android:padding="10dp"
             android:textSize="20sp" />
+        <Button
+            android:id="@+id/confirmButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="260dp"
+            android:layout_marginLeft="160dp"
+            android:text="@string/btConfirm"
+            android:background="@color/confirmBg"/>
+
+
+
 
 
     </RelativeLayout>

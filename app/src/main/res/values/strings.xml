@@ -54,6 +54,8 @@
     <string name="personName">人數</string>
     <string name="personNumber">輸入預約人數</string>
     <string name="text_order">訂位 / 點餐</string>
+    <string name="btConfirm">確認訂位</string>
+    <string name="tvReserveResult">訂位完成後,如需取消,請三天前告知</string>
 
 
 </resources>
