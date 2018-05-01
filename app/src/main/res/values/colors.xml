@@ -9,5 +9,6 @@
     <color name="colorMessageDetail">#000000</color>
     <color name="colorWarning">#ff0000</color>
     <color name="colorWhite">#ffffff</color>
+    <color name="edPersonColor">#d2d0d0</color>
 
 </resources>

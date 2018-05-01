@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:id="@+id/ivIconmage"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:padding="6dp"
+        android:src="@drawable/pot" />
+
+
+    <TextView
+        android:id="@+id/tvNews"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        android:text="@string/tvReserveNews"
+        android:textSize="20sp" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageDate"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="30dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/date" />
+
+
+        <TextView
+            android:id="@+id/tvReserveDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:layout_toRightOf="@id/imageDate"
+            android:padding="10dp"
+            android:text="@string/dateName"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvDateContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_toRightOf="@id/tvReserveDate"
+            android:padding="10dp"
+            android:text="@string/typeDate"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/dateButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="230dp"
+            android:layout_marginTop="30dp"
+            android:layout_toRightOf="@id/imageDate"
+            android:padding="10dp"
+            android:text="@string/btDate" />
+
+
+        <ImageView
+            android:id="@+id/imageTime"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/imageDate"
+            android:layout_marginTop="50dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/time" />
+
+
+        <TextView
+            android:id="@+id/tvReserveTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="130dp"
+            android:layout_toRightOf="@id/imageTime"
+            android:padding="10dp"
+            android:text="@string/timeName"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvTimeContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="130dp"
+            android:layout_toRightOf="@id/tvReserveTime"
+            android:padding="10dp"
+            android:text="@string/typeDate"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/timeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="280dp"
+            android:layout_marginTop="130dp"
+            android:padding="10dp"
+            android:text="@string/btTime" />
+
+        <ImageView
+            android:id="@+id/imagePerson"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/imageDate"
+            android:layout_marginTop="140dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/reservation" />
+
+        <TextView
+            android:id="@+id/tvReservePerson"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="220dp"
+            android:layout_toRightOf="@id/imageTime"
+            android:padding="10dp"
+            android:text="@string/personName"
+            android:textSize="20sp" />
+
+
+        <EditText
+            android:id="@+id/edPersonContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="220dp"
+            android:textColorHint="@color/edPersonColor"
+            android:layout_toRightOf="@id/tvReserveTime"
+            android:hint="@string/personNumber"
+            android:padding="10dp"
+            android:textSize="20sp" />
+
+
+    </RelativeLayout>
+
+
+
+
+</LinearLayout>
