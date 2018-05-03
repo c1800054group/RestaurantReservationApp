@@ -66,7 +66,7 @@ public class ReservationDetailFragment extends Fragment {
 
 
                     } catch (Exception e) {
-                        Log.e(TAG, "error Message" + toString());
+//                       1
                     }
 
                 } else {

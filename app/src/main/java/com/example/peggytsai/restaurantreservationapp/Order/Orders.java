@@ -1,52 +1,36 @@
 package com.example.peggytsai.restaurantreservationapp.Order;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Orders {
-	
-	private Date date_order, tinme_chef, time_wsiter, wtime_pick_up;
-	private int  id, member_id, person, tables_id, unified_business_id, coupon_id ;
+
+	private Timestamp date_order;
+    private String person;
 	private String note, checkout_method;
-	public Orders(int member_id, int person) {
-		super();
-		this.member_id = member_id;
-		this.person = person;
-	}
 
-
-	public Orders(int memeber_id, int person, Date date_order) {
+	public Orders(Timestamp date_order, String person) {
 		super();
-		this.member_id = member_id;
-		this.person = person;
 		this.date_order = date_order;
+		this.person = person;
 		
-	}
-	
-	
-	public int getMember_id() {
-		return member_id;
+
 	}
 
-
-	public void setMember_id(int memeber_id) {
-		this.member_id = memeber_id;
-	}
-
-
-	public Date getDate_order() {
+	public Timestamp getDate_order() {
 		return date_order;
 	}
-	public void setDate_order(Date date_order) {
+
+	public void setDate_order(Timestamp date_order) {
 		this.date_order = date_order;
 	}
-	public int getPerson() {
+
+	public String getPerson() {
 		return person;
 	}
-	public void setPerson(int person) {
+
+	public void setPerson(String person) {
 		this.person = person;
 	}
-       
-	
-	  
 
 }
