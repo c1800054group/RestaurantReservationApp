@@ -3,6 +3,7 @@ package com.example.peggytsai.restaurantreservationapp.Message;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -51,9 +52,10 @@ public class MessageFragment extends Fragment {
             public void onClick(View v) {
                     Log.d("ddd","ddd");
                 Toast.makeText(getActivity(),"Text!",Toast.LENGTH_SHORT).show();
-
             }
         });
+
+
 
         recyclerView = view.findViewById(R.id.rvMessage);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

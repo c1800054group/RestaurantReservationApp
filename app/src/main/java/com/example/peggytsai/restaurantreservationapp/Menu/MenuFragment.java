@@ -4,10 +4,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +23,8 @@ public class MenuFragment extends Fragment {
 
     private Button btOrder;
 
+    private ImageButton btService;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -30,12 +34,22 @@ public class MenuFragment extends Fragment {
         tvtoolBarTitle.setText(R.string.text_menu);
 
 
-        btOrder = view.findViewById(R.id.btOrder);
-        btOrder.setOnClickListener(new View.OnClickListener() {
+//        btOrder = view.findViewById(R.id.btOrder);
+//        btOrder.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Fragment orderFragment = new OrderFragment();
+//                Common.switchFragment(orderFragment,getActivity(),true);
+//
+//            }
+//        });
+
+        btService = view.findViewById(R.id.btService);
+        btService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment orderFragment = new OrderFragment();
-                Common.switchFragment(orderFragment,getActivity(),true);
+                Log.d("ddd","ddd");
+                Toast.makeText(getActivity(),"Text!",Toast.LENGTH_SHORT).show();
 
             }
         });
