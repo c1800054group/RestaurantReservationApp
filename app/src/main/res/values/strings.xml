@@ -48,5 +48,21 @@
     <string name="text_table">座位管理</string>
     <string name="text_common">意見管理</string>
     <string name="text_service">服務鈴</string>
+    <string name="typeName">定位</string>
+    <string name="tvNews">營業時間11:00AM - 10:00PM</string>
+    <string name="tvReserve">日期</string>
+    <string name="tvReserveNews">開放訂位時間為一天前至一個月</string>
+    <string name="dateName">日期</string>
+    <string name="typeDate">____________</string>
+    <string name="btDate">選擇日期</string>
+    <string name="timeName">時間</string>
+    <string name="btTime">選擇時間</string>
+    <string name="personName">人數</string>
+    <string name="personNumber">輸入預約人數</string>
+    <string name="text_order">訂位 / 點餐</string>
+    <string name="btConfirm">確認訂位</string>
+    <string name="tvReserveResult">訂位完成後,如需取消,請三天前告知</string>
+    <string name="btName">繼續點餐</string>
+
 
 </resources>
