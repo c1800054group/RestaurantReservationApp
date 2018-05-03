@@ -125,7 +125,7 @@
                 android:layout_marginTop="18dp"
                 android:text="領取優惠卷"
                 android:textColor="@color/colorWhite"
-                android:background="@drawable/drawable"
+                android:background="@drawable/button_corners"
                 android:textSize="25dp" />
 
 
