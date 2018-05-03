@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/item_Check"
+        android:icon="@drawable/btn_tab_check"
+        android:title="@string/text_check" />
+
+    <item
+        android:id="@+id/item_Menu"
+        android:icon="@drawable/btn_service"
+        android:title="@string/text_service" />
+
+</menu>

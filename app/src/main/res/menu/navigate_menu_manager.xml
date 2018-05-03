@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/item_Food"
+        android:icon="@drawable/btn_tab_food"
+        android:title="@string/text_food" />
+
+    <item
+        android:id="@+id/item_Order"
+        android:icon="@drawable/btn_tab_order"
+        android:title="@string/text_order"/>
+    <item
+        android:id="@+id/item_Coupon"
+        android:icon="@drawable/btn_tab_coupon"
+        android:title="@string/text_coupon" />
+
+    <item
+        android:id="@+id/item_Common"
+        android:icon="@drawable/btn_tab_common"
+        android:title="@string/text_common" />
+
+    <item
+        android:id="@+id/item_Table"
+        android:icon="@drawable/btn_tab_table"
+        android:title="@string/text_table" />
+
+
+</menu>

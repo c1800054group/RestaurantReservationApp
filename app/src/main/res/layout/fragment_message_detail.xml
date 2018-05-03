@@ -13,13 +13,14 @@
 
 
     <Button
-        android:id="@+id/btOrder"
+        android:id="@+id/btCoupon"
         android:layout_width="80dp"
         android:layout_height="20dp"
-        android:layout_alignEnd="@+id/tvMessageDetailＷarning"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="18dp"
         android:background="@color/colorPrimary"
+        android:paddingEnd="10dp"
         android:text="領取優惠卷"
         android:textColor="@color/colorWhite" />
 
@@ -40,7 +41,8 @@
         <ImageView
             android:id="@+id/ivMessageDetail"
             android:layout_width="match_parent"
-            android:layout_height="220dp"
+            android:layout_height="200dp"
+            android:layout_margin="16dp"
             android:layout_centerHorizontal="true"
             android:src="@drawable/default_image" />
 
@@ -101,8 +103,6 @@
         android:id="@+id/tvMessageDetailDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-        android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/tvMessageDetail"
         android:layout_below="@id/tvMessageDetailDateTitle"
         android:paddingStart="8dp"
@@ -115,7 +115,6 @@
         android:id="@+id/tvMessageDetailＷarning"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_alignStart="@+id/tvMessageDetail"
 

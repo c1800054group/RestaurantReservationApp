@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,7 +34,9 @@ public class MessageFragment extends Fragment {
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private MyTask messagesGetAllTask;
+    private MessageGetImageTask messageGetImageTask;
     private ImageButton btService;
+    private BottomNavigationView navigation;
 
     @Nullable
     @Override
@@ -47,6 +50,7 @@ public class MessageFragment extends Fragment {
         btService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                    Log.d("ddd","ddd");
                 Toast.makeText(getActivity(),"Text!",Toast.LENGTH_SHORT).show();
 
             }
@@ -99,6 +103,76 @@ public class MessageFragment extends Fragment {
 
         return null;
     }
+
+
+//    private class MessageRecyclerViewAdapter extends RecyclerView.Adapter<MessageRecyclerViewAdapter.MyViewHolder> {
+//        private LayoutInflater layoutInflater;
+//        private List<Message> messages;
+//        private int imageSize;
+//
+//        //螢幕解析度等比例縮小
+//        MessageRecyclerViewAdapter(Context context, List<Message> messages) {
+//            layoutInflater = LayoutInflater.from(context);
+//            this.messages = messages;
+//            /* 螢幕寬度除以4當作將圖的尺寸 */
+//            imageSize = getResources().getDisplayMetrics().widthPixels / 4;
+//        }
+//
+//        class MyViewHolder extends RecyclerView.ViewHolder {
+//
+//            TextView tvMessageTitle;
+//            TextView tvMessageContent;
+//            ImageView imageView;
+//
+//
+//            public MyViewHolder(View itemView) {
+//                super(itemView);
+//                tvMessageTitle = itemView.findViewById(R.id.tvMessageTitle);
+//                tvMessageContent = itemView.findViewById(R.id.tvMessageContent);
+//                imageView = itemView.findViewById(R.id.ivMessage);
+//            }
+//        }
+//
+//        @Override
+//        public int getItemCount() {
+//            return messages.size();
+//        }
+//
+//        @Override
+//        public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+//            LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+//            View itemView = layoutInflater.inflate(R.layout.recyclerview_message, parent, false);
+//            return new MyViewHolder(itemView);
+//        }
+//
+//        @Override
+//        public void onBindViewHolder(MyViewHolder myViewHolder, int position) {
+//
+//            //抓文字
+//            final Message message = messages.get(position);
+//            String url = Common.URL + "/MessageServlet";
+//            int id = message.getId();
+//            //開啟asynctask做事，做完事情再來顯示
+//            messageGetImageTask = new MessageGetImageTask(url, id, imageSize, myViewHolder.imageView);
+//            //主程序先往下執行，將文字的部分貼好，事件處理
+//            messageGetImageTask.execute();
+//            myViewHolder.tvMessageTitle.setText(message.getMessage_title());
+//            myViewHolder.tvMessageContent.setText(message.getMessage_content());
+//            myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    Fragment messageDetailFragment = new MessageDetailFragment();
+//                    Bundle bundle = new Bundle();
+//                    bundle.putSerializable("message", message);
+//                    messageDetailFragment.setArguments(bundle);
+//                    Common.switchFragment(messageDetailFragment.getActivity(),true);
+//                }
+//            });
+//
+//        }
+//
+//    }
+
 
 
     @Override

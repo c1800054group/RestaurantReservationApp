@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         navigation = findViewById(R.id.Navigation);
+//        navigation.seton
         navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
 
         initContent();
@@ -84,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
         Fragment fragment = new LoginFragment();
         navigation.setVisibility(BottomNavigationView.GONE);
         switchFragment(fragment);
-
     }
 
     private void switchFragment(Fragment fragment) {

@@ -42,5 +42,11 @@
     <string name="msg_UpdateSuccess">修改成功</string>
     <string name="msg_MessageWarning">*此優惠卷無法跟其他優惠卷合併使用。</string>
     <string name="text_LogOut">登出</string>
+    <string name="text_food">食材管理</string>
+    <string name="text_order">菜單管理</string>
+    <string name="text_coupon">優惠管理</string>
+    <string name="text_table">座位管理</string>
+    <string name="text_common">意見管理</string>
+    <string name="text_service">服務鈴</string>
 
 </resources>

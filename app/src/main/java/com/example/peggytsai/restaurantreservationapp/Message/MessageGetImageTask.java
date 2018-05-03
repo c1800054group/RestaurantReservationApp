@@ -25,13 +25,8 @@ class MessageGetImageTask extends AsyncTask<Object, Integer, Bitmap> {
     // WeakReference物件不會阻止參照到的實體被回收
     private WeakReference<ImageView> imageViewWeakReference;
 
-    private ImageView imageView;
 
-    MessageGetImageTask(String url, int id, int imageSize) {
-        this(url, id, imageSize, null);
-    }
-
-    MessageGetImageTask(String url, int id, int imageSize, ImageView imageView) {
+    MessageGetImageTask(String url, int id, int imageSize,ImageView imageView) {
         this.url = url;
         this.id = id;
         this.imageSize = imageSize;
