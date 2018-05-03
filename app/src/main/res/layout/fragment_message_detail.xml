@@ -128,7 +128,6 @@
                 android:background="@drawable/button_corners"
                 android:textSize="25dp" />
 
-
         </LinearLayout>
 
     </ScrollView>
