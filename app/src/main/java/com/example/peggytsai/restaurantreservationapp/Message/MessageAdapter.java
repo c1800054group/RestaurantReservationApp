@@ -92,8 +92,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
 //        messageGetImageTask = new MessageGetImageTask(url, id, imageSize, myViewHolder.imageView);
 //
 //        //主程序先往下執行，將文字的部分貼好，事件處理
-//        messageGetImageTask.execute();
-        myViewHolder.tvMessageTitle.setText(message.getMessage_title());
+////        messageGetImageTask.execute();
+//        myViewHolder.tvMessageTitle.setText(message.getMessage_title());
         myViewHolder.tvMessageContent.setText(message.getMessage_content());
         final Bitmap finalBitmap = bitmap;
         myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {

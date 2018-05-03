@@ -5,125 +5,133 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/colorBackground">
+    android:background="@color/colorBackground"
+    android:orientation="vertical">
 
 
-    <include layout="@layout/tool_bar_title"></include>
+    <include
+        layout="@layout/tool_bar_title"
+        android:id="@+id/tool_bar_title_logout"></include>
 
 
-    <Button
-        android:id="@+id/btCoupon"
-        android:layout_width="80dp"
-        android:layout_height="20dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="18dp"
-        android:background="@color/colorPrimary"
-        android:paddingEnd="10dp"
-        android:text="領取優惠卷"
-        android:textColor="@color/colorWhite" />
+    <!--<Toolbar-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="?attr/actionBarSize"-->
+        <!--android:layout="@layout/tool_bar_title"-->
+        <!--tools:targetApi="lollipop"></Toolbar>-->
 
-
-    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/cvMessageDetail"
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="56dp"
-        android:paddingTop="56dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="5dp"
-        app:cardUseCompatPadding="true">
-
-        <ImageView
-            android:id="@+id/ivMessageDetail"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_margin="16dp"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/default_image" />
-
-
-    </android.support.v7.widget.CardView>
-
-
-    <TextView
-        android:id="@id/tvMessageDetailTitle"
-        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/cvMessageDetail"
-        android:layout_marginBottom="198dp"
-        android:padding="16dp"
-        android:text="母親節優惠活動"
-        android:textColor="@color/colorName"
-        android:textSize="30sp" />
+        android:layout_below="@id/tool_bar_title_logout">
 
-    <TextView
-        android:id="@+id/tvMessageDetail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/tvMessageDetailTitle"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="-198dp"
-        android:paddingStart="8dp"
-        android:text="優惠詳情"
-        android:textSize="15sp" />
 
-    <TextView
-        android:id="@+id/tvMessageDetailContent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/tvMessageDetail"
-        android:layout_below="@id/tvMessageDetail"
-        android:layout_marginBottom="147dp"
-        android:paddingStart="8dp"
-        android:paddingTop="5dp"
-        android:text="來店打卡8折起"
-        android:textColor="@color/colorMessageDetail"
-        android:textSize="15sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@id/cvMessageDetail">
 
-    <TextView
-        android:id="@+id/tvMessageDetailDateTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/tvMessageDetail"
-        android:layout_below="@id/tvMessageDetail"
-        android:paddingStart="8dp"
-        android:paddingTop="55dp"
-        android:text="可兌換日期時段"
-        android:textSize="15sp" />
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cvMessageDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:paddingTop="56dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="5dp"
+                app:cardUseCompatPadding="true">
 
-    <TextView
-        android:id="@+id/tvMessageDetailDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/tvMessageDetail"
-        android:layout_below="@id/tvMessageDetailDateTitle"
-        android:paddingStart="8dp"
-        android:paddingTop="5dp"
-        android:text="2018/04/20 - 2018/05/20"
-        android:textColor="@color/colorMessageDetail"
-        android:textSize="15sp" />
+                <ImageView
+                    android:id="@+id/ivMessageDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="16dp"
+                    android:src="@drawable/default_image" />
 
-    <TextView
-        android:id="@+id/tvMessageDetailＷarning"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignStart="@+id/tvMessageDetail"
 
-        android:layout_below="@id/tvMessageDetailDateTitle"
+            </android.support.v7.widget.CardView>
 
-        android:paddingTop="50dp"
-        android:text="@string/msg_MessageWarning"
-        android:textColor="@color/colorWarning"
-        android:textSize="20sp" />
+
+            <TextView
+                android:id="@id/tvMessageDetailTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+                android:text="母親節優惠活動"
+                android:textColor="@color/colorName"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/tvMessageDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:text="優惠詳情"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tvMessageDetailContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="5dp"
+                android:text="來店打卡8折起"
+                android:textColor="@color/colorMessageDetail"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tvMessageDetailDateTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:text="可兌換日期時段"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tvMessageDetailDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="5dp"
+                android:text="2018/04/20 - 2018/05/20"
+                android:textColor="@color/colorMessageDetail"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tvMessageDetailＷarning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/msg_MessageWarning"
+                android:textColor="@color/colorWarning"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/btCoupon"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="70dp"
+                android:layout_marginStart="70dp"
+                android:layout_marginTop="18dp"
+                android:text="領取優惠卷"
+                android:textColor="@color/colorWhite"
+                android:background="@drawable/drawable"
+                android:textSize="25dp" />
+
+
+        </LinearLayout>
+
+    </ScrollView>
 
 
 </RelativeLayout>

@@ -21,22 +21,14 @@
             android:src="@drawable/default_image" />
 
         <TextView
-            android:id="@id/tvMessageTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ivMessage"
-            android:layout_marginTop="8dp"
-            android:text="母親節優惠活動"
-            android:textColor="@color/colorName"
-            android:textSize="30sp" />
-
-        <TextView
             android:id="@+id/tvMessageContent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvMessageTitle"
+            android:layout_below="@+id/ivMessage"
+            android:layout_marginTop="20dp"
             android:text="即日起來店打卡8折起"
-            android:textSize="15sp" />
+            android:textColor="@color/colorName"
+            android:textSize="30sp" />
 
     </RelativeLayout>
 

@@ -33,7 +33,7 @@ public class MemberIndexFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_member_index,container,false);
-        TextView tvtoolBarTitle = view.findViewById(R.id.tvTool_bar_title_logout);
+        TextView tvtoolBarTitle = view.findViewById(R.id.tvTool_bar_title);
         tvtoolBarTitle.setText(R.string.text_member);
         findView();
         return view;

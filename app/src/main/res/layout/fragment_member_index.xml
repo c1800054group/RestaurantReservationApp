@@ -15,19 +15,6 @@
         android:layout_alignParentTop="true"
         tools:ignore="RtlCompat">
 
-        <!--<Button-->
-            <!--android:id="@+id/tvMemberLogOut"-->
-            <!--android:layout_width="55dp"-->
-            <!--android:layout_height="35dp"-->
-            <!--android:layout_alignParentEnd="true"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:layout_marginEnd="10dp"-->
-            <!--android:text="@string/text_LogOut"-->
-            <!--android:textSize="20sp"-->
-            <!--android:textColor="@color/colorWhite"-->
-            <!--android:background="@color/colorPrimary"/>-->
-
-
         <TextView
             android:id="@+id/tvMemberLogOut"
             android:layout_width="wrap_content"

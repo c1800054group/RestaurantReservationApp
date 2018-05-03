@@ -27,7 +27,7 @@ import static android.content.ContentValues.TAG;
 public class MessageDetailFragment extends Fragment {
 
     private static final String TAG = "MessageDetailFragment";
-    private Button btCoupon;
+    private TextView btCoupon;
 
     private int imageSize;
     private MessageGetImageTask messageGetImageTask;
