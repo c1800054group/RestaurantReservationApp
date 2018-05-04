@@ -34,15 +34,15 @@ public class MenuFragment extends Fragment {
         tvtoolBarTitle.setText(R.string.text_menu);
 
 
-//        btOrder = view.findViewById(R.id.btOrder);
-//        btOrder.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Fragment orderFragment = new OrderFragment();
-//                Common.switchFragment(orderFragment,getActivity(),true);
-//
-//            }
-//        });
+        btOrder = view.findViewById(R.id.btOrder);
+        btOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment orderFragment = new OrderFragment();
+                Common.switchFragment(orderFragment,getActivity(),true);
+
+            }
+        });
 
         btService = view.findViewById(R.id.btService);
         btService.setOnClickListener(new View.OnClickListener() {

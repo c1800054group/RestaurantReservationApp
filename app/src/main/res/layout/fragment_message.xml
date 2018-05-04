@@ -11,7 +11,7 @@
 
 
     <RelativeLayout
-        android:id="@+id/rv_btSetrvice"
+        android:id="@+id/rv_btService"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_alignParentStart="true"
@@ -33,7 +33,7 @@
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/rv_btSetrvice">
+        android:layout_below="@id/rv_btService">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvMessage"

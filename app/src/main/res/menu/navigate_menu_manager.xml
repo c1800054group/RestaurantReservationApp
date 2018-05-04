@@ -2,28 +2,29 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/item_Food"
+        android:id="@+id/item_FoodManager"
         android:icon="@drawable/btn_tab_food"
-        android:title="@string/text_food" />
+        android:title="@string/text_FoodManager" />
 
     <item
-        android:id="@+id/item_Order"
+        android:id="@+id/item_MenuManager"
         android:icon="@drawable/btn_tab_order"
-        android:title="@string/text_icon_order"/>
-    <item
-        android:id="@+id/item_Coupon"
-        android:icon="@drawable/btn_tab_coupon"
-        android:title="@string/text_coupon" />
+        android:title="@string/text_MenuManager"/>
 
     <item
-        android:id="@+id/item_Common"
+        android:id="@+id/item_MessageManager"
+        android:icon="@drawable/btn_tab_message"
+        android:title="@string/text_MessageManager" />
+
+    <item
+        android:id="@+id/item_RatingManager"
         android:icon="@drawable/btn_tab_common"
-        android:title="@string/text_common" />
+        android:title="@string/text_RatingManager" />
 
     <item
-        android:id="@+id/item_Table"
-        android:icon="@drawable/btn_tab_table"
-        android:title="@string/text_table" />
+        android:id="@+id/item_MemberManager"
+        android:icon="@drawable/btn_tab_member"
+        android:title="@string/text_MemberManager" />
 
 
 </menu>

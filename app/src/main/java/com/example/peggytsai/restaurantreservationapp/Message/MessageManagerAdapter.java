@@ -1,5 +1,6 @@
 package com.example.peggytsai.restaurantreservationapp.Message;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -97,14 +98,14 @@ public class MessageManagerAdapter extends RecyclerView.Adapter<MessageManagerAd
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.update:
-                                Fragment fragment = new MessageUpdateFragment();
+                                Fragment fragment = new MessageInsertFragment();
                                 Bundle bundle = new Bundle();
                                 bundle.putSerializable("message", message);
                                 fragment.setArguments(bundle);
                                 switchFragment(fragment);
                                 break;
                             case R.id.delete:
-                                if (Common.networkConnected(context)) {
+                                if (Common.networkConnected((Activity) context)) {
                                     String url = Common.URL + "/SpotServlet";
                                     JsonObject jsonObject = new JsonObject();
                                     jsonObject.addProperty("action", "spotDelete");

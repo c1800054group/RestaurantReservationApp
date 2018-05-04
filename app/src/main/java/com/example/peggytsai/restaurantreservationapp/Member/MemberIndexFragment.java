@@ -4,6 +4,8 @@ package com.example.peggytsai.restaurantreservationapp.Member;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,9 +37,12 @@ public class MemberIndexFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_member_index,container,false);
         TextView tvtoolBarTitle = view.findViewById(R.id.tvTool_bar_title);
         tvtoolBarTitle.setText(R.string.text_member);
+
         findView();
+
         return view;
     }
+
 
     private void findView() {
         tvAccount = view.findViewById(R.id.tvAccount);

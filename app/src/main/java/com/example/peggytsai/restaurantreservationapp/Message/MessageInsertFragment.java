@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.example.peggytsai.restaurantreservationapp.R;
 
-public class MessageUpdateFragment extends Fragment {
+public class MessageInsertFragment extends Fragment {
 
     @Nullable
     @Override

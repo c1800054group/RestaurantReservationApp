@@ -2,13 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/item_Check"
+        android:id="@+id/item_CheckWaiter"
         android:icon="@drawable/btn_tab_check"
-        android:title="@string/text_check" />
+        android:title="@string/text_CheckWaiter" />
 
     <item
-        android:id="@+id/item_Menu"
+        android:id="@+id/item_CheckManager"
+        android:icon="@drawable/btn_tab_buy"
+        android:title="@string/text_CheckManager" />
+
+
+    <item
+        android:id="@+id/item_ServiceWaiter"
         android:icon="@drawable/btn_service"
-        android:title="@string/text_service" />
+        android:title="@string/text_ServiceWaiter" />
 
 </menu>

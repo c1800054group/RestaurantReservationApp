@@ -3,6 +3,7 @@ package com.example.peggytsai.restaurantreservationapp.Message;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -33,23 +34,20 @@ public class MessageManagerFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private MyTask messagesGetAllTask;
     private ImageButton btService;
+    private BottomNavigationView navigationView;
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_message, container, false);
+        View view = inflater.inflate(R.layout.fragment_message_manager, container, false);
 
         TextView tvtoolBarTitle = view.findViewById(R.id.tvTool_bar_title);
-        tvtoolBarTitle.setText(R.string.app_name);
+        tvtoolBarTitle.setText(R.string.text_MessageManager);
 
-        btService = view.findViewById(R.id.btService);
-        btService.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(),"Text!",Toast.LENGTH_SHORT).show();
-
-            }
-        });
+        navigationView = getActivity().findViewById(R.id.NavigationManager);
+        navigationView.getMenu().clear();
+        navigationView.inflateMenu(R.menu.navigate_menu_manager);
 
         recyclerView = view.findViewById(R.id.rvMessage);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
