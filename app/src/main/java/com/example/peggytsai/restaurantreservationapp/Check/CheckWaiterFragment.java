@@ -24,7 +24,7 @@ public class CheckWaiterFragment extends Fragment {
         TextView tvtoolBarTitle = view.findViewById(R.id.tvTool_bar_title);
         tvtoolBarTitle.setText(R.string.text_CheckWaiter);
 
-        navigationView = getActivity().findViewById(R.id.NavigationWaiter);
+        navigationView = getActivity().findViewById(R.id.Navigation);
         navigationView.getMenu().clear();
         navigationView.inflateMenu(R.menu.navigate_menu_waiter);
 

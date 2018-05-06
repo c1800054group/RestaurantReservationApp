@@ -45,7 +45,7 @@ public class MessageManagerFragment extends Fragment {
         TextView tvtoolBarTitle = view.findViewById(R.id.tvTool_bar_title);
         tvtoolBarTitle.setText(R.string.text_MessageManager);
 
-        navigationView = getActivity().findViewById(R.id.NavigationManager);
+        navigationView = getActivity().findViewById(R.id.Navigation);
         navigationView.getMenu().clear();
         navigationView.inflateMenu(R.menu.navigate_menu_manager);
 
