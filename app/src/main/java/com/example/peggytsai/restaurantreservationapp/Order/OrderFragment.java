@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.peggytsai.restaurantreservationapp.Main.Common;
 import com.example.peggytsai.restaurantreservationapp.R;
 
 import java.util.ArrayList;
@@ -42,14 +43,16 @@ public class OrderFragment extends Fragment {
         lvOrder.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Fragment reserveFragment = new ReservationFragment();
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.Content, reserveFragment);
-                fragmentTransaction.commit();
 
+                if (position == 0) {
+                    Fragment reservationFragment = new ReservationFragment();
+                    Common.switchFragment(reservationFragment, getActivity(), true);
+                } else if (position == 1) {
+                    Common.showToast(getActivity(), "現場點餐");
 
-
+                } else if (position == 2) {
+                    Common.showToast(getActivity(), "外送點餐");
+                }
 
             }
         });
@@ -92,6 +95,8 @@ public class OrderFragment extends Fragment {
                 LayoutInflater layoutInflater = LayoutInflater.from(context);
                 itemview = layoutInflater.inflate(R.layout.item_view_order, parent, false);
             }
+
+
             Order order = orderlist.get(position);
             ImageView ivTypeImage = itemview
                     .findViewById(R.id.imageOrderView);
@@ -116,7 +121,9 @@ public class OrderFragment extends Fragment {
 
     private List<Order> getOrder() {
         List<Order> orderlist = new ArrayList<>();
-        orderlist.add(new Order(R.drawable.reservation, "定位", R.drawable.next));
+        orderlist.add(new Order(R.drawable.reservation, "預約餐廳與座位", R.drawable.next));
+        orderlist.add(new Order(R.drawable.order, "現場點餐", R.drawable.next));
+        orderlist.add(new Order(R.drawable.reservation, "外送點餐", R.drawable.next));
 
         return orderlist;
     }
