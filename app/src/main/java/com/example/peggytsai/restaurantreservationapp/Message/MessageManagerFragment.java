@@ -45,24 +45,22 @@ public class MessageManagerFragment extends Fragment {
         TextView tvtoolBarTitle = view.findViewById(R.id.tvTool_bar_title);
         tvtoolBarTitle.setText(R.string.text_MessageManager);
 
-        navigationView = getActivity().findViewById(R.id.Navigation);
-        navigationView.getMenu().clear();
-        navigationView.inflateMenu(R.menu.navigate_menu_manager);
 
-        recyclerView = view.findViewById(R.id.rvMessage);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(new MessageAdapter(showAllMessage(),getActivity(),getFragmentManager()));
-        swipeRefreshLayout =
-                view.findViewById(R.id.swipeRefreshLayout);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                //設定動畫
-                swipeRefreshLayout.setRefreshing(true);
-                showAllMessage();
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });
+
+//        recyclerView = view.findViewById(R.id.rvMessage);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        recyclerView.setAdapter(new MessageAdapter(showAllMessage(),getActivity(),getFragmentManager()));
+//        swipeRefreshLayout =
+//                view.findViewById(R.id.swipeRefreshLayout);
+//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                //設定動畫
+//                swipeRefreshLayout.setRefreshing(true);
+//                showAllMessage();
+//                swipeRefreshLayout.setRefreshing(false);
+//            }
+//        });
 
         return view;
     }

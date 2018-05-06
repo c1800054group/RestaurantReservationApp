@@ -16,11 +16,11 @@ import android.widget.TextView;
 
 
 import com.example.peggytsai.restaurantreservationapp.Check.CheckFragment;
+import com.example.peggytsai.restaurantreservationapp.Check.CheckWaiterFragment;
 import com.example.peggytsai.restaurantreservationapp.Main.Common;
 import com.example.peggytsai.restaurantreservationapp.Main.MyTask;
 import com.example.peggytsai.restaurantreservationapp.Manager.FoodManagerFragment;
 import com.example.peggytsai.restaurantreservationapp.Member.RegisterFragment;
-import com.example.peggytsai.restaurantreservationapp.Waiter.ServiceManagerFragment;
 import com.example.peggytsai.restaurantreservationapp.R;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -101,8 +101,8 @@ public class LoginFragment extends Fragment {
                 Common.switchFragment(chefFragment,getActivity(),false);
                 break;
             case 3:
-                Fragment serviceManagerFragment = new ServiceManagerFragment();
-                Common.switchFragment(serviceManagerFragment,getActivity(),false);
+                Fragment checkWaiterFragment = new CheckWaiterFragment();
+                Common.switchFragment(checkWaiterFragment,getActivity(),false);
                 break;
             case 4:
                 Fragment foodManagerFragment = new FoodManagerFragment();

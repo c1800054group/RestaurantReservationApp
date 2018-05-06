@@ -11,10 +11,14 @@
         android:icon="@drawable/btn_tab_buy"
         android:title="@string/text_CheckManager" />
 
-
     <item
         android:id="@+id/item_ServiceWaiter"
         android:icon="@drawable/btn_service"
         android:title="@string/text_ServiceWaiter" />
+
+    <item
+        android:id="@+id/item_MemberWaiter"
+        android:icon="@drawable/btn_tab_member"
+        android:title="@string/text_member" />
 
 </menu>

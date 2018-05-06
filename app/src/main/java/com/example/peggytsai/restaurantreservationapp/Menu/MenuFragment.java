@@ -23,7 +23,7 @@ public class MenuFragment extends Fragment {
 
     private Button btOrder;
 
-    private ImageButton btService;
+    private Button btService;
 
     @Nullable
     @Override
@@ -40,19 +40,9 @@ public class MenuFragment extends Fragment {
             public void onClick(View v) {
                 Fragment orderFragment = new OrderFragment();
                 Common.switchFragment(orderFragment,getActivity(),true);
-
             }
         });
 
-        btService = view.findViewById(R.id.btService);
-        btService.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("ddd","ddd");
-                Toast.makeText(getActivity(),"Text!",Toast.LENGTH_SHORT).show();
-
-            }
-        });
 
         return view;
     }

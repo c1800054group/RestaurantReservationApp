@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.peggytsai.restaurantreservationapp.Check.CheckFragment;
@@ -39,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         navigation = findViewById(R.id.Navigation);
-//        navigation.seton
         navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
 
         initContent();
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
                     setTitle(R.string.text_RatingManager);
                     return true;
                 case R.id.item_MemberManager:
-                    fragment = new MemberManagerFragment();
+                    fragment = new MemberIndexFragment();
                     switchFragment(fragment);
                     setTitle(R.string.text_MemberManager);
                     return true;
@@ -124,12 +124,18 @@ public class MainActivity extends AppCompatActivity {
                     switchFragment(fragment);
                     setTitle(R.string.text_ServiceWaiter);
                     return true;
+                case R.id.item_MemberWaiter:
+                    fragment = new MemberIndexFragment();
+                    switchFragment(fragment);
+                    setTitle(R.string.text_member);
+                    return true;
 
 
                 default:
                     initContent();
                     break;
             }
+//            updateNavigationBarState(item.getItemId());
             return false;
         }
 
@@ -149,5 +155,12 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-
+//    private void updateNavigationBarState(int actionId){
+//        Menu menu = navigation.getMenu();
+//
+//        for (int i = 0, size = menu.size(); i < size; i++) {
+//            MenuItem item = menu.getItem(i);
+//            item.setChecked(item.getItemId() == actionId);
+//        }
+//    }
 }

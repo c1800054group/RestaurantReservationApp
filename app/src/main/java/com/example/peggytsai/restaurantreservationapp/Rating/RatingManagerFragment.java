@@ -24,10 +24,6 @@ public class RatingManagerFragment extends Fragment {
         TextView tvtoolBarTitle = view.findViewById(R.id.tvTool_bar_title);
         tvtoolBarTitle.setText(R.string.text_RatingManager);
 
-        navigationView = getActivity().findViewById(R.id.Navigation);
-        navigationView.getMenu().clear();
-        navigationView.inflateMenu(R.menu.navigate_menu_manager);
-
         return view;
     }
 }
