@@ -34,8 +34,8 @@ public class ReservationDetailFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_order_reservation_result, container, false);
-        tvReserveResult.findViewById(R.id.tvReserveResult);
+        View view = inflater.inflate(R.layout.fragment_order_reservation, container, false);
+//        tvReserveResult.findViewById(R.id.tvReserveResult);
 
 
         List<Orders> orderList = getOrders();
@@ -66,7 +66,7 @@ public class ReservationDetailFragment extends Fragment {
 
 
                     } catch (Exception e) {
-//                       1
+//
                     }
 
                 } else {
