@@ -15,15 +15,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 
+import com.example.peggytsai.restaurantreservationapp.Check.CheckFragment;
 import com.example.peggytsai.restaurantreservationapp.Main.Common;
 import com.example.peggytsai.restaurantreservationapp.Main.MyTask;
+import com.example.peggytsai.restaurantreservationapp.Manager.FoodManagerFragment;
 import com.example.peggytsai.restaurantreservationapp.Member.RegisterFragment;
-import com.example.peggytsai.restaurantreservationapp.Message.MessageFragment;
+import com.example.peggytsai.restaurantreservationapp.Waiter.ServiceManagerFragment;
 import com.example.peggytsai.restaurantreservationapp.R;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-import static android.app.Activity.RESULT_OK;
 import static android.content.Context.MODE_PRIVATE;
 
 public class LoginFragment extends Fragment {
@@ -76,10 +77,11 @@ public class LoginFragment extends Fragment {
                             .putString("email", email)
                             .putString("password", password)
                             .apply();
-                    getActivity().setResult(RESULT_OK);
+                    int authority_id = pref.getInt("authority_id",1);
+
+                    authority(authority_id);
+
                     navigation.setVisibility(BottomNavigationView.VISIBLE);
-                    Fragment messaFragment = new MessageFragment();
-                    Common.switchFragment(messaFragment,getActivity(),false);
 
                 } else {
                     Common.showToast(getActivity(),R.string.msg_InvalidUserOrPassword);
@@ -87,6 +89,25 @@ public class LoginFragment extends Fragment {
             }
 
         });
+    }
+    //依權限切換fragment
+    private void authority(int authority_id) {
+        switch (authority_id){
+            case 1:
+                navigation.setSelectedItemId(R.id.item_Message);
+                break;
+            case 2:
+                Fragment chefFragment = new CheckFragment();
+                Common.switchFragment(chefFragment,getActivity(),false);
+                break;
+            case 3:
+                Fragment serviceManagerFragment = new ServiceManagerFragment();
+                Common.switchFragment(serviceManagerFragment,getActivity(),false);
+                break;
+            case 4:
+                Fragment foodManagerFragment = new FoodManagerFragment();
+                Common.switchFragment(foodManagerFragment,getActivity(),false);
+        }
     }
 
     @Override
@@ -97,12 +118,12 @@ public class LoginFragment extends Fragment {
         if (login) {
             String name = pref.getString("email", "");
             String password = pref.getString("password", "");
+            int authority_id = pref.getInt("authority_id",1);
             if (isUserValid(name, password)) {
-                getActivity().setResult(getActivity().RESULT_OK);
                 navigation.setVisibility(BottomNavigationView.VISIBLE);
                 //已登入的話直接進到首頁
-                Fragment messageFragment = new MessageFragment();
-                Common.switchFragment(messageFragment,getActivity(),false);
+
+                authority(authority_id);
 
             } else {
                 pref.edit().putBoolean("login",false).apply(); //把偏好設定改成flase然後跳出登入畫面，因沒寫finish()所以會跳出
@@ -121,11 +142,13 @@ public class LoginFragment extends Fragment {
             jsonObject.addProperty("password", password);
             loginTask = new MyTask(url, jsonObject.toString());
             int memberID = 0;
+            int authority_id = 0;
             try {
                 String jsonIn = loginTask.execute().get();
                 jsonObject = new Gson().fromJson(jsonIn, JsonObject.class);
                 isUserValid = jsonObject.get("isUserValid").getAsBoolean();
                 memberID = jsonObject.get("memberId").getAsInt();
+                authority_id = jsonObject.get("authority_id").getAsInt();
             } catch (Exception e) {
                 Log.e(TAG, e.toString());
             }
@@ -133,6 +156,7 @@ public class LoginFragment extends Fragment {
                 SharedPreferences pref = getActivity().getSharedPreferences(Common.PREF_FILE,
                         MODE_PRIVATE);
                 pref.edit().putInt("memberID", memberID).apply();
+                pref.edit().putInt("authority_id", authority_id).apply();
             }
         }else{
             Common.showToast(getActivity(), R.string.msg_NoNetwork);

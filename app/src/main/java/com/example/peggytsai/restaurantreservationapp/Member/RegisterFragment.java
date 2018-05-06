@@ -20,6 +20,9 @@ import com.example.peggytsai.restaurantreservationapp.R;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 public class RegisterFragment extends Fragment {
     private View view;
@@ -68,6 +71,12 @@ public class RegisterFragment extends Fragment {
                 String password = etInputPassword.getText().toString().trim();
                 String checkPassword = etInputCheckPassword.getText().toString().trim();
                 String phone = etInputPhone.getText().toString().trim();
+                //判斷email格式
+                String EMAIL_REGEX ="^\\w+\\.*\\w+@(\\w+\\.){1,5}[a-zA-Z]{2,3}$";
+                if (!email.matches(EMAIL_REGEX)){
+                    Common.showToast(getActivity(),"email格式錯誤");
+                    return;
+                }
 
                 if (name.length()<= 0 || email.length()<=0 || password.length()<=0 || phone.length()<=0){
                     Common.showToast(getActivity(), R.string.msg_ColumnNull);
@@ -95,7 +104,9 @@ public class RegisterFragment extends Fragment {
                     }
                     if (count == 0) {
                         Common.showToast(getActivity(), R.string.msg_InsertFail);
-                    } else {
+                    } else if (count == -1){
+                        Common.showToast(getActivity(), R.string.msg_AccountExists);
+                    }else {
                         Common.showToast(getActivity(), R.string.msg_InsertSuccess);
                         Fragment loginFragment = new LoginFragment();
                         Common.switchFragment(loginFragment,getActivity(),false);
