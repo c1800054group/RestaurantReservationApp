@@ -4,10 +4,11 @@ import java.io.Serializable;
 
 public class RatingPage implements Serializable {
 
-    private int id, score;
+    private int id;
+    private float score;
     private String comment, comment_time, member_name;
 
-    public RatingPage(int id, int score, String comment, String comment_time, String member_name) {
+    public RatingPage(int id, String comment, String comment_time, String member_name, float score) {
         this.id = id;
         this.score = score;
         this.comment = comment;
@@ -23,11 +24,11 @@ public class RatingPage implements Serializable {
         this.id = id;
     }
 
-    public int getScore() {
+    public float getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(float score) {
         this.score = score;
     }
 

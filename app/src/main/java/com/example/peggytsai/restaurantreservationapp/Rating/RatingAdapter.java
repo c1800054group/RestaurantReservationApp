@@ -1,14 +1,8 @@
 package com.example.peggytsai.restaurantreservationapp.Rating;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.media.Rating;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,18 +13,17 @@ import com.example.peggytsai.restaurantreservationapp.Main.Common;
 import com.example.peggytsai.restaurantreservationapp.R;
 
 
-import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.MyViewHolder> {
 
     private static final String TAG = "RatingAdapter";
-    private List<RatingPage> ratings;
+    private List<RatingPage> ratingPages;
     private Activity context;
     private FragmentManager fragmentManager;
 
-    public RatingAdapter(List<RatingPage> ratings, Activity context, FragmentManager fragmentManager) {
-        this.ratings = ratings;
+    public RatingAdapter(List<RatingPage> ratingPages, Activity context, FragmentManager fragmentManager) {
+        this.ratingPages = ratingPages;
         this.context = context;
         this.fragmentManager = fragmentManager;
 
@@ -39,8 +32,8 @@ public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.MyViewHold
     @Override
     public RatingAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View itemView = layoutInflater.inflate(R.layout.recyclerview_message, parent, false);
-        return new RatingAdapter.MyViewHolder(itemView);
+        View itemView = layoutInflater.inflate(R.layout.recyclerview_rating, parent, false);
+        return new MyViewHolder(itemView);
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
@@ -65,13 +58,14 @@ public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.MyViewHold
     public void onBindViewHolder(final RatingAdapter.MyViewHolder myViewHolder, int position) {
 
         //抓文字
-        final RatingPage rating = ratings.get(position);
+        final RatingPage ratingPage = ratingPages.get(position);
         String url = Common.URL + "/RatingServlet";
-        int id = rating.getId();
-//        myViewHolder.ratingBar.setRating(Float.parseFloat(String.valueOf(rating.getScore())));
-        myViewHolder.tvRatingContent.setText(rating.getComment());
-        myViewHolder.tvRatingMember.setText(rating.getMember_name());
-        myViewHolder.tvRatingDate.setText(rating.getComment_time());
+        int id = ratingPage.getId();
+
+        myViewHolder.tvRatingContent.setText(ratingPage.getComment());
+        myViewHolder.ratingBar.setRating(ratingPage.getScore());
+        myViewHolder.tvRatingMember.setText(ratingPage.getMember_name());
+        myViewHolder.tvRatingDate.setText(ratingPage.getComment_time());
 
         myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +79,7 @@ public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.MyViewHold
 
     @Override
     public int getItemCount() {
-        return ratings.size();
+        return ratingPages.size();
     }
 
 
