@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.Content, fragment);
         fragmentTransaction.commit();
     }
-    
+
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
