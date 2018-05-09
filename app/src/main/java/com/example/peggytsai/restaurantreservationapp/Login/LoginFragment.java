@@ -5,7 +5,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +24,8 @@ import com.example.peggytsai.restaurantreservationapp.Main.MyTask;
 import com.example.peggytsai.restaurantreservationapp.Manager.FoodManagerFragment;
 import com.example.peggytsai.restaurantreservationapp.Member.RegisterFragment;
 import com.example.peggytsai.restaurantreservationapp.R;
+import com.example.peggytsai.restaurantreservationapp.Waiter.ServiceManagerFragment;
+import com.example.peggytsai.restaurantreservationapp.Waiter.WaiterTabFragment;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -101,8 +105,9 @@ public class LoginFragment extends Fragment {
                 Common.switchFragment(chefFragment,getActivity(),false);
                 break;
             case 3:
-                Fragment checkWaiterFragment = new CheckWaiterFragment();
-                Common.switchFragment(checkWaiterFragment,getActivity(),false);
+                Fragment waiterTabFragment = new WaiterTabFragment();
+                Common.switchFragment(waiterTabFragment,getActivity(),false);
+
                 break;
             case 4:
                 Fragment foodManagerFragment = new FoodManagerFragment();
@@ -143,12 +148,14 @@ public class LoginFragment extends Fragment {
             loginTask = new MyTask(url, jsonObject.toString());
             int memberID = 0;
             int authority_id = 0;
+            String memberName = "";
             try {
                 String jsonIn = loginTask.execute().get();
                 jsonObject = new Gson().fromJson(jsonIn, JsonObject.class);
                 isUserValid = jsonObject.get("isUserValid").getAsBoolean();
                 memberID = jsonObject.get("memberId").getAsInt();
                 authority_id = jsonObject.get("authority_id").getAsInt();
+                memberName = jsonObject.get("memberName").getAsString();
             } catch (Exception e) {
                 Log.e(TAG, e.toString());
             }
@@ -157,6 +164,7 @@ public class LoginFragment extends Fragment {
                         MODE_PRIVATE);
                 pref.edit().putInt("memberID", memberID).apply();
                 pref.edit().putInt("authority_id", authority_id).apply();
+                pref.edit().putString("memberName", memberName).apply();
             }
         }else{
             Common.showToast(getActivity(), R.string.msg_NoNetwork);
