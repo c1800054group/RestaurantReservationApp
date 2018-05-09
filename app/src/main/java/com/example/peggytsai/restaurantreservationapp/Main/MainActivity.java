@@ -3,13 +3,10 @@ package com.example.peggytsai.restaurantreservationapp.Main;
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -24,13 +21,13 @@ import com.example.peggytsai.restaurantreservationapp.Check.CheckWaiterFragment;
 import com.example.peggytsai.restaurantreservationapp.Manager.FoodManagerFragment;
 import com.example.peggytsai.restaurantreservationapp.Member.MemberIndexFragment;
 import com.example.peggytsai.restaurantreservationapp.Login.LoginFragment;
+import com.example.peggytsai.restaurantreservationapp.Menu.MenuManagerFragment;
 import com.example.peggytsai.restaurantreservationapp.Menu.demomenu.MenuFragment;
-import com.example.peggytsai.restaurantreservationapp.Menu.modifymenu.MenuManagerFragment;
 import com.example.peggytsai.restaurantreservationapp.Message.MessageFragment;
 import com.example.peggytsai.restaurantreservationapp.Message.MessageManagerFragment;
 import com.example.peggytsai.restaurantreservationapp.R;
 import com.example.peggytsai.restaurantreservationapp.Rating.RatingFragment;
-import com.example.peggytsai.restaurantreservationapp.Rating.RatingManagerFragment;
+import com.example.peggytsai.restaurantreservationapp.Rating.RatingManagerReplyFragment;
 import com.example.peggytsai.restaurantreservationapp.Waiter.ServiceManagerFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -104,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                     setTitle(R.string.text_MessageManager);
                     return true;
                 case R.id.item_RatingManager:
-                    fragment = new RatingManagerFragment();
+                    fragment = new RatingManagerReplyFragment();
                     switchFragment(fragment);
                     setTitle(R.string.text_RatingManager);
                     return true;
@@ -141,7 +138,6 @@ public class MainActivity extends AppCompatActivity {
                     initContent();
                     break;
             }
-//            updateNavigationBarState(item.getItemId());
             return false;
         }
 
@@ -160,11 +156,9 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.Content, fragment);
         fragmentTransaction.commit();
     }
-
+    
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-
-
         if (keyCode == KeyEvent.KEYCODE_BACK   ) {
             Fragment current_Fragment = getSupportFragmentManager().findFragmentById(R.id.Content);
             if (current_Fragment instanceof CartFragmentConfirmText) {

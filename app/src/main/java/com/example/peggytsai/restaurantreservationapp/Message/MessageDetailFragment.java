@@ -1,5 +1,6 @@
 package com.example.peggytsai.restaurantreservationapp.Message;
 
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -16,19 +17,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.peggytsai.restaurantreservationapp.Main.MyTask;
+import com.example.peggytsai.restaurantreservationapp.Member.Member;
 import com.example.peggytsai.restaurantreservationapp.R;
 
 import com.example.peggytsai.restaurantreservationapp.Main.Common;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 import static android.content.ContentValues.TAG;
+import static android.content.Context.MODE_PRIVATE;
 
 public class MessageDetailFragment extends Fragment {
 
     private static final String TAG = "MessageDetailFragment";
     private TextView btCoupon;
-
     private int imageSize;
     private MessageGetImageTask messageGetImageTask;
 
@@ -48,7 +55,14 @@ public class MessageDetailFragment extends Fragment {
         btCoupon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "Text!", Toast.LENGTH_SHORT).show();
+                SharedPreferences pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
+                int memberID = pref.getInt("memberID", 0);
+                Message message = (Message) getArguments().getSerializable("message");
+                int couponID = message.getCoupon_id();
+
+                getCoupon(memberID,couponID);
+
+                Toast.makeText(getActivity(), "成功取得優惠券!", Toast.LENGTH_SHORT).show();
             }
         });
         //圖片接收
@@ -65,12 +79,27 @@ public class MessageDetailFragment extends Fragment {
         tvMessageContent.setText(message.getMessage_content());
 
         TextView tvMessageDetailDate = view.findViewById(R.id.tvMessageDetailDate);
-        tvMessageDetailDate.setText(message.getMessage_date());
-
-
-
+        tvMessageDetailDate.setText(message.getCoupon_start()+" - "+message.getCoupon_end());
 
         return view;
+    }
+
+
+    public void getCoupon(int memberID,int couponID){
+        String url = Common.URL + "/MessageServlet";
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("action", "couponInsert");
+        jsonObject.addProperty("couponID", couponID);
+        jsonObject.addProperty("memberID", memberID);
+
+        int count = 0;
+        try {
+            String result = new MyTask(url, jsonObject.toString()).execute().get();
+            count = Integer.valueOf(result);
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+        }
+
     }
 
 
