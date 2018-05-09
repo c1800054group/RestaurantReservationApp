@@ -80,6 +80,32 @@ public class ReservationFragment extends Fragment {
                     Button customNotButton = view.findViewById(R.id.CustomNotButton);
                     Button CustomcancelButton = view.findViewById(R.id.CustomcancelButton);
                     builder.setView(view);
+
+                    final AlertDialog alertDialog = builder.show();
+                    CustomcancelButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            alertDialog.cancel();
+                        }
+                    });
+                    customNotButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            alertDialog.dismiss();
+                            insertDateData();
+                            AlertDialog alertDialog1 = new AlertDialog.Builder(getActivity()).create();
+                            alertDialog1.setMessage("定位完成 若要稍後點餐,請至訂單查詢修改");
+                            alertDialog1.setButton(DialogInterface.BUTTON_POSITIVE, "返回主頁", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                    Common.showToast(getActivity(), "請先選擇日期時間與人數");
+                }else  {
+                    insertDateData();
+                    view = LayoutInflater.from(getActivity()).inflate(R.layout.custom_layout, null);
+                    Button customConButton = view.findViewById(R.id.CustomConButton);
+                    Button customNotButton = view.findViewById(R.id.CustomNotButton);
+                    Button CustomcancelButton = view.findViewById(R.id.CustomcancelButton);
+                    builder.setView(view);
                     final AlertDialog alertDialog = builder.show();
                     customConButton.setOnClickListener(new View.OnClickListener() {
                         @Override

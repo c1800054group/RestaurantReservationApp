@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.peggytsai.restaurantreservationapp.Main.Common;
 import com.example.peggytsai.restaurantreservationapp.Main.MyTask;
+import com.example.peggytsai.restaurantreservationapp.Message.MessageDetailFragment;
 import com.example.peggytsai.restaurantreservationapp.R;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -45,7 +46,7 @@ public class RatingFragment extends Fragment {
         btRating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(),"Text!",Toast.LENGTH_SHORT).show();
+                Fragment fragment = new RatingNewFragment();
             }
         });
 

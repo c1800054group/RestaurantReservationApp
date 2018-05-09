@@ -21,11 +21,14 @@ import android.widget.Toast;
 import com.example.peggytsai.restaurantreservationapp.Main.Common;
 import com.example.peggytsai.restaurantreservationapp.Main.MyTask;
 import com.example.peggytsai.restaurantreservationapp.R;
+import com.example.peggytsai.restaurantreservationapp.Waiter.ServiceWebSocketClient;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 
@@ -37,6 +40,7 @@ public class MessageFragment extends Fragment {
     private MyTask messagesGetAllTask;
     private ImageButton btService;
     private BottomNavigationView navigationView;
+    private ServiceWebSocketClient serviceWebSocketClient;
 
 
     @Nullable
@@ -51,8 +55,22 @@ public class MessageFragment extends Fragment {
         btService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    Log.d("ddd","ddd");
+//                    Log.d("ddd","ddd");
                 Toast.makeText(getActivity(),"Text!",Toast.LENGTH_SHORT).show();
+                URI uri = null;
+                try {
+                    uri = new URI(Common.URL+"/ServerBellServer/" + "8");
+                } catch (URISyntaxException e) {
+                    Log.e(TAG, e.toString());
+                }
+                if (serviceWebSocketClient == null) {
+                    serviceWebSocketClient = new ServiceWebSocketClient(uri, getContext());
+                    serviceWebSocketClient.connect();
+                }
+                if (serviceWebSocketClient != null) {
+                    serviceWebSocketClient.close();
+                    serviceWebSocketClient = null;
+                }
             }
         });
 
