@@ -21,8 +21,9 @@ import com.example.peggytsai.restaurantreservationapp.Check.CheckWaiterFragment;
 import com.example.peggytsai.restaurantreservationapp.Manager.FoodManagerFragment;
 import com.example.peggytsai.restaurantreservationapp.Member.MemberIndexFragment;
 import com.example.peggytsai.restaurantreservationapp.Login.LoginFragment;
-import com.example.peggytsai.restaurantreservationapp.Menu.MenuManagerFragment;
+
 import com.example.peggytsai.restaurantreservationapp.Menu.demomenu.MenuFragment;
+import com.example.peggytsai.restaurantreservationapp.Menu.modifymenu.MenuManagerFragment;
 import com.example.peggytsai.restaurantreservationapp.Message.MessageFragment;
 import com.example.peggytsai.restaurantreservationapp.Message.MessageManagerFragment;
 import com.example.peggytsai.restaurantreservationapp.R;
