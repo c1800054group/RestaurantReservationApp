@@ -49,12 +49,19 @@ public class FoodManagerFragment extends Fragment {
 
         TextView tvtoolBarTitle = view.findViewById(R.id.tvTool_bar_title);
         tvtoolBarTitle.setText(R.string.text_FoodManager);
+
+        navigationView = getActivity().findViewById(R.id.Navigation);
+        navigationView.getMenu().clear();
+        navigationView.inflateMenu(R.menu.navigate_menu_manager);
+
+
+
         btMenuShowMenu = view.findViewById(R.id.btMenuShowMenu);
         btMenuShowMenu.setText("返回");
         btMenuShowMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+//
 //                navigationView = getActivity().findViewById(R.id.Navigation);
 //                navigationView.getMenu().clear();
 //                navigationView.inflateMenu(R.menu.navigate_menu_manager);

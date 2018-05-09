@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -58,6 +60,8 @@ public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.MyViewHold
         RatingBar ratingBar;
         TextView tvRatingContent, tvRatingMember, tvRatingDate, tvRatingReplayTitle, tvRatingReplay;
         View ratingLineView;
+        EditText etCommentReply;
+        Button btCommentSave;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -70,6 +74,9 @@ public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.MyViewHold
             ratingLineView = itemView.findViewById(R.id.ratingLineView);
             tvRatingReplayTitle = itemView.findViewById(R.id.tvRatingReplayTitle);
             tvRatingReplay = itemView.findViewById(R.id.tvRatingReplay);
+
+            etCommentReply = itemView.findViewById(R.id.etCommentReply);
+            btCommentSave = itemView.findViewById(R.id.btCommentSave);
 
         }
     }
@@ -101,22 +108,55 @@ public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.MyViewHold
 
             if (Common.networkConnected(context)) {
 
-                if (ratingPage.getComment_reply() != null) {
-                    myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
+                myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        myViewHolder.ratingLineView.setVisibility(BottomNavigationView.VISIBLE);
+                        myViewHolder.tvRatingReplayTitle.setVisibility(BottomNavigationView.VISIBLE);
 
-                            Fragment fragment = new RatingManagerReplyFragment();
-                            Bundle bundle = new Bundle();
-                            bundle.putSerializable("ratingPage", ratingPage);
+                        if (ratingPage.getComment_reply() == null) {
+                            myViewHolder.etCommentReply.setVisibility(BottomNavigationView.VISIBLE);
+                            myViewHolder.btCommentSave.setVisibility(BottomNavigationView.VISIBLE);
 
-                            Common.showToast(context, R.string.msg_NoMessagesFound);
+                        } else {
 
-                            fragment.setArguments(bundle);
-                            switchFragment(fragment);
+                            myViewHolder.tvRatingReplay.setVisibility(BottomNavigationView.GONE);
+                            myViewHolder.etCommentReply.setText(ratingPage.getComment_reply());
+                            myViewHolder.etCommentReply.setVisibility(BottomNavigationView.VISIBLE);
+                            myViewHolder.btCommentSave.setVisibility(BottomNavigationView.VISIBLE);
                         }
-                    });
-                }
+
+                    }
+                });
+
+                myViewHolder.btCommentSave.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String comment_reply = myViewHolder.etCommentReply.getText().toString().trim();
+                        ratingPage.setComment_reply(myViewHolder.etCommentReply.getText().toString().trim());
+                        int commend_id = ratingPage.getId();
+
+                        String url = Common.URL + "/RatingServlet";
+                        JsonObject jsonObject = new JsonObject();
+                        jsonObject.addProperty("action", "updateReply");
+                        jsonObject.addProperty("comment_reply", comment_reply);
+                        jsonObject.addProperty("commend_id", commend_id);
+
+                        int count = 0;
+                        try {
+                            String result = new MyTask(url, jsonObject.toString()).execute().get();
+                            count = Integer.valueOf(result);
+                        } catch (Exception e) {
+                            Log.e(TAG, e.toString());
+                        }
+
+                        myViewHolder.etCommentReply.setVisibility(BottomNavigationView.GONE);
+                        myViewHolder.tvRatingReplay.setText(comment_reply);
+                        myViewHolder.tvRatingReplay.setVisibility(BottomNavigationView.VISIBLE);
+
+                    }
+                });
+
             } else {
                 Common.showToast(context, R.string.msg_NoNetwork);
             }

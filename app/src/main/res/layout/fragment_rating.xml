@@ -26,9 +26,10 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="10dp"
             android:paddingEnd="10dp"
-            android:text="評價"
+            android:text="@string/btRating"
             android:textColor="@color/colorWhite"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:visibility="gone"/>
 
     </RelativeLayout>
 

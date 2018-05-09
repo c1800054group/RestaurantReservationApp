@@ -85,6 +85,33 @@
             android:textSize="25dp"
             android:visibility="gone"/>
 
+        <EditText
+            android:id="@+id/etCommentReply"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edittext"
+            android:gravity="top"
+            android:hint="@string/hint_etCommentReply"
+            android:padding="10dp"
+            android:textSize="20dp"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/btCommentSave"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="0dp"
+            android:layout_marginStart="250dp"
+            android:layout_marginTop="18dp"
+            android:text="@string/text_Save"
+            android:textColor="@color/colorWhite"
+            android:background="@drawable/button_corners"
+            android:textSize="20dp"
+            android:visibility="gone"/>
+
     </LinearLayout>
 
 
