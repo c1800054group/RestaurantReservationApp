@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.item_Menu:
                     fragment = new MenuFragment();
+//                    fragment = new MenuManagerFragment();
                     switchFragment(fragment);
                     setTitle(R.string.text_menu);
                     return true;
@@ -159,6 +160,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.Content, fragment);
         fragmentTransaction.commit();
     }
+    
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
