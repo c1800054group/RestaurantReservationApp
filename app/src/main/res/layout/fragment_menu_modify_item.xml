@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:id="@+id/LinearLayout">
+
+    <include layout="@layout/tool_bar_title"></include>
+
+    <RelativeLayout
+        android:id="@+id/rv_btMenuModifyItem"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        tools:ignore="RtlCompat">
+
+        <TextView
+            android:id="@+id/btMenuModifyItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:paddingEnd="10dp"
+            android:text="評價"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@id/rv_btMenuModifyItem">
+
+        <ImageView
+            android:layout_marginTop="20dp"
+            android:id="@+id/image_view"
+            android:layout_width="76dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:src="@drawable/house"/>
+
+        <Button
+            android:id="@+id/bt_img"
+            android:layout_marginTop="20dp"
+            android:text="更換圖片"
+            android:layout_gravity="center"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content" />
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp">
+
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="菜名"/>
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp">
+
+
+            <EditText
+                android:id="@+id/et_price"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="價錢"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+    <LinearLayout
+        android:layout_marginTop="30sp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_gravity="center"
+            android:textSize="24sp"
+            android:layout_marginStart="70dp"
+            android:id="@+id/bt_delete"
+            android:text="刪除"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:textSize="24sp"
+            android:layout_marginStart="60dp"
+            android:id="@+id/bt_cancel"
+            android:text="取消"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <Button
+        android:layout_gravity="center"
+        android:id="@+id/bt_save"
+
+        android:textSize="24sp"
+        android:layout_marginTop="30sp"
+        android:text="儲存"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</RelativeLayout>

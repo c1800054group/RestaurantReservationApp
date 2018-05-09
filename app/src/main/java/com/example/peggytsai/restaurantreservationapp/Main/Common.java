@@ -2,6 +2,9 @@ package com.example.peggytsai.restaurantreservationapp.Main;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -12,7 +15,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.Toast;
 
+import com.example.peggytsai.restaurantreservationapp.Menu.Menu;
+import com.example.peggytsai.restaurantreservationapp.Menu.OrderMenu;
 import com.example.peggytsai.restaurantreservationapp.R;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Common {
     // Android官方模擬器連結本機web server可以直接使用 http://10.0.2.2
     public final static String URL = "http://10.0.2.2:8080/RestaurantReservationApp_Web";
@@ -59,6 +68,17 @@ public class Common {
             sex = activity.getResources().getString(R.string.text_rbFemale);
         }
         return sex;
+    }
+
+    public static List<OrderMenu> CART = new ArrayList<>();
+    public static List<List<Menu>> MENU_list = new ArrayList<>();
+    public static int FragmentSwitch = 1;    // 3 是 菜單管理   1 是菜單
+
+    public static boolean isIntentAvailable(Context context, Intent intent) {
+        PackageManager packageManager = context.getPackageManager();
+        List<ResolveInfo> list = packageManager.queryIntentActivities(intent,
+                PackageManager.MATCH_DEFAULT_ONLY);
+        return list.size() > 0;
     }
 
 

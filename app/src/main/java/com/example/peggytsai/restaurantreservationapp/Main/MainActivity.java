@@ -13,9 +13,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.example.peggytsai.restaurantreservationapp.Cart.CartFragmentConfirmText;
 import com.example.peggytsai.restaurantreservationapp.Check.CheckFragment;
 import com.example.peggytsai.restaurantreservationapp.Check.CheckManagerFragment;
 import com.example.peggytsai.restaurantreservationapp.Check.CheckWaiterFragment;
@@ -101,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
                     setTitle(R.string.text_MessageManager);
                     return true;
                 case R.id.item_RatingManager:
-                    fragment = new RatingFragment();
+                    fragment = new RatingManagerFragment();
                     switchFragment(fragment);
                     setTitle(R.string.text_RatingManager);
                     return true;
@@ -158,12 +160,18 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-//    private void updateNavigationBarState(int actionId){
-//        Menu menu = navigation.getMenu();
-//
-//        for (int i = 0, size = menu.size(); i < size; i++) {
-//            MenuItem item = menu.getItem(i);
-//            item.setChecked(item.getItemId() == actionId);
-//        }
-//    }
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+
+        if (keyCode == KeyEvent.KEYCODE_BACK   ) {
+            Fragment current_Fragment = getSupportFragmentManager().findFragmentById(R.id.Content);
+            if (current_Fragment instanceof CartFragmentConfirmText) {
+                ((CartFragmentConfirmText) current_Fragment).KeyDown();
+                return true;
+            }
+        }
+
+        return super.onKeyDown(keyCode, event);
+    }
+
 }

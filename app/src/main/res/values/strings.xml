@@ -67,7 +67,6 @@
     <string name="btName">繼續點餐</string>
     <string name="msg_AccountExists">帳號已存在！！</string>
     <string name="text_LiveOrdering">現場點餐</string>
-
     <string name="btnotorder">定位不點餐</string>
     <string name="btContinueOrder">繼續點餐</string>
     <string name="btContOrder">繼續點餐</string>
@@ -80,6 +79,5 @@
     <string name="msg_RatingInsertFail">新增失敗!請再評分一次!</string>
     <string name="msg_RatingInsertSuccess">感謝您的評論!</string>
     <string name="text_etCommentName">王小明</string>
-
 
 </resources>

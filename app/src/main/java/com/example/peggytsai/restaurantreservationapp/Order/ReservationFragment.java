@@ -5,7 +5,6 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,16 +12,11 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.ImageButton;
-import android.widget.PopupMenu;
-import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -30,18 +24,11 @@ import android.widget.Toast;
 import com.example.peggytsai.restaurantreservationapp.Main.Common;
 import com.example.peggytsai.restaurantreservationapp.Main.MainActivity;
 
-import com.example.peggytsai.restaurantreservationapp.Message.MessageFragment;
+import com.example.peggytsai.restaurantreservationapp.Cart.CartFragmentShow;
 import com.example.peggytsai.restaurantreservationapp.R;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
-import java.security.PrivateKey;
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 
 public class ReservationFragment extends Fragment {
@@ -95,6 +82,39 @@ public class ReservationFragment extends Fragment {
                     builder.setView(view);
 
                     final AlertDialog alertDialog = builder.show();
+                    CustomcancelButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            alertDialog.cancel();
+                        }
+                    });
+                    customNotButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            alertDialog.dismiss();
+                            insertDateData();
+                            AlertDialog alertDialog1 = new AlertDialog.Builder(getActivity()).create();
+                            alertDialog1.setMessage("定位完成 若要稍後點餐,請至訂單查詢修改");
+                            alertDialog1.setButton(DialogInterface.BUTTON_POSITIVE, "返回主頁", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                    Common.showToast(getActivity(), "請先選擇日期時間與人數");
+                }else  {
+                    insertDateData();
+                    view = LayoutInflater.from(getActivity()).inflate(R.layout.custom_layout, null);
+                    Button customConButton = view.findViewById(R.id.CustomConButton);
+                    Button customNotButton = view.findViewById(R.id.CustomNotButton);
+                    Button CustomcancelButton = view.findViewById(R.id.CustomcancelButton);
+                    builder.setView(view);
+                    final AlertDialog alertDialog = builder.show();
+                    customConButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Common.switchFragment(new CartFragmentShow(), getActivity(), true);
+                            alertDialog.cancel();
+                        }
+                    });
+
                     CustomcancelButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
