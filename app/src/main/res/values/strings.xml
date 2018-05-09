@@ -75,6 +75,11 @@
     <string name="hint_etName">請輸入姓名</string>
     <string name="hint_etComment">請輸入評論</string>
     <string name="text_rating_new">新增評論</string>
+    <string name="msg_RatingIsInvalid">請輸入評分!</string>
+    <string name="msg_CommentIsInvalid">請輸入評論!</string>
+    <string name="msg_RatingInsertFail">新增失敗!請再評分一次!</string>
+    <string name="msg_RatingInsertSuccess">感謝您的評論!</string>
+    <string name="text_etCommentName">王小明</string>
 
 
 </resources>

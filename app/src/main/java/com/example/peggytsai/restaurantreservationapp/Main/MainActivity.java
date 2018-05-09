@@ -13,7 +13,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -23,14 +22,13 @@ import com.example.peggytsai.restaurantreservationapp.Check.CheckWaiterFragment;
 import com.example.peggytsai.restaurantreservationapp.Manager.FoodManagerFragment;
 import com.example.peggytsai.restaurantreservationapp.Member.MemberIndexFragment;
 import com.example.peggytsai.restaurantreservationapp.Login.LoginFragment;
-import com.example.peggytsai.restaurantreservationapp.Member.MemberManagerFragment;
 import com.example.peggytsai.restaurantreservationapp.Menu.MenuFragment;
 import com.example.peggytsai.restaurantreservationapp.Menu.MenuManagerFragment;
 import com.example.peggytsai.restaurantreservationapp.Message.MessageFragment;
 import com.example.peggytsai.restaurantreservationapp.Message.MessageManagerFragment;
 import com.example.peggytsai.restaurantreservationapp.R;
 import com.example.peggytsai.restaurantreservationapp.Rating.RatingFragment;
-import com.example.peggytsai.restaurantreservationapp.Rating.RatingManagerFragment;
+import com.example.peggytsai.restaurantreservationapp.Rating.RatingManagerReplyFragment;
 import com.example.peggytsai.restaurantreservationapp.Waiter.ServiceManagerFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -103,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                     setTitle(R.string.text_MessageManager);
                     return true;
                 case R.id.item_RatingManager:
-                    fragment = new RatingManagerFragment();
+                    fragment = new RatingFragment();
                     switchFragment(fragment);
                     setTitle(R.string.text_RatingManager);
                     return true;

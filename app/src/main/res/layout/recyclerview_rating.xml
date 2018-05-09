@@ -56,6 +56,35 @@
             android:text="2018-01-01"
             android:textSize="15sp" />
 
+        <View
+            android:id="@+id/ratingLineView"
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorButton"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tvRatingReplayTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:text="店家回應:"
+            android:textSize="20dp"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tvRatingReplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:text="謝謝您的肯定！"
+            android:textColor="@color/colorMessageDetail"
+            android:textSize="25dp"
+            android:visibility="gone"/>
+
     </LinearLayout>
 
 
