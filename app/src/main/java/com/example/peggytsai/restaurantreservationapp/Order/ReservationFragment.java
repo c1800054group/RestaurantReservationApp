@@ -80,6 +80,16 @@ public class ReservationFragment extends Fragment {
                     builder.setView(view);
 
                     final AlertDialog alertDialog = builder.show();
+
+                    customConButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Common.switchFragment(new CartFragmentShow(),getActivity(),true);
+                            alertDialog.cancel();
+                        }
+                    });
+
+
                     CustomcancelButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
