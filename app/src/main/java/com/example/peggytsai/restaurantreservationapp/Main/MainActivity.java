@@ -10,18 +10,18 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import android.view.Menu;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 
+import com.example.peggytsai.restaurantreservationapp.Cart.CartFragmentConfirmText;
 import com.example.peggytsai.restaurantreservationapp.Check.CheckFragment;
 import com.example.peggytsai.restaurantreservationapp.Check.CheckManagerFragment;
 import com.example.peggytsai.restaurantreservationapp.Check.CheckWaiterFragment;
 import com.example.peggytsai.restaurantreservationapp.Manager.FoodManagerFragment;
 import com.example.peggytsai.restaurantreservationapp.Member.MemberIndexFragment;
 import com.example.peggytsai.restaurantreservationapp.Login.LoginFragment;
-import com.example.peggytsai.restaurantreservationapp.Member.MemberManagerFragment;
-import com.example.peggytsai.restaurantreservationapp.Menu.MenuFragment;
-import com.example.peggytsai.restaurantreservationapp.Menu.MenuManagerFragment;
+import com.example.peggytsai.restaurantreservationapp.Menu.demomenu.MenuFragment;
+import com.example.peggytsai.restaurantreservationapp.Menu.modifymenu.MenuManagerFragment;
 import com.example.peggytsai.restaurantreservationapp.Message.MessageFragment;
 import com.example.peggytsai.restaurantreservationapp.Message.MessageManagerFragment;
 import com.example.peggytsai.restaurantreservationapp.R;
@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.item_Menu:
                     fragment = new MenuFragment();
+//                    fragment = new MenuManagerFragment();
                     switchFragment(fragment);
                     setTitle(R.string.text_menu);
                     return true;
@@ -154,13 +155,20 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.Content, fragment);
         fragmentTransaction.commit();
     }
+    
 
-//    private void updateNavigationBarState(int actionId){
-//        Menu menu = navigation.getMenu();
-//
-//        for (int i = 0, size = menu.size(); i < size; i++) {
-//            MenuItem item = menu.getItem(i);
-//            item.setChecked(item.getItemId() == actionId);
-//        }
-//    }
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+
+        if (keyCode == KeyEvent.KEYCODE_BACK   ) {
+            Fragment current_Fragment = getSupportFragmentManager().findFragmentById(R.id.Content);
+            if (current_Fragment instanceof CartFragmentConfirmText) {
+                ((CartFragmentConfirmText) current_Fragment).KeyDown();
+                return true;
+            }
+        }
+
+        return super.onKeyDown(keyCode, event);
+    }
+
 }

@@ -5,22 +5,18 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.ImageButton;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -28,33 +24,25 @@ import android.widget.Toast;
 import com.example.peggytsai.restaurantreservationapp.Main.Common;
 import com.example.peggytsai.restaurantreservationapp.Main.MainActivity;
 
+import com.example.peggytsai.restaurantreservationapp.Cart.CartFragmentShow;
 import com.example.peggytsai.restaurantreservationapp.R;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
-import java.security.PrivateKey;
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 
 public class ReservationFragment extends Fragment {
     private final static String TAG = "ReservationFragment";
     private View view;
-    private TextView tvTimeContent, tvDateContent,edPersonNumber;
+    private TextView tvTimeContent, tvDateContent, edPersonNumber;
     private Button dateButton, timeButton, confirmButton;
     private ReservationInsertTask reservationTask;
     private String jsonStr = "";
-
-
-
+    private BottomNavigationView navigation;
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_order_reservation, container, false);
 
 
@@ -67,7 +55,7 @@ public class ReservationFragment extends Fragment {
         });
 
         timeButton.setOnClickListener(new View.OnClickListener() {
-             @Override
+            @Override
             public void onClick(View view) {
                 showTime();
             }
@@ -76,64 +64,60 @@ public class ReservationFragment extends Fragment {
         });
 
         confirmButton.setOnClickListener(new View.OnClickListener() {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             @Override
             public void onClick(View view) {
-//                insertDateData();
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                String date1 = tvDateContent.getText().toString().trim();
 
-                view = LayoutInflater.from(getActivity()).inflate(R.layout.custom_layout, null);
+                Log.d("date1: ", date1);
+                if (date1.equals("____________")) {
 
-                TextView title = (TextView) view.findViewById(R.id.title);
-//                ImageButton imageButton = (ImageButton) view.findViewById(R.id.image);
-                Button order = view.findViewById(R.id.order);
+                    Common.showToast(getActivity(), "請先選擇日期時間與人數");
+                }else  {
+                    insertDateData();
+                    view = LayoutInflater.from(getActivity()).inflate(R.layout.custom_layout, null);
+                    Button customConButton = view.findViewById(R.id.CustomConButton);
+                    Button customNotButton = view.findViewById(R.id.CustomNotButton);
+                    Button CustomcancelButton = view.findViewById(R.id.CustomcancelButton);
+                    builder.setView(view);
+                    final AlertDialog alertDialog = builder.show();
+                    customConButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Common.switchFragment(new CartFragmentShow(), getActivity(), true);
+                            alertDialog.cancel();
+                        }
+                    });
 
-                title.setText("Hello There!");
-                insertDateData();
+                    CustomcancelButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            alertDialog.cancel();
+                        }
+                    });
+                    customNotButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            alertDialog.dismiss();
+                            insertDateData();
+                            AlertDialog alertDialog1 = new AlertDialog.Builder(getActivity()).create();
+                            alertDialog1.setMessage("定位完成 若要稍後點餐,請至訂單查詢修改");
+                            alertDialog1.setButton(DialogInterface.BUTTON_POSITIVE, "返回主頁", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
 
-//                imageButton.setImageResource(R.drawable.default_image);
-
-                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(getActivity(), "Thank you", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-//                        Toast.makeText(getActivity(), "Never Mind!", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                builder.setView(view);
-                builder.show();
+                                    navigation.setSelectedItemId(R.id.item_Message);
 
 
+                                }
+                            });
+                            alertDialog1.show();
 
+                        }
+                    });
 
-//                PopupMenu pm = new PopupMenu(getActivity(), confirmButton);
-//                pm.getMenuInflater().inflate(R.menu.reservation_menu, pm.getMenu());
-//                pm.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-//                    @Override
-//                    public boolean onMenuItemClick(MenuItem item) {
-//                        switch (item.getItemId()) {
-//                            case R.id.first:
-//                                Toast.makeText(getActivity(), "clicked first meni", Toast.LENGTH_SHORT).show();
-//                                return true;
-//                            case R.id.second:
-//                                insertDateData();
-//                                return true;
-//                            case R.id.therd:
-//                                Toast.makeText(getActivity(), "clicked thred meni", Toast.LENGTH_SHORT).show();
-//                                return true;
-//
-//
-//                        }
-//                        return true;
-//                    }
-//                });
+                }
+
 
 
 
@@ -148,12 +132,11 @@ public class ReservationFragment extends Fragment {
     private void insertDateData() {
 
 
-
         boolean isVaild = true;
         String date = tvDateContent.getText().toString();
         if (date.trim().isEmpty()) {
             tvTimeContent.setError("請選擇這日期");
-           isVaild = false;
+            isVaild = false;
         }
         String time = tvTimeContent.getText().toString();
         if (time.trim().isEmpty()) {
@@ -165,23 +148,14 @@ public class ReservationFragment extends Fragment {
             edPersonNumber.setError("請填入人數");
             isVaild = false;
         }
-//        Timestamp ts = new Timestamp(System.currentTimeMillis());
-//        String d = "2001-03-15 15:37:05";
+
         String d = date + " " + time;
-//            ts = Timestamamp.valueOf(d);
-//        String t = time;
-//        SimpleDateFormat simpleDateFormat  =  new  SimpleDateFormat("yyyy-MM-dd HH-mm-ss");//24小時制
-//        try {
-//            LongDate = simpleDateFormat.parse(d).getTime();
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
+
         if (isVaild) {
             if (Common.networkConnected(getActivity())) {
                 JsonObject jsonObject = new JsonObject();
                 jsonObject.addProperty("action", "insert");
                 jsonObject.addProperty("date", d);
-//                jsonObject.addProperty("time", LongDate);
                 jsonObject.addProperty("person", person);
 
                 try {
@@ -192,25 +166,18 @@ public class ReservationFragment extends Fragment {
                     if (count == 0) {
                         Toast.makeText(getActivity(), "Reservation failed", Toast.LENGTH_LONG).show();
                     } else {
-                        Fragment reservationDetailFragment = new  ReservationDetailFragment();
-                        Bundle bundle = new Bundle();
-                        bundle.putString("date", date);
-                        bundle.putString("time", person);
-                        bundle.putString("person", person);
-                        reservationDetailFragment.setArguments(bundle);
-                        getFragmentManager().beginTransaction().replace(R.id.Content, reservationDetailFragment).addToBackStack(null).commit();
+                        navigation.setSelectedItemId(R.id.item_Message);
                     }
 
 
                 } catch (Exception e) {
                     Log.e(TAG, "error message" + e.toString());
                 }
-            }else {
+            } else {
                 Toast.makeText(getActivity(), "connection to netWork failed", Toast.LENGTH_LONG).show();
             }
 
         }
-
 
 
     }
@@ -223,11 +190,8 @@ public class ReservationFragment extends Fragment {
         timeButton = view.findViewById(R.id.timeButton);
         confirmButton = view.findViewById(R.id.confirmButton);
         edPersonNumber = view.findViewById(R.id.edPersonNumber);
-
+        navigation = getActivity().findViewById(R.id.Navigation);
     }
-
-
-
 
 
     private void showDate() {
@@ -260,8 +224,6 @@ public class ReservationFragment extends Fragment {
     }
 
 
-
-
     public static class DatePickerDialogFragment extends android.support.v4.app.DialogFragment implements DatePickerDialog.OnDateSetListener {
 
         @NonNull
@@ -285,7 +247,6 @@ public class ReservationFragment extends Fragment {
     }
 
 
-
     public static class TimePickerDialogFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
 
         @NonNull
@@ -303,7 +264,7 @@ public class ReservationFragment extends Fragment {
 
         }
 
-      
+
     }
 
     public void onStop() {
@@ -312,8 +273,6 @@ public class ReservationFragment extends Fragment {
             reservationTask.cancel(true);
         }
     }
-
-
 
 
 }
