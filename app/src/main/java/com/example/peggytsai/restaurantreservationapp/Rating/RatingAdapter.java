@@ -2,7 +2,6 @@ package com.example.peggytsai.restaurantreservationapp.Rating;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,20 +15,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
-
 import com.example.peggytsai.restaurantreservationapp.Main.Common;
 import com.example.peggytsai.restaurantreservationapp.Main.MyTask;
-import com.example.peggytsai.restaurantreservationapp.Message.MessageDetailFragment;
-import com.example.peggytsai.restaurantreservationapp.Message.MessageFragment;
 import com.example.peggytsai.restaurantreservationapp.R;
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
-
-
-import java.lang.reflect.Type;
 import java.util.List;
-
 import static android.content.Context.MODE_PRIVATE;
 
 public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.MyViewHolder> {
@@ -45,7 +35,6 @@ public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.MyViewHold
         this.ratingPages = ratingPages;
         this.context = context;
         this.fragmentManager = fragmentManager;
-
     }
 
     @Override
@@ -61,7 +50,7 @@ public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.MyViewHold
         TextView tvRatingContent, tvRatingMember, tvRatingDate, tvRatingReplayTitle, tvRatingReplay;
         View ratingLineView;
         EditText etCommentReply;
-        Button btCommentSave;
+        Button btCommentSave, btCommentDelete;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -77,7 +66,7 @@ public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.MyViewHold
 
             etCommentReply = itemView.findViewById(R.id.etCommentReply);
             btCommentSave = itemView.findViewById(R.id.btCommentSave);
-
+            btCommentDelete = itemView.findViewById(R.id.btCommentDelete);
         }
     }
 
@@ -92,12 +81,11 @@ public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.MyViewHold
         myViewHolder.tvRatingDate.setText(ratingPage.getComment_time());
         myViewHolder.tvRatingReplay.setText(ratingPage.getComment_reply());
 
+        //判斷是否有回應
         if (ratingPage.getComment_reply() != null) {
-
             myViewHolder.ratingLineView.setVisibility(BottomNavigationView.VISIBLE);
             myViewHolder.tvRatingReplayTitle.setVisibility(BottomNavigationView.VISIBLE);
             myViewHolder.tvRatingReplay.setVisibility(BottomNavigationView.VISIBLE);
-
         }
 
 
@@ -107,7 +95,7 @@ public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.MyViewHold
         if (authority_id == 4) {
 
             if (Common.networkConnected(context)) {
-
+                //編輯回應內容
                 myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -115,20 +103,23 @@ public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.MyViewHold
                         myViewHolder.tvRatingReplayTitle.setVisibility(BottomNavigationView.VISIBLE);
 
                         if (ratingPage.getComment_reply() == null) {
+                            //空值顯示“請輸入評論”
                             myViewHolder.etCommentReply.setVisibility(BottomNavigationView.VISIBLE);
                             myViewHolder.btCommentSave.setVisibility(BottomNavigationView.VISIBLE);
+                            myViewHolder.btCommentDelete.setVisibility(BottomNavigationView.VISIBLE);
 
                         } else {
-
+                            //有值可直接編輯
                             myViewHolder.tvRatingReplay.setVisibility(BottomNavigationView.GONE);
                             myViewHolder.etCommentReply.setText(ratingPage.getComment_reply());
                             myViewHolder.etCommentReply.setVisibility(BottomNavigationView.VISIBLE);
                             myViewHolder.btCommentSave.setVisibility(BottomNavigationView.VISIBLE);
+                            myViewHolder.btCommentDelete.setVisibility(BottomNavigationView.VISIBLE);
                         }
-
                     }
                 });
 
+                //店長儲存評論
                 myViewHolder.btCommentSave.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -153,18 +144,37 @@ public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.MyViewHold
                         myViewHolder.etCommentReply.setVisibility(BottomNavigationView.GONE);
                         myViewHolder.tvRatingReplay.setText(comment_reply);
                         myViewHolder.tvRatingReplay.setVisibility(BottomNavigationView.VISIBLE);
+                    }
+                });
 
+                //店長刪除評論
+                myViewHolder.btCommentDelete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int commend_id = ratingPage.getId();
+
+                        String url = Common.URL + "/RatingServlet";
+                        JsonObject jsonObject = new JsonObject();
+                        jsonObject.addProperty("action", "commentDelete");
+                        jsonObject.addProperty("commend_id", commend_id);
+
+                        int count = 0;
+                        try {
+                            String result = new MyTask(url, jsonObject.toString()).execute().get();
+                            count = Integer.valueOf(result);
+                        } catch (Exception e) {
+                            Log.e(TAG, e.toString());
+                        }
+
+                        Fragment fragment = new RatingFragment();
+                        switchFragment(fragment);
                     }
                 });
 
             } else {
                 Common.showToast(context, R.string.msg_NoNetwork);
             }
-
-
         }
-
-
     }
 
     @Override
@@ -174,11 +184,8 @@ public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.MyViewHold
 
     private void switchFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
         fragmentTransaction.replace(R.id.Content, fragment);
-
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
-
 }
