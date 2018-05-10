@@ -79,5 +79,8 @@
     <string name="msg_RatingInsertFail">新增失敗!請再評分一次!</string>
     <string name="msg_RatingInsertSuccess">感謝您的評論!</string>
     <string name="text_etCommentName">王小明</string>
+    <string name="hint_etCommentReply">請輸入回應</string>
+    <string name="btRating">評價</string>
+    <string name="text_ComentDelete">刪除評價</string>
 
 </resources>

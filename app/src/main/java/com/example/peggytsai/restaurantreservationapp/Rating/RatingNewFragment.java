@@ -51,7 +51,7 @@ public class RatingNewFragment extends Fragment {
         tvtoolBarTitle.setText(R.string.text_rating_new);
 
         SharedPreferences pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
-        int member_name = pref.getInt("memberName", 0);
+        String member_name = pref.getString("memberName", "");
 
         ratingBarComment = view.findViewById(R.id.ratingBarComment);
         tvCommentName = view.findViewById(R.id.tvCommentName);
@@ -71,13 +71,11 @@ public class RatingNewFragment extends Fragment {
                     return;
                 }
 
-
                 String Comment = etComment.getText().toString().trim();
                 if (Comment.length() <= 0) {
                     Common.showToast(getActivity(), R.string.msg_CommentIsInvalid);
                     return;
                 }
-
 
                 if (Common.networkConnected(getActivity())) {
                     String url = Common.URL + "/RatingServlet";
@@ -85,7 +83,7 @@ public class RatingNewFragment extends Fragment {
                     String member_name = pref.getString("memberName", "");
                     String comment_reply = null;
                     int member_id = pref.getInt("memberID", 0);
-                    RatingPage ratingPage = new RatingPage(0, Comment,"0", member_name, member_id, score, comment_reply);
+                    RatingPage ratingPage = new RatingPage(0, Comment, "0", member_name, member_id, score, comment_reply);
                     JsonObject jsonObject = new JsonObject();
                     jsonObject.addProperty("action", "ratingInsert");
                     jsonObject.addProperty("rating", new Gson().toJson(ratingPage));
@@ -101,7 +99,7 @@ public class RatingNewFragment extends Fragment {
                     } else {
                         Common.showToast(getActivity(), R.string.msg_RatingInsertSuccess);
                         Fragment ratingFragment = new RatingFragment();
-                        Common.switchFragment(ratingFragment,getActivity(),false);
+                        Common.switchFragment(ratingFragment, getActivity(), false);
                     }
                 } else {
                     Common.showToast(getActivity(), R.string.msg_NoNetwork);
@@ -113,7 +111,6 @@ public class RatingNewFragment extends Fragment {
 
         return view;
     }
-
 
 
 }

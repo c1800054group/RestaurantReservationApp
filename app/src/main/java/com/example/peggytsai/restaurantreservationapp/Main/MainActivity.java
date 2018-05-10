@@ -12,7 +12,6 @@ import android.os.Bundle;
 
 import android.view.KeyEvent;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.example.peggytsai.restaurantreservationapp.Cart.CartFragmentConfirmText;
 import com.example.peggytsai.restaurantreservationapp.Check.CheckFragment;
@@ -28,7 +27,6 @@ import com.example.peggytsai.restaurantreservationapp.Message.MessageFragment;
 import com.example.peggytsai.restaurantreservationapp.Message.MessageManagerFragment;
 import com.example.peggytsai.restaurantreservationapp.R;
 import com.example.peggytsai.restaurantreservationapp.Rating.RatingFragment;
-import com.example.peggytsai.restaurantreservationapp.Rating.RatingManagerReplyFragment;
 import com.example.peggytsai.restaurantreservationapp.Waiter.ServiceManagerFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -102,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
                     setTitle(R.string.text_MessageManager);
                     return true;
                 case R.id.item_RatingManager:
-                    fragment = new RatingManagerReplyFragment();
+                    fragment = new RatingFragment();
                     switchFragment(fragment);
                     setTitle(R.string.text_RatingManager);
                     return true;
