@@ -72,7 +72,7 @@ public class Common {
 
     public static List<OrderMenu> CART = new ArrayList<>();
     public static List<List<Menu>> MENU_list = new ArrayList<>();
-    public static int FragmentSwitch = 1;    // 3 是 菜單管理   1 是菜單
+    public static int FragmentSwitch = 0;    // 3 是 菜單管理   1 是菜單
 
     public static boolean isIntentAvailable(Context context, Intent intent) {
         PackageManager packageManager = context.getPackageManager();

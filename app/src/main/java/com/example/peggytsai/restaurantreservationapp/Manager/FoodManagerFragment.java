@@ -25,12 +25,10 @@ import com.example.peggytsai.restaurantreservationapp.Main.MyTask;
 import com.example.peggytsai.restaurantreservationapp.Menu.Menu;
 import com.example.peggytsai.restaurantreservationapp.Menu.MenuGetAllTask;
 import com.example.peggytsai.restaurantreservationapp.Menu.MenuGetImageTask;
-import com.example.peggytsai.restaurantreservationapp.Menu.modifymenu.MenuModifyFragmentUpdate;
 import com.example.peggytsai.restaurantreservationapp.R;
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 public class FoodManagerFragment extends Fragment {
@@ -63,7 +61,7 @@ public class FoodManagerFragment extends Fragment {
         });
 
 
-        ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewPager);
+        ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewPager_all);
 //        viewPager.setAdapter(  new MyPagerAdapter(getChildFragmentManager())  );  //直接返回 嵌套的子fragment
         viewPager.setAdapter(  new SamplePagerAdapter() );  //直接返回 嵌套的子fragment
 

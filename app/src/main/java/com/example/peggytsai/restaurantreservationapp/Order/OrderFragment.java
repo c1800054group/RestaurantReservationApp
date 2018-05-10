@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.peggytsai.restaurantreservationapp.Cart.CartFragmentShow;
 import com.example.peggytsai.restaurantreservationapp.Main.Common;
 import com.example.peggytsai.restaurantreservationapp.R;
 
@@ -49,6 +50,9 @@ public class OrderFragment extends Fragment {
                     Common.switchFragment(reservationFragment, getActivity(), true);
                 } else if (position == 1) {
                     Common.showToast(getActivity(), "現場點餐");
+                    CartFragmentShow cartFragmentShow = new CartFragmentShow();
+                    Common.FragmentSwitch = 1;
+                    Common.switchFragment(cartFragmentShow,getActivity(),true);
 
                 } else if (position == 2) {
                     Common.showToast(getActivity(), "外送點餐");

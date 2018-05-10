@@ -2,7 +2,10 @@ package com.example.peggytsai.restaurantreservationapp.Menu.modifymenu;
 
 
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -35,6 +38,7 @@ import com.google.gson.JsonObject;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -147,15 +151,6 @@ public class MenuModifyFragmentInsert extends Fragment implements View.OnClickLi
                     Common.showToast(getActivity(), "NoCameraApp");
                 }
 
-//
-//                btPickPicture.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        Intent intent = new Intent(Intent.ACTION_PICK,
-//                                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//                        startActivityForResult(intent, REQ_PICK_IMAGE);
-//                    }
-//                });
 
 
                 break;
@@ -214,7 +209,12 @@ public class MenuModifyFragmentInsert extends Fragment implements View.OnClickLi
 
     }
 
-
+    public static boolean isIntentAvailable(Context context, Intent intent) {
+        PackageManager packageManager = context.getPackageManager();
+        List<ResolveInfo> list = packageManager.queryIntentActivities(intent,
+                PackageManager.MATCH_DEFAULT_ONLY);
+        return list.size() > 0;
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {

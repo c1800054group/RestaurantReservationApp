@@ -27,6 +27,8 @@ import com.google.gson.JsonObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class CartFragmentConfirm extends Fragment {
 
     private RecyclerView recyclerView;
@@ -57,10 +59,12 @@ public class CartFragmentConfirm extends Fragment {
         recyclerView.setAdapter(  new MenuAddAdapter(menus_list, getContext()));
 
 
-        pref = getActivity().getSharedPreferences("preference",getActivity().MODE_PRIVATE);
-        pref.edit()
-                .putString("Subtotal_main", money)
-                .apply();
+
+//        pref = getActivity().getSharedPreferences("preference",getActivity().MODE_PRIVATE);
+//        pref.edit()
+//                .putString("Subtotal_main", money)
+//                .apply();
+
         return view;
 
 
@@ -101,6 +105,15 @@ public class CartFragmentConfirm extends Fragment {
                     Common.switchFragment(new CartFragmentConfirmText(), getActivity(), true);
 
                     if (Common.networkConnected(getActivity()) && Common.CART.size()>0) {//檢查網路連線
+
+                        pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
+                        int memberID = pref.getInt("memberID",0);  //  會員id
+                        String person = pref.getString("人數","");
+                        String data = pref.getString("日期時間","");
+
+                        if(person=="" || data=="" || person == null || data == null){
+                            //非預定 是內用or外帶
+                        }
 
                         JsonObject jsonObject = new JsonObject();
 

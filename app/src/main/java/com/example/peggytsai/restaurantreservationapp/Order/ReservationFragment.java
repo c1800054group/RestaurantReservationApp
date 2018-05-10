@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -29,6 +30,8 @@ import com.example.peggytsai.restaurantreservationapp.R;
 import com.google.gson.JsonObject;
 
 import java.util.Calendar;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 public class ReservationFragment extends Fragment {
@@ -140,7 +143,18 @@ public class ReservationFragment extends Fragment {
             isVaild = false;
         }
 
+
         String d = date + " " + time;
+
+        if(isVaild){ //之後提取用
+            SharedPreferences pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
+            pref.edit()
+                    .putString("日期時間",d)
+                    .putString("人數",person.trim())
+                    .apply();
+        }
+
+
 
         if (isVaild) {
             if (Common.networkConnected(getActivity())) {
