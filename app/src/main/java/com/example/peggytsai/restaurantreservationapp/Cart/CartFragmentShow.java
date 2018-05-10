@@ -1,6 +1,7 @@
 package com.example.peggytsai.restaurantreservationapp.Cart;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -25,6 +26,8 @@ import com.google.zxing.integration.android.IntentResult;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+
 
 public class CartFragmentShow extends Fragment {
 
@@ -33,6 +36,7 @@ public class CartFragmentShow extends Fragment {
     private View view;
 
     private String TableNamer="0";
+    private SharedPreferences pref;
 
     @Nullable
     @Override
@@ -143,6 +147,7 @@ public class CartFragmentShow extends Fragment {
 
                 case "外帶":
                     tt_toolbar.setText("外帶");
+                    TableNamer="5";    //到時候看 tableID長怎樣 再改相對的數字
                     break;
                 case "1":
                 case "2":
@@ -160,6 +165,9 @@ public class CartFragmentShow extends Fragment {
                     tt_toolbar.setText("帶外點餐");
                     break;
             }
+
+            pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
+            pref.edit().putString("桌號",TableNamer).apply();
 
             ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewPager_all);
             viewPager.setAdapter(new MyPagerAdapter(getChildFragmentManager()));  //直接返回 嵌套的子fragment

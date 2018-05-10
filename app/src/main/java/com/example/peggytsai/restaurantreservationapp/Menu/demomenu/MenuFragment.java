@@ -79,8 +79,6 @@ public class MenuFragment extends Fragment {
         public MyPagerAdapter(FragmentManager fragmentManager, Fragment a, Fragment b) {
             super(fragmentManager);
             pageList = new ArrayList<>();
-//            pageList.add(new Page(new MenuFragmentMain(), "主餐"));
-//            pageList.add(new Page(new MenuFragmentSub(), "附餐"));
             pageList.add(new Page(a, "主餐"));
             pageList.add(new Page(b, "附餐"));
 
