@@ -50,8 +50,8 @@
     <string name="text_MemberManager">會員管理</string>
     <string name="text_CheckWaiter">餐點</string>
     <string name="text_CheckManager">結帳系統</string>
-    <string name="typeName">定位</string>
-    <string name="tvNews">營業時間11:00AM - 10:00PM</string>
+    <string name="typeName">訂位</string>
+    <string name="tvNews">營業時間: 11:00 - 20:00</string>
     <string name="tvReserve">日期</string>
     <string name="tvReserveNews">開放訂位時間為一天前至一個月</string>
     <string name="dateName">日期</string>
