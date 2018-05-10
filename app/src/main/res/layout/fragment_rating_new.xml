@@ -77,7 +77,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:text="姓名"
-                android:textColor="@color/colorMessageDetail"
+                android:textColor="@color/colorContent"
                 android:textSize="25dp" />
 
             <TextView
