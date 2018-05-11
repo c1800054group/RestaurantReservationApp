@@ -26,6 +26,7 @@ import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -108,22 +109,54 @@ public class CartFragmentConfirm extends Fragment {
 
                         pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
                         int memberID = pref.getInt("memberID",0);  //  會員id
-                        String person = pref.getString("人數","");
-                        String data = pref.getString("日期時間","");
 
-                        if(person=="" || data=="" || person == null || data == null){
-                            //非預定 是內用or外帶
+                        String table_member = "";
+                        String person = "";
+                        String data = "";
+                        table_member =pref.getString("桌號","");
+
+                        person = pref.getString("人數","");
+                        data = pref.getString("日期時間","");
+
+                        if(table_member == "" && person=="" && data == ""){
+                            Common.showToast(getActivity(),"資料有錯誤  全為空值 有桌號 或 人物與時間 沒抓到資料");
+                            return;
                         }
+
+//
+//                        if(person=="" || data=="" || person == null || data == null){
+//                            //非預定 是內用or外帶
+//                        }
 
                         JsonObject jsonObject = new JsonObject();
 
                         jsonObject.addProperty("action", "orderInsert");
                         jsonObject.addProperty("cart", new Gson().toJson(  Common.CART  ));
                         jsonObject.addProperty("total_money", money);
-//                    jsonObject.addProperty("note", "");
+
+                        jsonObject.addProperty("memberID", String.valueOf(memberID) );
+
+                        if(table_member == ""){
+                            jsonObject.addProperty("person", person);
+                            jsonObject.addProperty("data", data);
+                        }else{
+                            jsonObject.addProperty("table_member", table_member);
+                        }
+
+
+                        String oderID = "";
 
                         upcartTask = new MyTask(Common.URL+"/OrderServlet", jsonObject.toString());
                         upcartTask.execute();
+
+                        pref.edit().clear().apply();
+
+//                        try {
+//                            oderID = upcartTask.execute().get();
+//                        } catch (Exception e) {
+//
+//                        }
+
                     } else {
                         Common.showToast(getContext(), "text_NoNetwork");
                     }
