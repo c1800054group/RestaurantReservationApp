@@ -1,8 +1,10 @@
 package com.example.peggytsai.restaurantreservationapp.Rating;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,6 +27,8 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class RatingFragment extends Fragment {
 
     private static final String TAG = "RatingFragment";
@@ -39,20 +43,31 @@ public class RatingFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_rating, container, false);
 
         TextView tvtoolBarTitle = view.findViewById(R.id.tvTool_bar_title);
-        tvtoolBarTitle.setText(R.string.text_rating);
 
+        SharedPreferences pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
+        int authority_id = pref.getInt("authority_id", 1);
 
-        btRating = view.findViewById(R.id.btRating);
-        btRating.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment fragment = new RatingNewFragment();
-            }
-        });
+        if (authority_id == 4) {
+            tvtoolBarTitle.setText(R.string.text_RatingManager);
+
+        } else if (authority_id == 1) {
+            tvtoolBarTitle.setText(R.string.text_rating);
+
+            btRating = view.findViewById(R.id.btRating);
+            btRating.setVisibility(BottomNavigationView.VISIBLE);
+            btRating.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Fragment ratingNewFragment = new RatingNewFragment();
+                    Common.switchFragment(ratingNewFragment, getActivity(), false);
+
+                }
+            });
+        }
 
         recyclerView = view.findViewById(R.id.rvRating);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(new RatingAdapter(showAllRing(),getActivity(),getFragmentManager()));
+        recyclerView.setAdapter(new RatingAdapter(showAllRing(), getActivity(), getFragmentManager()));
         swipeRefreshLayout =
                 view.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -80,7 +95,8 @@ public class RatingFragment extends Fragment {
             try {
                 String jsonIn = ratingGetAllTask.execute().get();
                 Log.d(TAG, jsonIn);
-                Type listType = new TypeToken<List<RatingPage>>(){ }.getType();
+                Type listType = new TypeToken<List<RatingPage>>() {
+                }.getType();
                 ratings = new Gson().fromJson(jsonIn, listType);
             } catch (Exception e) {
                 Log.e(TAG, e.toString());

@@ -56,18 +56,19 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
-            android:text="點一下圓圈來評分"
+            android:text="點一下星星來評分"
             android:textSize="20dp" />
 
         <View
             android:layout_width="fill_parent"
             android:layout_height="2dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:background="@color/colorButton" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
             <TextView
@@ -75,21 +76,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
                 android:text="姓名"
-                android:textColor="@color/colorMessageDetail"
+                android:textColor="@color/colorContent"
                 android:textSize="25dp" />
 
-            <EditText
-                android:id="@+id/etCommentName"
+            <TextView
+                android:id="@+id/tvCommentName"
                 android:layout_width="150dp"
                 android:layout_height="35dp"
+                android:layout_marginBottom="10dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/edittext"
-                android:gravity="center"
+                android:text="@string/text_etCommentName"
                 android:hint="@string/hint_etName"
-                android:textSize="20dp" />
+                android:textSize="25dp" />
+
 
         </LinearLayout>
 
@@ -97,7 +97,7 @@
         <EditText
             android:id="@+id/etComment"
             android:layout_width="match_parent"
-            android:layout_height="320dp"
+            android:layout_height="match_parent"
             android:layout_marginTop="10dp"
             android:background="@drawable/edittext"
             android:gravity="top"
@@ -106,6 +106,5 @@
             android:textSize="20dp" />
 
     </LinearLayout>
-
 
 </RelativeLayout>

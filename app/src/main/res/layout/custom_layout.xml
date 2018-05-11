@@ -34,8 +34,9 @@
             android:layout_width="200dp"
             android:layout_gravity="center"
             android:layout_height="wrap_content"
-            android:background="@color/orderColor"
-            android:text="@string/btContOrder" />
+            android:background="@android:color/transparent"
+            android:text="@string/btContOrder"
+            android:textSize="25dp"/>
 
         <Button
             android:id="@+id/CustomNotButton"
@@ -43,8 +44,9 @@
             android:layout_width="200dp"
             android:layout_gravity="center"
             android:layout_height="wrap_content"
-            android:background="@color/orderColor"
-            android:text="@string/btnotorder"/>
+            android:background="@android:color/transparent"
+            android:text="@string/btnotorder"
+            android:textSize="25dp"/>
 
         <Button
             android:id="@+id/CustomcancelButton"
@@ -52,8 +54,9 @@
             android:layout_width="200dp"
             android:layout_gravity="center"
             android:layout_height="wrap_content"
-            android:background="@color/orderColor"
-            android:text="@string/btcancelrder"/>
+            android:background="@android:color/transparent"
+            android:text="@string/btcancelrder"
+            android:textSize="25dp"/>
 
 
         <!--<ImageButton-->

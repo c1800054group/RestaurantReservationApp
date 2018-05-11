@@ -8,22 +8,24 @@
 
     <ImageView
         android:id="@+id/ivIconImage"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
         android:layout_gravity="center"
         android:padding="6dp"
-        android:src="@drawable/pot"/>
-
+        android:src="@drawable/pic_pot"/>
 
     <TextView
         android:id="@+id/tvNews"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:gravity="center_horizontal"
         android:text="@string/tvNews"
+        android:textColor="@color/colorPrimary"
         android:textSize="20sp" />
 
+    <!--ListView定義於 item_view_order.xml-->
     <ListView
         android:id="@+id/lvOrder"
         android:layout_marginTop="20dp"

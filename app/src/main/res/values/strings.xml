@@ -50,8 +50,8 @@
     <string name="text_MemberManager">會員管理</string>
     <string name="text_CheckWaiter">餐點</string>
     <string name="text_CheckManager">結帳系統</string>
-    <string name="typeName">定位</string>
-    <string name="tvNews">營業時間11:00AM - 10:00PM</string>
+    <string name="typeName">訂位</string>
+    <string name="tvNews">營業時間: 11:00 - 20:00</string>
     <string name="tvReserve">日期</string>
     <string name="tvReserveNews">開放訂位時間為一天前至一個月</string>
     <string name="dateName">日期</string>
@@ -75,6 +75,14 @@
     <string name="hint_etName">請輸入姓名</string>
     <string name="hint_etComment">請輸入評論</string>
     <string name="text_rating_new">新增評論</string>
+    <string name="msg_RatingIsInvalid">請輸入評分!</string>
+    <string name="msg_CommentIsInvalid">請輸入評論!</string>
+    <string name="msg_RatingInsertFail">新增失敗!請再評分一次!</string>
+    <string name="msg_RatingInsertSuccess">感謝您的評論!</string>
+    <string name="text_etCommentName">王小明</string>
+    <string name="hint_etCommentReply">請輸入回應</string>
+    <string name="btRating">評價</string>
+    <string name="text_ComentDelete">刪除評價</string>
     <string name="message_text_title">標題</string>
     <string name="hint_message_title">請輸入標題</string>
     <string name="message_text_promotion_message">優惠訊息</string>

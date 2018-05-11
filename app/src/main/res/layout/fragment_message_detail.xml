@@ -75,7 +75,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="5dp"
                 android:text="來店打卡8折起"
-                android:textColor="@color/colorMessageDetail"
+                android:textColor="@color/colorContent"
                 android:textSize="15sp" />
 
             <TextView
@@ -94,7 +94,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="5dp"
                 android:text="2018/04/20 - 2018/05/20"
-                android:textColor="@color/colorMessageDetail"
+                android:textColor="@color/colorContent"
                 android:textSize="15sp" />
 
             <TextView
