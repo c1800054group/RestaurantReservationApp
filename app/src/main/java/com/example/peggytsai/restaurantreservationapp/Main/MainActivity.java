@@ -24,7 +24,6 @@ import com.example.peggytsai.restaurantreservationapp.Login.LoginFragment;
 import com.example.peggytsai.restaurantreservationapp.Menu.demomenu.MenuFragment;
 import com.example.peggytsai.restaurantreservationapp.Menu.modifymenu.MenuManagerFragment;
 import com.example.peggytsai.restaurantreservationapp.Message.MessageFragment;
-import com.example.peggytsai.restaurantreservationapp.Message.MessageManagerFragment;
 import com.example.peggytsai.restaurantreservationapp.R;
 import com.example.peggytsai.restaurantreservationapp.Rating.RatingFragment;
 import com.example.peggytsai.restaurantreservationapp.Waiter.ServiceManagerFragment;
@@ -37,14 +36,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
         navigation = findViewById(R.id.Navigation);
         navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
 
         initContent();
-
-
 
     }
 
@@ -95,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                     setTitle(R.string.text_MenuManager);
                     return true;
                 case R.id.item_MessageManager:
-                    fragment = new MessageManagerFragment();
+                    fragment = new MessageFragment();
                     switchFragment(fragment);
                     setTitle(R.string.text_MessageManager);
                     return true;

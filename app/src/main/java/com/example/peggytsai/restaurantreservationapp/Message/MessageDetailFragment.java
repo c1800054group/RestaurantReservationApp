@@ -27,6 +27,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import static android.content.ContentValues.TAG;
@@ -80,7 +82,9 @@ public class MessageDetailFragment extends Fragment {
         tvMessageContent.setText(message.getMessage_content());
 
         TextView tvMessageDetailDate = view.findViewById(R.id.tvMessageDetailDate);
-        tvMessageDetailDate.setText(message.getCoupon_start()+" - "+message.getCoupon_end());
+        String couponStar= String.valueOf(new SimpleDateFormat("yyyy/MM/dd").format(new Date(String.valueOf(message.getCoupon_start()))));
+        String couponEnd= String.valueOf(new SimpleDateFormat("yyyy/MM/dd").format(new Date(String.valueOf(message.getCoupon_end()))));
+        tvMessageDetailDate.setText(couponStar+" - "+couponEnd);
 
         return view;
     }

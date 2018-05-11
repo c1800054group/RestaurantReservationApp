@@ -58,6 +58,9 @@ public class ReservationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_order_reservation, container, false);
 
+        TextView tvtoolBarTitle = view.findViewById(R.id.tvTool_bar_title);
+        tvtoolBarTitle.setText(R.string.text_Reservaton);
+
         findView();
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
