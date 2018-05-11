@@ -50,19 +50,18 @@
     <string name="text_MemberManager">會員管理</string>
     <string name="text_CheckWaiter">餐點</string>
     <string name="text_CheckManager">結帳系統</string>
-    <string name="typeName">訂位</string>
+    <string name="typeName">預約餐點與座位</string>
     <string name="tvNews">營業時間: 11:00 - 20:00</string>
     <string name="tvReserve">日期</string>
     <string name="tvReserveNews">開放訂位時間為一天前至一個月</string>
     <string name="dateName">日期</string>
-    <string name="typeDate">____________</string>
     <string name="btDate">選擇日期</string>
     <string name="timeName">時間</string>
     <string name="btTime">選擇時間</string>
     <string name="personName">人數</string>
     <string name="personNumber">輸入預約人數</string>
     <string name="text_order">訂位 / 點餐</string>
-    <string name="btConfirm">確認訂位</string>
+    <string name="btConfirm">確認</string>
     <string name="tvReserveResult">訂位完成後,如需取消,請三天前告知</string>
     <string name="btName">繼續點餐</string>
     <string name="msg_AccountExists">帳號已存在！！</string>
@@ -82,5 +81,9 @@
     <string name="hint_etCommentReply">請輸入回應</string>
     <string name="btRating">評價</string>
     <string name="text_ComentDelete">刪除評價</string>
+    <string name="tvReserveNews1">當天訂位請來電 02-2345678</string>
+    <string name="text_Date">2018/01/01</string>
+    <string name="text_Time">10:00</string>
+
 
 </resources>

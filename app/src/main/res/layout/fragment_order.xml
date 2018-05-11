@@ -26,11 +26,22 @@
         android:textSize="20sp" />
 
     <!--ListView定義於 item_view_order.xml-->
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/ColorListViewLine" />
     <ListView
         android:id="@+id/lvOrder"
-        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:divider="@color/ColorListViewLine"
+        android:dividerHeight="4px"
+        android:background="@color/colorWhite"/>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@color/ColorListViewLine" />
 
 
 
