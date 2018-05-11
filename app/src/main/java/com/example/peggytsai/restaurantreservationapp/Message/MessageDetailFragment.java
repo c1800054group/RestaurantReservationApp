@@ -65,7 +65,7 @@ public class MessageDetailFragment extends Fragment {
         tvMessageContent.setText(message.getMessage_content());
 
         TextView tvMessageDetailDate = view.findViewById(R.id.tvMessageDetailDate);
-        tvMessageDetailDate.setText(message.getMessage_date());
+//        tvMessageDetailDate.setText(message.getMessage_date());
 
 
 

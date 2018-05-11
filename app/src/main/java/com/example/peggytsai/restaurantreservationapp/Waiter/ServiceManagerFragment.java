@@ -177,4 +177,13 @@ public class ServiceManagerFragment extends Fragment {
 
 
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (serviceWebSocketClient != null) {
+            serviceWebSocketClient.close();
+            serviceWebSocketClient = null;
+        }
+    }
 }

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.peggytsai.restaurantreservationapp.Main.Common;
+import com.example.peggytsai.restaurantreservationapp.Other.QrCodeFragment;
 import com.example.peggytsai.restaurantreservationapp.R;
 
 import java.util.ArrayList;
@@ -48,7 +49,8 @@ public class OrderFragment extends Fragment {
                     Fragment reservationFragment = new ReservationFragment();
                     Common.switchFragment(reservationFragment, getActivity(), true);
                 } else if (position == 1) {
-                    Common.showToast(getActivity(), "現場點餐");
+                    QrCodeFragment qrCodeFragment = new QrCodeFragment();
+                    Common.switchFragment(qrCodeFragment,getActivity(),true);
 
                 } else if (position == 2) {
                     Common.showToast(getActivity(), "外送點餐");

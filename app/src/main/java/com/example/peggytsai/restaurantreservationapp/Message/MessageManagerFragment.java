@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -35,7 +36,7 @@ public class MessageManagerFragment extends Fragment {
     private MyTask messagesGetAllTask;
     private ImageButton btService;
     private BottomNavigationView navigationView;
-
+    private FloatingActionButton btAdd;
 
     @Nullable
     @Override
@@ -44,6 +45,16 @@ public class MessageManagerFragment extends Fragment {
 
         TextView tvtoolBarTitle = view.findViewById(R.id.tvTool_bar_title);
         tvtoolBarTitle.setText(R.string.text_MessageManager);
+
+        btAdd = view.findViewById(R.id.btAdd);
+
+        btAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MessageInsertFragment messageInsertFragment = new MessageInsertFragment();
+                Common.switchFragment(messageInsertFragment,getActivity(),true);
+            }
+        });
 
 
 

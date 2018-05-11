@@ -28,8 +28,8 @@
     <string name="hint_Phone">請輸入手機號碼</string>
     <string name="text_Register">註冊</string>
     <string name="msg_PasswordError">確認密碼錯誤！</string>
-    <string name="msg_InsertFail">帳號已存在！！</string>
-    <string name="msg_InsertSuccess">InsertSuccess</string>
+    <string name="msg_InsertFail">新增失敗</string>
+    <string name="msg_InsertSuccess">新增成功</string>
     <string name="text_rbMale">先生</string>
     <string name="text_rbFemale">小姐</string>
     <string name="msg_ColumnNull">欄位不得空白</string>
@@ -75,6 +75,22 @@
     <string name="hint_etName">請輸入姓名</string>
     <string name="hint_etComment">請輸入評論</string>
     <string name="text_rating_new">新增評論</string>
+    <string name="message_text_title">標題</string>
+    <string name="hint_message_title">請輸入標題</string>
+    <string name="message_text_promotion_message">優惠訊息</string>
+    <string name="hint_message_text_promotion_message">請輸入優惠訊息</string>
+    <string name="text_message_discount">折扣</string>
+    <string name="hint_message_discount">請輸入折扣</string>
+    <string name="message_text_inset_image">新增圖片</string>
+    <string name="text_save">儲存</string>
+    <string name="hint_message_start_time">請選取開始時間</string>
+    <string name="text_message_message_start_time">開始日期</string>
+    <string name="text_message_message_end_time">結束日期</string>
+    <string name="hint_message_end_time">請選取結束日期</string>
+    <string name="msg_EndDateNotLessThanStartDate">結束日期不可小於開始日期</string>
+    <string name="text_NoCameraApp">沒有相機可以使用</string>
+    <string name="msg_NoImage">無圖片</string>
+    <string name="message">優惠訊息</string>
 
 
 </resources>

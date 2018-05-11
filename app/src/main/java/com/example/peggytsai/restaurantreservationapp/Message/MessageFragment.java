@@ -23,6 +23,7 @@ import com.example.peggytsai.restaurantreservationapp.Main.MyTask;
 import com.example.peggytsai.restaurantreservationapp.R;
 import com.example.peggytsai.restaurantreservationapp.Waiter.ServiceWebSocketClient;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
@@ -94,6 +95,7 @@ public class MessageFragment extends Fragment {
     }
 
 
+    @Nullable
     private List<Message> showAllMessage() {
         if (Common.networkConnected(getActivity())) {
             String url = Common.URL + "/MessageServlet";
@@ -107,7 +109,8 @@ public class MessageFragment extends Fragment {
                 String jsonIn = messagesGetAllTask.execute().get();
                 Log.d(TAG, jsonIn);
                 Type listType = new TypeToken<List<Message>>(){ }.getType();
-                messages = new Gson().fromJson(jsonIn, listType);
+                Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").create();
+                messages = gson.fromJson(jsonIn, listType);
             } catch (Exception e) {
                 Log.e(TAG, e.toString());
             }
