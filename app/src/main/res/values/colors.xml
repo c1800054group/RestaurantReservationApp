@@ -12,6 +12,9 @@
     <color name="edPersonColor">#d2d0d0</color>
     <color name="confirmBg">#6da2e4</color>
     <color name="orderColor">#f2f4f5</color>
+    <color name="ColorListViewLine">#EDEDED</color>
+    <color name="clrDatePrimary">#005B4F</color>
+    <color name="clrDatePrimaryDark">#00897B</color>
+    <color name="clrDateAccent">#00897B</color>
 
-    
 </resources>
