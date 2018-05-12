@@ -1,9 +1,12 @@
 package com.example.peggytsai.restaurantreservationapp.Cart;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,19 +14,24 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.peggytsai.restaurantreservationapp.Main.Common;
 import com.example.peggytsai.restaurantreservationapp.Main.MyTask;
+import com.example.peggytsai.restaurantreservationapp.Menu.Coupon;
 import com.example.peggytsai.restaurantreservationapp.Menu.Menu;
 import com.example.peggytsai.restaurantreservationapp.Menu.MenuGetImageTask;
 import com.example.peggytsai.restaurantreservationapp.Menu.OrderMenu;
 import com.example.peggytsai.restaurantreservationapp.R;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -38,20 +46,57 @@ public class CartFragmentConfirm extends Fragment {
 
     private TextView text_total;
     private TextView count;
-    private TextView minus;
+    private TextView discount;
     private String money="";
     private SharedPreferences pref;
 
     private final static String TAG = "MainActivity"; //log用
     private MyTask upcartTask;
+    private MyTask getCouponTask;
 
     private TextView tt_toolbar;
     private TextView btCartText;
+    private Coupon coupon ;
+    private  List<String> list = new ArrayList<String>();
+
+    private  int total=0;
+    private  float discount_money = 1;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_cart_confirm, container, false);
+
+
+        pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
+        int memberID = pref.getInt("memberID",0);  //  會員id
+
+        if (Common.networkConnected(getActivity()) && Common.CART.size()>0) {//檢查網路連線
+
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("action", "coupon");
+            jsonObject.addProperty("memderId", memberID);
+
+            getCouponTask = new MyTask(Common.URL+"/MessageServlet", jsonObject.toString());
+            String couponString;
+            try {
+                couponString = getCouponTask.execute().get();
+                coupon = new Gson().fromJson(couponString, Coupon.class);
+
+//                Common.showToast(getActivity(),coupon.getCoupon());
+                list.add(coupon.getCoupon());
+                discount_money=coupon.getDiscount();
+
+                if(list.size()>0){
+                    pref.edit().putString("Coupon",coupon.getCoupon()).putString("Discount",String.valueOf(coupon.getDiscount())).apply();
+                }
+
+            } catch (Exception e) {
+
+            }
+        } else {
+            Common.showToast(getContext(), "text_NoNetwork");
+        }
 
         show(view);  //顯示 統計的資料
 
@@ -61,10 +106,6 @@ public class CartFragmentConfirm extends Fragment {
 
 
 
-//        pref = getActivity().getSharedPreferences("preference",getActivity().MODE_PRIVATE);
-//        pref.edit()
-//                .putString("Subtotal_main", money)
-//                .apply();
 
         return view;
 
@@ -74,13 +115,12 @@ public class CartFragmentConfirm extends Fragment {
     private void show(View view) {
 
         count = view.findViewById(R.id.count);//項目數
-        minus = view.findViewById(R.id.minus);//折價
+        discount = view.findViewById(R.id.discount);//折價
 
         count.setText(String.valueOf(Common.CART.size()));
 
-
         text_total = view.findViewById(R.id.total);        //計算並顯示
-        int total=0;
+
         for(OrderMenu orderMenu :Common.CART ){
 
             total += (  orderMenu.getQuantity() *  Integer.valueOf( orderMenu.getPrice() )   );
@@ -88,6 +128,38 @@ public class CartFragmentConfirm extends Fragment {
             Menu menu = orderMenu.getMenu();
             menus_list.add(menu);
         }
+
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.select_dialog_item,list);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("選擇優惠眷 ：");
+        builder.setPositiveButton("略過", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                connect();
+            }
+        });
+
+
+        builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                connect();
+//                discount.setText(String.valueOf(coupon.getDiscount()));
+//                total *= coupon.getDiscount();
+//
+//                discount_money= coupon.getDiscount();
+//
+//                text_total.setText(money= String.valueOf(total) );
+
+//                Common.showToast(getActivity(),String.valueOf(which+1) +". "+ list.get(which));
+
+
+            }
+        });
+        final  AlertDialog alertDialog = builder.create();
+
 
         text_total.setText(money= String.valueOf(total) );
 
@@ -100,75 +172,9 @@ public class CartFragmentConfirm extends Fragment {
             @Override
             public void onClick(View v) {
 
-                if(Common.CART.size()>0){
-
-//                    getFragmentManager().beginTransaction().replace(R.id.main_activty, new CartFragmentConfirmText()).commit();
-                    Common.switchFragment(new CartFragmentConfirmText(), getActivity(), true);
-
-                    if (Common.networkConnected(getActivity()) && Common.CART.size()>0) {//檢查網路連線
-
-                        pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
-                        int memberID = pref.getInt("memberID",0);  //  會員id
-
-                        String table_member = "";
-                        String person = "";
-                        String data = "";
-                        table_member =pref.getString("桌號","");
-
-                        person = pref.getString("人數","");
-                        data = pref.getString("日期時間","");
-
-                        if(table_member == "" && person=="" && data == ""){
-                            Common.showToast(getActivity(),"資料有錯誤  全為空值 有桌號 或 人物與時間 沒抓到資料");
-                            return;
-                        }
-
-//
-//                        if(person=="" || data=="" || person == null || data == null){
-//                            //非預定 是內用or外帶
-//                        }
-
-                        JsonObject jsonObject = new JsonObject();
-
-                        jsonObject.addProperty("action", "orderInsert");
-                        jsonObject.addProperty("cart", new Gson().toJson(  Common.CART  ));
-                        jsonObject.addProperty("total_money", money);
-
-                        jsonObject.addProperty("memberID", String.valueOf(memberID) );
-
-                        if(table_member == ""){
-                            jsonObject.addProperty("person", person);
-                            jsonObject.addProperty("data", data);
-                        }else{
-                            jsonObject.addProperty("table_member", table_member);
-                        }
 
 
-                        String oderID = "";
-
-                        upcartTask = new MyTask(Common.URL+"/OrderServlet", jsonObject.toString());
-                        upcartTask.execute();
-
-                        pref.edit().clear().apply();
-
-//                        try {
-//                            oderID = upcartTask.execute().get();
-//                        } catch (Exception e) {
-//
-//                        }
-
-                    } else {
-                        Common.showToast(getContext(), "text_NoNetwork");
-                    }
-
-
-                }else{
-
-                    Common.showToast(getContext(), "nothing select");
-
-                }
-
-
+        alertDialog.show();
 
 
             }
@@ -179,6 +185,85 @@ public class CartFragmentConfirm extends Fragment {
 
     }
 
+    private void connect() {
+
+        if(Common.CART.size()>0){
+
+//                    getFragmentManager().beginTransaction().replace(R.id.main_activty, new CartFragmentConfirmText()).commit();
+//            Common.switchFragment(new CartFragmentConfirmText(), getActivity(), true);
+
+            if (Common.networkConnected(getActivity()) && Common.CART.size()>0) {//檢查網路連線
+
+                pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
+                int memberID = pref.getInt("memberID",0);  //  會員id
+
+                String table_member = "";
+                String person = "";
+                String data = "";
+                table_member =pref.getString("桌號","");
+
+                person = pref.getString("人數","");
+                data = pref.getString("日期時間","");
+
+                if(table_member == "" && person=="" && data == ""){
+                    Common.showToast(getActivity(),"資料有錯誤  全為空值 有桌號 或 人物與時間 沒抓到資料");
+                    return;
+                }
+
+//
+//                        if(person=="" || data=="" || person == null || data == null){
+//                            //非預定 是內用or外帶
+//                        }
+                money = String.valueOf(          (int)(Integer.valueOf(money)* discount_money     )        );
+                pref.edit().putString("money",money).apply();
+
+                JsonObject jsonObject = new JsonObject();
+
+                jsonObject.addProperty("action", "orderInsert");
+                jsonObject.addProperty("cart", new Gson().toJson(  Common.CART  ));
+                jsonObject.addProperty("total_money", money);
+
+                jsonObject.addProperty("memberID", String.valueOf(memberID) );
+
+                if(table_member == ""){
+                    jsonObject.addProperty("person", person);
+                    jsonObject.addProperty("data", data);
+                }else{
+                    jsonObject.addProperty("table_member", table_member);
+                }
+
+
+                String oderID = "";
+
+                upcartTask = new MyTask(Common.URL+"/OrderServlet", jsonObject.toString());
+//                        upcartTask.execute();
+
+                try {
+                    oderID = upcartTask.execute().get();
+//                            Common.showToast(getActivity(),oderID+"first");
+                } catch (Exception e) {
+
+                }
+
+//                pref.edit().clear().apply();
+                pref.edit().putString("orderID",oderID).putString("money",money).apply();
+//                        String id = pref.getString("orderID","");
+//                        Common.showToast(getActivity(),id);
+
+                Common.switchFragment(new CartFragmentConfirmText(), getActivity(), true);
+
+            } else {
+                Common.showToast(getContext(), "text_NoNetwork");
+            }
+
+
+        }else{
+
+            Common.showToast(getContext(), "nothing select");
+
+        }
+
+    }
 
 
     public class MenuAddAdapter extends RecyclerView.Adapter<MenuAddAdapter.MyViewHolder> {
@@ -314,7 +399,8 @@ public class CartFragmentConfirm extends Fragment {
 
                         total += (  orderMenu1.getQuantity() *  Integer.valueOf( orderMenu1.getPrice() )   );
                     }
-                    text_total.setText(money=String.valueOf(total) );
+//                    text_total.setText(money=String.valueOf(  (int)( total * discount_money) )   );
+                    text_total.setText(money=String.valueOf(total));
 
                     //加入物件
                     //cope2.OrderMenu.getQuantity()' on a null object reference
