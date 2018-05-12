@@ -25,7 +25,20 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="10dp"
-            android:background="@drawable/btn_service" />
+            android:background="@drawable/btn_service"/>
+
+        <TextView
+            android:id="@+id/btMessageNew"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:paddingEnd="10dp"
+            android:text="@string/text_new"
+            android:textColor="@color/colorWhite"
+            android:textSize="20dp"
+            android:visibility="gone"/>
 
     </RelativeLayout>
 

@@ -28,8 +28,8 @@
     <string name="hint_Phone">請輸入手機號碼</string>
     <string name="text_Register">註冊</string>
     <string name="msg_PasswordError">確認密碼錯誤！</string>
-    <string name="msg_InsertFail">帳號已存在！！</string>
-    <string name="msg_InsertSuccess">InsertSuccess</string>
+    <string name="msg_InsertFail">新增失敗</string>
+    <string name="msg_InsertSuccess">新增成功</string>
     <string name="text_rbMale">先生</string>
     <string name="text_rbFemale">小姐</string>
     <string name="msg_ColumnNull">欄位不得空白</string>
@@ -50,7 +50,7 @@
     <string name="text_MemberManager">會員管理</string>
     <string name="text_CheckWaiter">餐點</string>
     <string name="text_CheckManager">結帳系統</string>
-    <string name="typeName">訂位</string>
+    <string name="typeName">預約餐點與座位</string>
     <string name="tvNews">營業時間: 11:00 - 20:00</string>
     <string name="tvReserve">日期</string>
     <string name="tvReserveNews">開放訂位時間為一天前至一個月</string>
@@ -62,7 +62,8 @@
     <string name="personName">人數</string>
     <string name="personNumber">輸入預約人數</string>
     <string name="text_order">訂位 / 點餐</string>
-    <string name="btConfirm">確認訂位</string>
+    <string name="text_Reservaton">訂位服務</string>
+    <string name="btConfirm">確認</string>
     <string name="tvReserveResult">訂位完成後,如需取消,請三天前告知</string>
     <string name="btName">繼續點餐</string>
     <string name="msg_AccountExists">帳號已存在！！</string>
@@ -73,7 +74,7 @@
     <string name="btcancelrder">取消</string>
     <string name="hint_etName">請輸入姓名</string>
     <string name="hint_etComment">請輸入評論</string>
-    <string name="text_rating_new">新增評論</string>
+    <string name="text_new">新增</string>
     <string name="msg_RatingIsInvalid">請輸入評分!</string>
     <string name="msg_CommentIsInvalid">請輸入評論!</string>
     <string name="msg_RatingInsertFail">新增失敗!請再評分一次!</string>
@@ -82,5 +83,26 @@
     <string name="hint_etCommentReply">請輸入回應</string>
     <string name="btRating">評價</string>
     <string name="text_ComentDelete">刪除評價</string>
+    <string name="message_text_title">標題</string>
+    <string name="hint_message_title">請輸入標題</string>
+    <string name="message_text_promotion_message">優惠訊息</string>
+    <string name="hint_message_text_promotion_message">請輸入優惠訊息</string>
+    <string name="text_message_discount">折扣</string>
+    <string name="hint_message_discount">請輸入折扣</string>
+    <string name="message_text_inset_image">新增圖片</string>
+    <string name="text_save">儲存</string>
+    <string name="hint_message_start_time">請選取開始時間</string>
+    <string name="text_message_message_start_time">開始日期</string>
+    <string name="text_message_message_end_time">結束日期</string>
+    <string name="hint_message_end_time">請選取結束日期</string>
+    <string name="msg_EndDateNotLessThanStartDate">結束日期不可小於開始日期</string>
+    <string name="text_NoCameraApp">沒有相機可以使用</string>
+    <string name="msg_NoImage">無圖片</string>
+    <string name="message">優惠訊息</string>
+
+    <string name="tvReserveNews1">當天訂位請來電 02-2345678</string>
+    <string name="text_Date">2018/01/01</string>
+    <string name="text_Time">10:00</string>
+
 
 </resources>

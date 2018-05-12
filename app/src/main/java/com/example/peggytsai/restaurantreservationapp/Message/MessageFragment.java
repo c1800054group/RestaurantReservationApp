@@ -1,5 +1,6 @@
 package com.example.peggytsai.restaurantreservationapp.Message;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -21,8 +22,10 @@ import android.widget.Toast;
 import com.example.peggytsai.restaurantreservationapp.Main.Common;
 import com.example.peggytsai.restaurantreservationapp.Main.MyTask;
 import com.example.peggytsai.restaurantreservationapp.R;
+import com.example.peggytsai.restaurantreservationapp.Rating.RatingNewFragment;
 import com.example.peggytsai.restaurantreservationapp.Waiter.ServiceWebSocketClient;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
@@ -30,6 +33,8 @@ import java.lang.reflect.Type;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 public class MessageFragment extends Fragment {
@@ -39,6 +44,7 @@ public class MessageFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private MyTask messagesGetAllTask;
     private ImageButton btService;
+    private TextView btMessageNew;
     private BottomNavigationView navigationView;
     private ServiceWebSocketClient serviceWebSocketClient;
 
@@ -47,33 +53,52 @@ public class MessageFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_message, container, false);
-
         TextView tvtoolBarTitle = view.findViewById(R.id.tvTool_bar_title);
-        tvtoolBarTitle.setText(R.string.text_message);
+
+        SharedPreferences pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
+        int authority_id = pref.getInt("authority_id", 1);
 
         btService = view.findViewById(R.id.btService);
-        btService.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                    Log.d("ddd","ddd");
-                Toast.makeText(getActivity(),"Text!",Toast.LENGTH_SHORT).show();
-                URI uri = null;
-                try {
-                    uri = new URI(Common.URL+"/ServerBellServer/" + "8");
-                } catch (URISyntaxException e) {
-                    Log.e(TAG, e.toString());
-                }
-                if (serviceWebSocketClient == null) {
-                    serviceWebSocketClient = new ServiceWebSocketClient(uri, getContext());
-                    serviceWebSocketClient.connect();
-                }
-                if (serviceWebSocketClient != null) {
-                    serviceWebSocketClient.close();
-                    serviceWebSocketClient = null;
-                }
-            }
-        });
+        btMessageNew = view.findViewById(R.id.btMessageNew);
 
+        if (authority_id == 4) {
+            tvtoolBarTitle.setText(R.string.text_RatingManager);
+
+            btService.setVisibility(BottomNavigationView.GONE);
+            btMessageNew.setVisibility(BottomNavigationView.VISIBLE);
+
+            btMessageNew.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    MessageInsertFragment messageInsertFragment = new MessageInsertFragment();
+                    Common.switchFragment(messageInsertFragment,getActivity(),true);
+                }
+            });
+
+        } else if (authority_id == 1) {
+            tvtoolBarTitle.setText(R.string.text_message);
+
+            btService.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getActivity(),"Text!",Toast.LENGTH_SHORT).show();
+                    URI uri = null;
+                    try {
+                        uri = new URI(Common.URL+"/ServerBellServer/" + "8");
+                    } catch (URISyntaxException e) {
+                        Log.e(TAG, e.toString());
+                    }
+                    if (serviceWebSocketClient == null) {
+                        serviceWebSocketClient = new ServiceWebSocketClient(uri, getContext());
+                        serviceWebSocketClient.connect();
+                    }
+                    if (serviceWebSocketClient != null) {
+                        serviceWebSocketClient.close();
+                        serviceWebSocketClient = null;
+                    }
+                }
+            });
+        }
 
         recyclerView = view.findViewById(R.id.rvMessage);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -94,6 +119,7 @@ public class MessageFragment extends Fragment {
     }
 
 
+    @Nullable
     private List<Message> showAllMessage() {
         if (Common.networkConnected(getActivity())) {
             String url = Common.URL + "/MessageServlet";
@@ -107,7 +133,8 @@ public class MessageFragment extends Fragment {
                 String jsonIn = messagesGetAllTask.execute().get();
                 Log.d(TAG, jsonIn);
                 Type listType = new TypeToken<List<Message>>(){ }.getType();
-                messages = new Gson().fromJson(jsonIn, listType);
+                Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").create();
+                messages = gson.fromJson(jsonIn, listType);
             } catch (Exception e) {
                 Log.e(TAG, e.toString());
             }

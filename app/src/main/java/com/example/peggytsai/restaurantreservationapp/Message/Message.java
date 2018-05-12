@@ -1,14 +1,16 @@
 package com.example.peggytsai.restaurantreservationapp.Message;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Message implements Serializable {
     private int id, coupon_id;
-    private String message_title, message_content, coupon_start, coupon_end;
+    private String message_title, message_content;
+    private Date coupon_start, coupon_end;
     private float coupon_discount;
 
     public Message(int id, String message_title, String message_content, int coupon_id, float coupon_discount,
-                   String coupon_start, String coupon_end) {
+                   Date coupon_start, Date coupon_end) {
         super();
         this.id = id;
         this.message_title = message_title;
@@ -51,19 +53,19 @@ public class Message implements Serializable {
         this.message_content = message_content;
     }
 
-    public String getCoupon_start() {
+    public Date getCoupon_start() {
         return coupon_start;
     }
 
-    public void setCoupon_start(String coupon_start) {
+    public void setCoupon_start(Date coupon_start) {
         this.coupon_start = coupon_start;
     }
 
-    public String getCoupon_end() {
+    public Date getCoupon_end() {
         return coupon_end;
     }
 
-    public void setCoupon_end(String coupon_end) {
+    public void setCoupon_end(Date coupon_end) {
         this.coupon_end = coupon_end;
     }
 

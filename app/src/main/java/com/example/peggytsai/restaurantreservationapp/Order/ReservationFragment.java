@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -18,6 +19,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -29,7 +32,12 @@ import com.example.peggytsai.restaurantreservationapp.Cart.CartFragmentShow;
 import com.example.peggytsai.restaurantreservationapp.R;
 import com.google.gson.JsonObject;
 
+import java.lang.reflect.Field;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -37,17 +45,21 @@ import static android.content.Context.MODE_PRIVATE;
 public class ReservationFragment extends Fragment {
     private final static String TAG = "ReservationFragment";
     private View view;
-    private TextView tvTimeContent, tvDateContent, edPersonNumber;
-    private Button dateButton, timeButton, confirmButton;
+    private TextView tvTimeContent, tvDateContent, edPersonNumber, confirmButton;
+    private LinearLayout dateButton, timeButton;
     private ReservationInsertTask reservationTask;
     private String jsonStr = "";
     private BottomNavigationView navigation;
+    private static int TIME_PICKER_DIALOG_TAG;
+
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_order_reservation, container, false);
 
+        TextView tvtoolBarTitle = view.findViewById(R.id.tvTool_bar_title);
+        tvtoolBarTitle.setText(R.string.text_Reservaton);
 
         findView();
         dateButton.setOnClickListener(new View.OnClickListener() {
@@ -66,6 +78,7 @@ public class ReservationFragment extends Fragment {
 
         confirmButton.setOnClickListener(new View.OnClickListener() {
             final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
             @Override
             public void onClick(View view) {
                 String date1 = tvDateContent.getText().toString().trim();
@@ -74,12 +87,12 @@ public class ReservationFragment extends Fragment {
                 if (date1.equals("____________")) {
 
                     Common.showToast(getActivity(), "請先選擇日期時間與人數");
-                }else {
+                } else {
                     insertDateData();
                     view = LayoutInflater.from(getActivity()).inflate(R.layout.custom_layout, null);
                     Button customConButton = view.findViewById(R.id.CustomConButton);
                     Button customNotButton = view.findViewById(R.id.CustomNotButton);
-                    Button CustomcancelButton = view.findViewById(R.id.CustomcancelButton);
+                    Button CustomCancelButton = view.findViewById(R.id.CustomcancelButton);
                     builder.setView(view);
 
                     final AlertDialog alertDialog = builder.show();
@@ -87,13 +100,13 @@ public class ReservationFragment extends Fragment {
                     customConButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Common.switchFragment(new CartFragmentShow(),getActivity(),true);
+                            Common.switchFragment(new CartFragmentShow(), getActivity(), true);
                             alertDialog.cancel();
                         }
                     });
 
 
-                    CustomcancelButton.setOnClickListener(new View.OnClickListener() {
+                    CustomCancelButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             alertDialog.cancel();
@@ -125,7 +138,6 @@ public class ReservationFragment extends Fragment {
 
     private void insertDateData() {
 
-
         boolean isVaild = true;
         String date = tvDateContent.getText().toString();
         if (date.trim().isEmpty()) {
@@ -143,17 +155,15 @@ public class ReservationFragment extends Fragment {
             isVaild = false;
         }
 
-
         String d = date + " " + time;
 
-        if(isVaild){ //之後提取用
+        if (isVaild) { //之後提取用
             SharedPreferences pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
             pref.edit()
-                    .putString("日期時間",d)
-                    .putString("人數",person.trim())
+                    .putString("日期時間", d)
+                    .putString("人數", person.trim())
                     .apply();
         }
-
 
 
         if (isVaild) {
@@ -184,7 +194,6 @@ public class ReservationFragment extends Fragment {
 
         }
 
-
     }
 
     private void findView() {
@@ -204,32 +213,103 @@ public class ReservationFragment extends Fragment {
         int yy = calendar.get(Calendar.YEAR);
         int mm = calendar.get(Calendar.MONTH);
         int dd = calendar.get(Calendar.DAY_OF_MONTH);
-        new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int y, int m, int d) {
-                m = m + 1;
-                tvDateContent.setText(y + "-" + m + "-" + d);
+                //個位數補0
+                int m1 = m + 1;
+                String month = m1 < 10 ? "/0" + m1 : "/" + m1;
+                String date = d < 10 ? "/0" + d : "/" + d;
+
+                tvDateContent.setText(y + month + date);
+
             }
-        }
-                , yy, mm, dd).show();
+        }, yy, mm, dd);
+
+        DatePicker dp = datePickerDialog.getDatePicker();
+
+        //設定最早時間為明天
+        calendar.add(Calendar.DAY_OF_MONTH, 1);
+        dp.setMinDate(calendar.getTimeInMillis());
+
+        //設定最久時間為4週後
+        calendar.add(Calendar.DAY_OF_WEEK_IN_MONTH, 4);
+        dp.setMaxDate(calendar.getTimeInMillis());
+
+        datePickerDialog.show();
+
     }
 
     private void showTime() {
         final Calendar calendar = Calendar.getInstance();
+//        Min
         int hh = calendar.get(Calendar.HOUR_OF_DAY);
         int mmm = calendar.get(Calendar.MINUTE);
         new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int i, int i1) {
+
                 tvTimeContent.setText(i + ":" + i1 + ":" + "00");
             }
         }
                 , hh, mmm, true).show();
 
+//        TimePicker tp = timePickerDialog.getDatePicker();
+//
+//        //設定最早時間為明天
+//        calendar.add(Calendar.HOUR_OF_DAY,10);
+//        tp.setHour(calendar.getTimeInMillis());
+//
+//        //設定最久時間為4週後
+//        calendar.add(Calendar.DAY_OF_WEEK_IN_MONTH,4);
+//        dp.setMaxDate(calendar.getTimeInMillis());
+
+//
+//        minutePicker = (NumberPicker) timePicker
+//                .findViewById(field.getInt(null));
+//
+//        minutePicker.setMinValue(0);
+//        minutePicker.setMaxValue(3);
+//
+//
+//        datePickerDialog.show();
+
+//        TIME_PICKER_DIALOG_TAG = 2;
+//
+//        Calendar now = Calendar.getInstance();
+//
+//        TimePickerDialog tpd = TimePickerDialog.newInstance(
+//                getActivity().AddTaskActivity.this,
+//                now.get(Calendar.HOUR_OF_DAY),
+//                now.get(Calendar.MINUTE),
+//                mHoursMode
+//        );
+//
+//        tpd.setOnCancelListener(new DialogInterface.OnCancelListener() {
+//            @Override
+//            public void onCancel(DialogInterface dialogInterface) {
+//                Log.d("TimePicker", "Dialog was cancelled");
+//            }
+//        });
+//        tpd.show(getFragmentManager(), "Timepickerdialog");
+
+//        TimePicker tp = (TimePicker)this.findViewById(R.id.timePicker);
+//
+//        java.util.Formatter timeF = new java.util.Formatter();
+//        timeF.format("Time defaulted to %d:%02d", tp.getCurrentHour(),
+//                tp.getCurrentMinute());
+//        timeDefault.setText(timeF.toString());
+//
+//        tp.setIs24HourView(true);
+//        tp.setCurrentHour(new Integer(10));
+//        tp.setCurrentMinute(new Integer(10));
+
     }
 
 
-    public static class DatePickerDialogFragment extends android.support.v4.app.DialogFragment implements DatePickerDialog.OnDateSetListener {
+    public static class DatePickerDialogFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
         @NonNull
         @Override
@@ -239,8 +319,8 @@ public class ReservationFragment extends Fragment {
             int mMonth = calendar.get(Calendar.MONTH);
             int mDay = calendar.get(Calendar.DAY_OF_MONTH);
             MainActivity activity = (MainActivity) getActivity();
-            return new DatePickerDialog(getActivity(), this, mYear, mMonth, mDay);
 
+            return new DatePickerDialog(getActivity(), this, mYear, mMonth, mDay);
         }
 
         @Override
@@ -252,23 +332,103 @@ public class ReservationFragment extends Fragment {
     }
 
 
-    public static class TimePickerDialogFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
+//    public static class TimePickerDialogFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
+//
+//        @NonNull
+//        @Override
+//        public Dialog onCreateDialog(Bundle savedInstanceState) {
+//            final Calendar calendar = Calendar.getInstance();
+//            int mHour = calendar.get(Calendar.HOUR_OF_DAY);
+//            int mMinute = calendar.get(Calendar.MINUTE);
+//            MainActivity activity = (MainActivity) getActivity();
+//            return new TimePickerDialog(getActivity(), this, mHour, mMinute, false);
+//        }
+//
+//        @Override
+//        public void onTimeSet(TimePicker timePicker, int hh, int mmm) {
+//
+//            String hourString = hh < 10 ? "0"+hh : ""+hh;
+//            String minuteString = mmm < 10 ? "0"+mmm : ""+mmm;
+//
+//
+//            SimpleDateFormat df = new SimpleDateFormat("hh:mm a");
+//            Calendar mCalendar = Calendar.getInstance();
+//            mCalendar.set(Calendar.HOUR_OF_DAY, hh);
+//            mCalendar.set(Calendar.MINUTE, mmm);
+//            mCalendar.set(Calendar.SECOND,0);
+//
+////            Date date = mCalendar.getTime();
+////            if(TIME_PICKER_DIALOG_TAG == 2) {
+////                alertTime.setText(df.format(date));
+////            }else if(TIME_PICKER_DIALOG_TAG  == 4){
+////                dueTime.setText(df.format(date));
+////            }
+//
+//        }
+//
+//
+//    }
 
-        @NonNull
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            final Calendar calendar = Calendar.getInstance();
-            int mHour = calendar.get(Calendar.HOUR_OF_DAY);
-            int mMinute = calendar.get(Calendar.MINUTE);
-            MainActivity activity = (MainActivity) getActivity();
-            return new TimePickerDialog(getActivity(), this, mHour, mMinute, false);
+
+    public class CustomTimePickerDialog extends TimePickerDialog {
+
+        private final static int TIME_PICKER_INTERVAL = 5;
+        private TimePicker mTimePicker;
+        private final OnTimeSetListener mTimeSetListener;
+        private final boolean mIs24HourView;
+
+        public CustomTimePickerDialog(Context context, OnTimeSetListener listener,
+                                      int hourOfDay, int minute, boolean is24HourView) {
+            super(context, TimePickerDialog.THEME_HOLO_LIGHT, null, hourOfDay,
+                    minute / TIME_PICKER_INTERVAL, is24HourView);
+            mTimeSetListener = listener;
+            mIs24HourView = false;
         }
 
         @Override
-        public void onTimeSet(TimePicker timePicker, int hh, int mmm) {
-
+        public void updateTime(int hourOfDay, int minuteOfHour) {
+            mTimePicker.setCurrentHour(hourOfDay);
+            mTimePicker.setCurrentMinute(minuteOfHour / TIME_PICKER_INTERVAL);
         }
 
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            switch (which) {
+                case BUTTON_POSITIVE:
+                    if (mTimeSetListener != null) {
+                        mTimeSetListener.onTimeSet(mTimePicker, mTimePicker.getCurrentHour(),
+                                mTimePicker.getCurrentMinute() * TIME_PICKER_INTERVAL);
+                    }
+                    break;
+                case BUTTON_NEGATIVE:
+                    cancel();
+                    break;
+            }
+        }
+
+        @Override
+        public void onAttachedToWindow() {
+            super.onAttachedToWindow();
+            try {
+                Class<?> classForid = Class.forName("com.android.internal.R$id");
+                Field timePickerField = classForid.getField("timePicker");
+                mTimePicker = (TimePicker) findViewById(timePickerField.getInt(null));
+                Field field = classForid.getField("minute");
+
+                NumberPicker minuteSpinner = (NumberPicker) mTimePicker
+                        .findViewById(field.getInt(null));
+                minuteSpinner.setMinValue(0);
+                minuteSpinner.setMaxValue((60 / TIME_PICKER_INTERVAL) - 1);
+                List<String> displayedValues = new ArrayList<>();
+                for (int i = 0; i < 60; i += TIME_PICKER_INTERVAL) {
+                    displayedValues.add(String.format("%02d", i));
+                }
+                minuteSpinner.setDisplayedValues(displayedValues
+                        .toArray(new String[displayedValues.size()]));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 

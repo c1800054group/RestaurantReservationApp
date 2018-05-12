@@ -28,7 +28,7 @@
             android:paddingEnd="10dp"
             android:text="儲存"
             android:textColor="@color/colorWhite"
-            android:textSize="20sp" />
+            android:textSize="20dp" />
 
     </RelativeLayout>
 
