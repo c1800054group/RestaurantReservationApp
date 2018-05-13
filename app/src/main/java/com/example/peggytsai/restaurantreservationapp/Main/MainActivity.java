@@ -14,6 +14,7 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 
 import com.example.peggytsai.restaurantreservationapp.Cart.CartFragmentConfirmText;
+import com.example.peggytsai.restaurantreservationapp.Cart.CartFragmentShow;
 import com.example.peggytsai.restaurantreservationapp.Check.CheckFragment;
 import com.example.peggytsai.restaurantreservationapp.Check.CheckManagerFragment;
 import com.example.peggytsai.restaurantreservationapp.Check.CheckWaiterFragment;
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                 //Customer menu item
                 case R.id.item_Message:
                     fragment = new MessageFragment();
-                    switchFragment(fragment);
+//                    switchFragment(fragment);
                     setTitle(R.string.text_message);
                     return true;
                 case R.id.item_Menu:
@@ -159,6 +160,12 @@ public class MainActivity extends AppCompatActivity {
                 ((CartFragmentConfirmText) current_Fragment).KeyDown();
                 return true;
             }
+
+            if (current_Fragment instanceof CartFragmentShow) {
+                ((CartFragmentShow) current_Fragment).KeyDown();
+                return true;
+            }
+
         }
 
         return super.onKeyDown(keyCode, event);

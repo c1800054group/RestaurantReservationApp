@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,8 +26,11 @@ import com.example.peggytsai.restaurantreservationapp.Menu.OrderMenu;
 import com.example.peggytsai.restaurantreservationapp.Order.OrderFragment;
 import com.example.peggytsai.restaurantreservationapp.R;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +51,7 @@ public class CartFragmentConfirmText extends Fragment {
     private List<OrderMenu> menus_list = new ArrayList<>();
 
     private MyTask getTimestamp;
+
 
     @Nullable
     @Override
@@ -80,7 +85,8 @@ public class CartFragmentConfirmText extends Fragment {
         btCartText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Common.CART.clear();
+                Common.switchFragment(new OrderFragment(), getActivity(), true);
             }
         });
 
@@ -88,26 +94,40 @@ public class CartFragmentConfirmText extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));//MainActivity.this
         recyclerView.setAdapter(  new ShowAdapter(menus_list, getContext()));
 
+        if(orderID!=""){
 
-        if (Common.networkConnected(getActivity()) && Common.CART.size()>0) {//檢查網路連線
+            if (Common.networkConnected(getActivity()) && Common.CART.size()>0) {//檢查網路連線
 
-            JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("action", "getTimestamp");
-            jsonObject.addProperty("orderId", orderID);
+                JsonObject jsonObject = new JsonObject();
+                jsonObject.addProperty("action", "getTimestamp");
+                jsonObject.addProperty("orderId", orderID);
 
-            getTimestamp = new MyTask(Common.URL+"/OrderServlet", jsonObject.toString());
-            String Timestamp;
-            try {
-                Timestamp = getTimestamp.execute().get();
-                date.setText(Timestamp);
+                getTimestamp = new MyTask(Common.URL+"/OrderServlet", jsonObject.toString());
+
+                String result;
+
+                Timestamp timestamp = null;
+                String Timejson;
+                try {
 
 
-            } catch (Exception e) {
+                    result = getTimestamp.execute().get();
 
+                    date.setText(result);
+
+
+                } catch (Exception e) {
+
+                }
+            } else {
+                Common.showToast(getContext(), "text_NoNetwork");
             }
-        } else {
-            Common.showToast(getContext(), "text_NoNetwork");
+
+
         }
+
+
+        pref.edit().putString("桌號","").putString("人數","").putString("日期時間","").putString("Coupon","").putString("Discount","").putString("money",""); //clear
 
 
 

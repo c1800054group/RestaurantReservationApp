@@ -142,7 +142,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
                 //加入物件
                 //cope2.OrderMenu.getQuantity()' on a null object reference
 //                Toast.makeText(context, String.valueOf( orderMenu.getQuantity()  ), Toast.LENGTH_SHORT).show();
-                Toast.makeText(context, String.valueOf( Common.CART.size()  ), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, String.valueOf( Common.CART.size()  ), Toast.LENGTH_SHORT).show();
 
 
             }//onClick(View v) {

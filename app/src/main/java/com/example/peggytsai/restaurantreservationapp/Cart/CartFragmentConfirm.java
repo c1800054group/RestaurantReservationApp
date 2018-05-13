@@ -6,11 +6,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.speech.tts.TextToSpeech;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,14 +27,13 @@ import com.example.peggytsai.restaurantreservationapp.Menu.MenuGetImageTask;
 import com.example.peggytsai.restaurantreservationapp.Menu.OrderMenu;
 import com.example.peggytsai.restaurantreservationapp.R;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -61,6 +60,9 @@ public class CartFragmentConfirm extends Fragment {
 
     private  int total=0;
     private  float discount_money = 1;
+
+    private List<Menu> no_menu_list = new ArrayList();
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -85,7 +87,7 @@ public class CartFragmentConfirm extends Fragment {
 
 //                Common.showToast(getActivity(),coupon.getCoupon());
                 list.add(coupon.getCoupon());
-                discount_money=coupon.getDiscount();
+
 
                 if(list.size()>0){
                     pref.edit().putString("Coupon",coupon.getCoupon()).putString("Discount",String.valueOf(coupon.getDiscount())).apply();
@@ -136,6 +138,7 @@ public class CartFragmentConfirm extends Fragment {
         builder.setPositiveButton("略過", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                pref.edit().putString("Discount","").apply();
                 connect();
             }
         });
@@ -145,6 +148,7 @@ public class CartFragmentConfirm extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
+                discount_money=coupon.getDiscount();
                 connect();
 //                discount.setText(String.valueOf(coupon.getDiscount()));
 //                total *= coupon.getDiscount();
@@ -233,20 +237,86 @@ public class CartFragmentConfirm extends Fragment {
                 }
 
 
-                String oderID = "";
+                String oderID_re = "";
 
                 upcartTask = new MyTask(Common.URL+"/OrderServlet", jsonObject.toString());
 //                        upcartTask.execute();
 
                 try {
-                    oderID = upcartTask.execute().get();
+                    oderID_re = upcartTask.execute().get();
 //                            Common.showToast(getActivity(),oderID+"first");
                 } catch (Exception e) {
 
                 }
+                    Gson gson = new GsonBuilder().setDateFormat("yyyy-mm-dd hh:mm:ss").create();
+                    JsonObject jsonObject_return = gson.fromJson(oderID_re.toString(),JsonObject.class);
+
+                    if(jsonObject_return.get("orderId")!=null) {
+                        oderID_re = jsonObject_return.get("orderId").getAsString();
+                        Log.d("ss1",oderID_re);
+//                        date.setText( s1 );
+                    }else if(jsonObject_return.get("list_no_stock")!=null) {
+
+                        try {
+                            Type listType = new TypeToken<List<Menu>>() {
+                            }.getType();
+
+                            no_menu_list  = new Gson().fromJson(jsonObject_return.get("list_no_stock").getAsString(),listType);
+
+                            Log.d("ss1",oderID_re);
+                            oderID_re="";
+//                            Common.showToast(getActivity(),"訂單沒有建立成功");
+
+//                            if(no_menu_list.size()>0){
+                                String textout="";
+                                int j=0;
+                                int menu_id=0;
+                                for( Menu menu : no_menu_list){
+//                                Common.showToast(getActivity(),String.valueOf( i ));
+                                    j++;
+//                                    if(i==1){
+//                                        i=0;
+//                                    }
+
+                                    menu_id =  Common.CART.indexOf(menu);
+                                    Common.CART.get(menu_id).setQuantity(0);
+
+                                    if(j==1){
+                                        textout += String.valueOf(Common.CART.get(menu_id).getName()) + " 缺貨喔";
+                                    }else{
+                                        textout += "\n"+String.valueOf(Common.CART.get(menu_id).getName()) + " 缺貨喔";
+                                    }
+
+                                }
+                                Common.showToast(getActivity(),String.valueOf( textout ));
+//                            }
+
+                        }catch (Exception e){
+                            Log.d("ss1",e.toString());
+
+                        }
+
+                        Common.switchFragment(new CartFragmentShow(), getActivity(), false);
+                        return;
+
+
+
+
+
+                    }else{
+                        Log.d("ss1",oderID_re);
+                        oderID_re="";
+                        Common.showToast(getActivity(),"沒有取得 json文字");
+                        return;
+                    }
+
+
+
+
+
 
 //                pref.edit().clear().apply();
-                pref.edit().putString("orderID",oderID).putString("money",money).apply();
+                pref.edit().putString("orderID",oderID_re).putString("money",money).apply();
 //                        String id = pref.getString("orderID","");
 //                        Common.showToast(getActivity(),id);
 
