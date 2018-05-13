@@ -111,8 +111,8 @@ public class CartFragmentShow extends Fragment {
 
     public void KeyDown() {
 
-        Common.switchFragment(new OrderFragment(), getActivity(), true);
-        Common.CART.clear();
+        Common.switchFragment(new OrderFragment(), getActivity(), false);
+//        Common.CART.clear();
     }
 
     private class MyPagerAdapter extends FragmentPagerAdapter {

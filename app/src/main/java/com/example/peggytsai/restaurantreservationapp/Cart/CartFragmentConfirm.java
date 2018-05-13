@@ -267,29 +267,24 @@ public class CartFragmentConfirm extends Fragment {
                             oderID_re="";
 //                            Common.showToast(getActivity(),"訂單沒有建立成功");
 
-//                            if(no_menu_list.size()>0){
                                 String textout="";
                                 int j=0;
                                 int menu_id=0;
                                 for( Menu menu : no_menu_list){
-//                                Common.showToast(getActivity(),String.valueOf( i ));
-                                    j++;
-//                                    if(i==1){
-//                                        i=0;
-//                                    }
-
+                                    j++;  //display
                                     menu_id =  Common.CART.indexOf(menu);
-                                    Common.CART.get(menu_id).setQuantity(0);
+//                                    Common.CART.get(menu_id).setQuantity(0);
 
                                     if(j==1){
                                         textout += String.valueOf(Common.CART.get(menu_id).getName()) + " 缺貨喔";
                                     }else{
                                         textout += "\n"+String.valueOf(Common.CART.get(menu_id).getName()) + " 缺貨喔";
                                     }
+                                    Common.CART.remove(menu_id);
 
                                 }
                                 Common.showToast(getActivity(),String.valueOf( textout ));
-//                            }
+
 
                         }catch (Exception e){
                             Log.d("ss1",e.toString());
