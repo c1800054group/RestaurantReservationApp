@@ -1,23 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <include layout="@layout/tool_bar_title"></include>
 
+    <RelativeLayout
+        android:id="@+id/rv_btRegister"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        tools:ignore="RtlCompat">
 
-    <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="16dp"
-        android:layout_gravity="center"
-        android:src="@drawable/pot" />
+        <TextView
+            android:id="@+id/btRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/tvTool_bar_title"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:paddingEnd="10dp"
+            android:text="@string/text_Register"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/rv_btRegister">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="center"
+            android:padding="6dp"
+            android:src="@drawable/pic_pot"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:orientation="horizontal">
@@ -26,15 +66,17 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="@string/text_name"
+            android:textColor="@color/colorContent"
             android:textSize="20dp"/>
 
         <EditText
             android:id="@+id/etInputName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="5dp"
             android:hint="@string/hint_insertName"
-            android:textSize="20dp"/>
+            android:textSize="20dp"
+            tools:ignore="RtlCompat" />
 
     </LinearLayout>
 
@@ -49,6 +91,7 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="@string/text_title"
+            android:textColor="@color/colorContent"
             android:textSize="20dp"/>
 
         <RadioGroup
@@ -56,7 +99,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginStart="16dp">
+            android:layout_marginStart="5dp"
+            tools:ignore="RtlCompat">
 
             <RadioButton
                 android:id="@+id/rbMale"
@@ -89,15 +133,18 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="@string/text_account"
-            android:textSize="20dp"/>
+            android:textSize="20dp"
+            android:textColor="@color/colorContent"
+            tools:ignore="RtlCompat" />
 
         <EditText
             android:id="@+id/etInputAccount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="5dp"
             android:hint="@string/hint_etUser"
-            android:textSize="20dp"/>
+            android:textSize="20dp"
+            tools:ignore="RtlCompat" />
     </LinearLayout>
 
     <LinearLayout
@@ -111,16 +158,18 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="@string/text_password"
+            android:textColor="@color/colorContent"
             android:textSize="20dp" />
 
         <EditText
             android:id="@+id/etInputPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="5dp"
             android:hint="@string/hint_etPassword"
             android:inputType="textPassword"
-            android:textSize="20dp"/>
+            android:textSize="20dp"
+            tools:ignore="RtlCompat" />
     </LinearLayout>
 
     <LinearLayout
@@ -134,16 +183,18 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="@string/text_CheckPassword"
+            android:textColor="@color/colorContent"
             android:textSize="20dp"/>
 
         <EditText
             android:id="@+id/etInputCheckPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="5dp"
             android:hint="@string/hint_CheckPassword"
             android:inputType="textPassword"
-            android:textSize="20dp"/>
+            android:textSize="20dp"
+            tools:ignore="RtlCompat" />
     </LinearLayout>
 
     <LinearLayout
@@ -157,33 +208,22 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="@string/text_Phone"
+            android:textColor="@color/colorContent"
             android:textSize="20dp"/>
 
         <EditText
             android:id="@+id/etInputPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="5dp"
             android:hint="@string/hint_Phone"
             android:inputType="number"
-            android:textSize="20dp"/>
+            android:textSize="20dp"
+            tools:ignore="RtlCompat" />
     </LinearLayout>
 
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/btRegister"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/button_menus"
-        android:text="@string/text_Register" />
+    </ScrollView>
 
-    <TextView
-        android:id="@+id/tvRegisterMessage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp" />
-
-</LinearLayout>
+</RelativeLayout>

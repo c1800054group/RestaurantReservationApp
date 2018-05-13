@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                 //Customer menu item
                 case R.id.item_Message:
                     fragment = new MessageFragment();
-//                    switchFragment(fragment);
+                    switchFragment(fragment);
                     setTitle(R.string.text_message);
                     return true;
                 case R.id.item_Menu:

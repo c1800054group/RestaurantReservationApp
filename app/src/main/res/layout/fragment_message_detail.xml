@@ -105,12 +105,13 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/msg_MessageWarning"
                 android:textColor="@color/colorWarning"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                tools:ignore="RtlCompat" />
 
             <Button
                 android:id="@+id/btCoupon"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginEnd="70dp"
@@ -119,7 +120,8 @@
                 android:text="領取優惠卷"
                 android:textColor="@color/colorWhite"
                 android:background="@drawable/button_corners"
-                android:textSize="25dp" />
+                android:textSize="20dp"
+                tools:ignore="RtlCompat" />
 
         </LinearLayout>
 

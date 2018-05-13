@@ -8,7 +8,7 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginTop="80dp"
-        android:src="@drawable/pot"
+        android:src="@drawable/pic_pot"
         android:layout_gravity="center"/>
 
     <EditText
@@ -43,16 +43,18 @@
         android:layout_height="wrap_content"
         android:text="@string/text_forget_password"
         android:gravity="center"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="20dp" />
 
     <Button
         android:id="@+id/btLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_menus"
-        android:layout_marginTop="16dp"
+        android:background="@drawable/button_corners"
+        android:layout_marginTop="40dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
+        android:textSize="25dp"
+        android:textColor="@color/colorWhite"
         android:text="@string/text_Login" />
 
     <TextView
@@ -61,12 +63,6 @@
         android:layout_height="wrap_content"
         android:text="@string/text_register"
         android:gravity="center"
-        android:layout_marginTop="16dp" />
-
-    <TextView
-        android:id="@+id/tvMessage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="20dp" />
 
 </LinearLayout>

@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
 public class RegisterFragment extends Fragment {
     private View view;
     private EditText etInputName,etInputAccount,etInputPassword,etInputCheckPassword,etInputPhone;
-    private Button btRegister;
+    private TextView btRegister;
     private RadioGroup rgGender;
     private final static String TAG = "RegisterFragment";
     private String sex = "1";
@@ -73,19 +73,29 @@ public class RegisterFragment extends Fragment {
                 String phone = etInputPhone.getText().toString().trim();
                 //判斷email格式
                 String EMAIL_REGEX ="^\\w+\\.*\\w+@(\\w+\\.){1,5}[a-zA-Z]{2,3}$";
-                if (!email.matches(EMAIL_REGEX)){
-                    Common.showToast(getActivity(),"email格式錯誤");
+                if (name.length()<= 0){
+                    Common.showToast(getActivity(), R.string.msg_InvalidName);
                     return;
                 }
 
-                if (name.length()<= 0 || email.length()<=0 || password.length()<=0 || phone.length()<=0){
-                    Common.showToast(getActivity(), R.string.msg_ColumnNull);
+                if (!email.matches(EMAIL_REGEX)){
+                    Common.showToast(getActivity(),"email格式錯誤");
                     return;
                 }
 
                 //再次確認密碼
                 if (!password.equals(checkPassword)){
                     Common.showToast(getActivity(), R.string.msg_PasswordError);
+                    return;
+                }
+
+                if (password.length()<4){
+                    Common.showToast(getActivity(), R.string.msg_InvalidPassword);
+                    return;
+                }
+
+                if (phone.length()<= 0){
+                    Common.showToast(getActivity(),R.string.msg_InvalidPhone);
                     return;
                 }
 
