@@ -6,18 +6,18 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:datePickerDialogTheme" tools:ignore="NewApi">@style/DatepickerTheme</item>
-        <item name="android:timePickerDialogTheme" tools:ignore="NewApi">@style/TimepickerTheme</item>
+        <item name="android:datePickerDialogTheme" tools:ignore="NewApi">@style/DatePickerTheme</item>
+        <item name="android:timePickerDialogTheme" tools:ignore="NewApi">@style/TimePickerTheme</item>
     </style>
 
 
-    <style name="DatepickerTheme" parent="Theme.AppCompat.Light.Dialog">
+    <style name="DatePickerTheme" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorPrimary">@color/clrDatePrimary</item>
         <item name="colorPrimaryDark">@color/clrDatePrimaryDark</item>
         <item name="colorAccent">@color/clrDateAccent</item>
     </style>
 
-    <style name="TimepickerTheme" parent="Theme.AppCompat.Light.Dialog">
+    <style name="TimePickerTheme" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorPrimary">@color/clrDatePrimary</item>
         <item name="colorPrimaryDark">@color/clrDatePrimaryDark</item>
         <item name="colorAccent">@color/clrDateAccent</item>

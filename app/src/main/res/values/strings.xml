@@ -20,7 +20,7 @@
     <string name="text_name">姓名</string>
     <string name="hint_insertName">請輸入姓名</string>
     <string name="text_title">稱謂</string>
-    <string name="text_account">帳號</string>
+    <string name="text_account">帳&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;號</string>
     <string name="text_password">密     碼</string>
     <string name="text_CheckPassword">確認密碼</string>
     <string name="hint_CheckPassword">請再次輸入密碼</string>
@@ -51,15 +51,15 @@
     <string name="text_CheckWaiter">餐點</string>
     <string name="text_CheckManager">結帳系統</string>
     <string name="typeName">預約餐點與座位</string>
-    <string name="tvNews">營業時間: 11:00 - 20:00</string>
+    <string name="tvNews">營業時間: 11:00 - 21:00</string>
     <string name="tvReserve">日期</string>
     <string name="tvReserveNews">開放訂位時間為一天前至一個月</string>
-    <string name="dateName">日期</string>
+    <string name="dateName">日&#160;期</string>
     <string name="typeDate">____________</string>
     <string name="btDate">選擇日期</string>
-    <string name="timeName">時間</string>
+    <string name="timeName">時&#160;間</string>
     <string name="btTime">選擇時間</string>
-    <string name="personName">人數</string>
+    <string name="personName">人&#160;數</string>
     <string name="personNumber">輸入預約人數</string>
     <string name="text_order">訂位 / 點餐</string>
     <string name="text_Reservaton">訂位服務</string>
@@ -68,7 +68,7 @@
     <string name="btName">繼續點餐</string>
     <string name="msg_AccountExists">帳號已存在！！</string>
     <string name="text_LiveOrdering">現場點餐</string>
-    <string name="btnotorder">定位不點餐</string>
+    <string name="btnotorder">訂位不點餐</string>
     <string name="btContinueOrder">繼續點餐</string>
     <string name="btContOrder">繼續點餐</string>
     <string name="btcancelrder">取消</string>
@@ -101,8 +101,9 @@
     <string name="message">優惠訊息</string>
 
     <string name="tvReserveNews1">當天訂位請來電 02-2345678</string>
-    <string name="text_Date">2018/01/01</string>
-    <string name="text_Time">10:00</string>
+    <string name="text_Date">0000/00/00</string>
+    <string name="text_Time">00:00</string>
+    <string name="text_Person">0人</string>
 
 
 </resources>

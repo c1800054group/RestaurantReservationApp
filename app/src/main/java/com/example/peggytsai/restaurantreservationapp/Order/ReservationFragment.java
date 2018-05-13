@@ -4,8 +4,6 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -20,9 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
-import android.widget.NumberPicker;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.peggytsai.restaurantreservationapp.Main.Common;
@@ -32,12 +28,7 @@ import com.example.peggytsai.restaurantreservationapp.Cart.CartFragmentShow;
 import com.example.peggytsai.restaurantreservationapp.R;
 import com.google.gson.JsonObject;
 
-import java.lang.reflect.Field;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -45,8 +36,8 @@ import static android.content.Context.MODE_PRIVATE;
 public class ReservationFragment extends Fragment {
     private final static String TAG = "ReservationFragment";
     private View view;
-    private TextView tvTimeContent, tvDateContent, edPersonNumber, confirmButton;
-    private LinearLayout dateButton, timeButton;
+    private TextView tvTimeContent, tvDateContent, confirmButton ,edPersonNumber;
+    private LinearLayout dateButton, timeButton, personButton;
     private ReservationInsertTask reservationTask;
     private String jsonStr = "";
     private BottomNavigationView navigation;
@@ -66,13 +57,25 @@ public class ReservationFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 showDate();
+                tvDateContent.setVisibility(TextView.VISIBLE);
             }
         });
+
 
         timeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showTime();
+                tvTimeContent.setVisibility(TextView.VISIBLE);
+            }
+        });
+
+        personButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                showPerson();
+                edPersonNumber.setVisibility(TextView.VISIBLE);
             }
         });
 
@@ -82,17 +85,32 @@ public class ReservationFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 String date1 = tvDateContent.getText().toString().trim();
+                String time1 = tvTimeContent.getText().toString().trim();
+                String person1 = edPersonNumber.getText().toString().trim();
 
                 Log.d("date1: ", date1);
-                if (date1.equals("____________")) {
-
-                    Common.showToast(getActivity(), "請先選擇日期時間與人數");
+                if (date1.trim().isEmpty() && time1.trim().isEmpty() && person1.trim().isEmpty()) {
+                    Common.showToast(getActivity(), "日期、時間與人數尚未填寫");
+                } else if (date1.trim().isEmpty() && time1.trim().isEmpty()) {
+                    Common.showToast(getActivity(), "日期與時間尚未填寫");
+                } else if (date1.trim().isEmpty() && person1.trim().isEmpty()) {
+                    Common.showToast(getActivity(), "日期與人數尚未填寫");
+                } else if (date1.trim().isEmpty() && time1.trim().isEmpty()) {
+                    Common.showToast(getActivity(), "日期與時間尚未填寫");
+                } else if (time1.trim().isEmpty() && person1.trim().isEmpty()) {
+                    Common.showToast(getActivity(), "時間與人數尚未填寫");
+                } else if (date1.trim().isEmpty()) {
+                    Common.showToast(getActivity(), "日期尚未填寫");
+                } else if (time1.trim().isEmpty()) {
+                    Common.showToast(getActivity(), "時間尚未填寫");
+                } else if (person1.trim().isEmpty()) {
+                    Common.showToast(getActivity(), "人數尚未填寫");
                 } else {
                     insertDateData();
                     view = LayoutInflater.from(getActivity()).inflate(R.layout.custom_layout, null);
                     Button customConButton = view.findViewById(R.id.CustomConButton);
                     Button customNotButton = view.findViewById(R.id.CustomNotButton);
-                    Button CustomCancelButton = view.findViewById(R.id.CustomcancelButton);
+                    Button CustomCancelButton = view.findViewById(R.id.CustomCancelButton);
                     builder.setView(view);
 
                     final AlertDialog alertDialog = builder.show();
@@ -116,15 +134,28 @@ public class ReservationFragment extends Fragment {
                         @Override
                         public void onClick(View v) {
                             alertDialog.dismiss();
-                            insertDateData();
-                            AlertDialog alertDialog1 = new AlertDialog.Builder(getActivity()).create();
-                            alertDialog1.setMessage("定位完成 若要稍後點餐,請至訂單查詢修改");
-                            alertDialog1.setButton(DialogInterface.BUTTON_POSITIVE, "返回主頁", new DialogInterface.OnClickListener() {
-                                @Override
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                            builder.setTitle("訂位完成");
+                            builder.setMessage("若要稍後點餐\n請至\"訂單查詢\"修改");
+                            builder.setNegativeButton("前往訂單查詢", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Common.showToast(getActivity(), "請先選擇日期時間與人數");
+                                    navigation.setSelectedItemId(R.id.item_Check);
                                 }
                             });
+
+                            builder.setPositiveButton("返回優惠訊息", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    navigation.setSelectedItemId(R.id.item_Message);
+                                }
+                            });
+
+                            AlertDialog alertDialog1 = builder.create();
+                            alertDialog1.show();
+                            Button nbutton = alertDialog1.getButton(DialogInterface.BUTTON_NEGATIVE);
+                            nbutton.setTextColor(getResources().getColor(R.color.colorButton));
+                            Button pbutton = alertDialog1.getButton(DialogInterface.BUTTON_POSITIVE);
+                            pbutton.setTextColor(getResources().getColor(R.color.colorButton));
+
                         }
                     });
                 }
@@ -139,17 +170,17 @@ public class ReservationFragment extends Fragment {
     private void insertDateData() {
 
         boolean isVaild = true;
-        String date = tvDateContent.getText().toString();
+        String date = tvDateContent.getHint().toString();
         if (date.trim().isEmpty()) {
-            tvTimeContent.setError("請選擇這日期");
+            tvTimeContent.setError("請選擇日期");
             isVaild = false;
         }
-        String time = tvTimeContent.getText().toString();
+        String time = tvTimeContent.getHint().toString();
         if (time.trim().isEmpty()) {
             tvTimeContent.setError("請選擇時間");
             isVaild = false;
         }
-        String person = edPersonNumber.getText().toString();
+        String person = edPersonNumber.getHint().toString();
         if (person.trim().isEmpty()) {
             edPersonNumber.setError("請填入人數");
             isVaild = false;
@@ -165,7 +196,6 @@ public class ReservationFragment extends Fragment {
                     .apply();
         }
 
-
         if (isVaild) {
             if (Common.networkConnected(getActivity())) {
                 JsonObject jsonObject = new JsonObject();
@@ -180,10 +210,7 @@ public class ReservationFragment extends Fragment {
 
                     if (count == 0) {
                         Toast.makeText(getActivity(), "Reservation failed", Toast.LENGTH_LONG).show();
-                    } else {
-                        navigation.setSelectedItemId(R.id.item_Message);
                     }
-
 
                 } catch (Exception e) {
                     Log.e(TAG, "error message" + e.toString());
@@ -202,6 +229,7 @@ public class ReservationFragment extends Fragment {
         tvTimeContent = view.findViewById(R.id.tvTimeContent);
         dateButton = view.findViewById(R.id.dateButton);
         timeButton = view.findViewById(R.id.timeButton);
+        personButton = view.findViewById(R.id.personButton);
         confirmButton = view.findViewById(R.id.confirmButton);
         edPersonNumber = view.findViewById(R.id.edPersonNumber);
         navigation = getActivity().findViewById(R.id.Navigation);
@@ -224,6 +252,9 @@ public class ReservationFragment extends Fragment {
                 String date = d < 10 ? "/0" + d : "/" + d;
 
                 tvDateContent.setText(y + month + date);
+                String month2 = month.replace("/","-");
+                String date2 = date.replace("/","-");
+                tvDateContent.setHint(y + month2 + date2);
 
             }
         }, yy, mm, dd);
@@ -243,68 +274,43 @@ public class ReservationFragment extends Fragment {
     }
 
     private void showTime() {
-        final Calendar calendar = Calendar.getInstance();
-//        Min
-        int hh = calendar.get(Calendar.HOUR_OF_DAY);
-        int mmm = calendar.get(Calendar.MINUTE);
-        new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
+
+        final String[] setTime = {"11:00","11:30","12:00","12:30",
+                "13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30",
+                "17:00","17:30","18:00","18:30","19:00","19:30","20:00"};
+
+        AlertDialog.Builder dialog_list = new AlertDialog.Builder(getActivity());
+        dialog_list.setTitle("請選擇訂位時間");
+        dialog_list.setItems(setTime, new DialogInterface.OnClickListener(){
             @Override
-            public void onTimeSet(TimePicker timePicker, int i, int i1) {
 
-                tvTimeContent.setText(i + ":" + i1 + ":" + "00");
+            //只要你在onClick處理事件內，使用which參數，就可以知道按下陣列裡的哪一個了
+            public void onClick(DialogInterface dialog, int which) {
+                tvTimeContent.setText(setTime[which]);
+                String setTime1 = setTime[which] + ":00";
+                tvTimeContent.setHint(setTime1);
             }
-        }
-                , hh, mmm, true).show();
+        });
+        dialog_list.show();
 
-//        TimePicker tp = timePickerDialog.getDatePicker();
-//
-//        //設定最早時間為明天
-//        calendar.add(Calendar.HOUR_OF_DAY,10);
-//        tp.setHour(calendar.getTimeInMillis());
-//
-//        //設定最久時間為4週後
-//        calendar.add(Calendar.DAY_OF_WEEK_IN_MONTH,4);
-//        dp.setMaxDate(calendar.getTimeInMillis());
+    }
+    private void showPerson() {
 
-//
-//        minutePicker = (NumberPicker) timePicker
-//                .findViewById(field.getInt(null));
-//
-//        minutePicker.setMinValue(0);
-//        minutePicker.setMaxValue(3);
-//
-//
-//        datePickerDialog.show();
+        final String[] setPerson = {"1","2","3","4","5","6","7","8","9","10","11","12",
+                "13","14","15","16","17","18","19","20"};
 
-//        TIME_PICKER_DIALOG_TAG = 2;
-//
-//        Calendar now = Calendar.getInstance();
-//
-//        TimePickerDialog tpd = TimePickerDialog.newInstance(
-//                getActivity().AddTaskActivity.this,
-//                now.get(Calendar.HOUR_OF_DAY),
-//                now.get(Calendar.MINUTE),
-//                mHoursMode
-//        );
-//
-//        tpd.setOnCancelListener(new DialogInterface.OnCancelListener() {
-//            @Override
-//            public void onCancel(DialogInterface dialogInterface) {
-//                Log.d("TimePicker", "Dialog was cancelled");
-//            }
-//        });
-//        tpd.show(getFragmentManager(), "Timepickerdialog");
+        AlertDialog.Builder dialog_list = new AlertDialog.Builder(getActivity());
+        dialog_list.setTitle("請選擇訂位人數");
+        dialog_list.setItems(setPerson, new DialogInterface.OnClickListener(){
+            @Override
 
-//        TimePicker tp = (TimePicker)this.findViewById(R.id.timePicker);
-//
-//        java.util.Formatter timeF = new java.util.Formatter();
-//        timeF.format("Time defaulted to %d:%02d", tp.getCurrentHour(),
-//                tp.getCurrentMinute());
-//        timeDefault.setText(timeF.toString());
-//
-//        tp.setIs24HourView(true);
-//        tp.setCurrentHour(new Integer(10));
-//        tp.setCurrentMinute(new Integer(10));
+            //只要你在onClick處理事件內，使用which參數，就可以知道按下陣列裡的哪一個了
+            public void onClick(DialogInterface dialog, int which) {
+                edPersonNumber.setText(setPerson[which] + " 人");
+                edPersonNumber.setHint(setPerson[which] );
+            }
+        });
+        dialog_list.show();
 
     }
 
@@ -326,108 +332,6 @@ public class ReservationFragment extends Fragment {
         @Override
         public void onDateSet(DatePicker datePicker, int yy, int mm, int dd) {
 
-        }
-
-
-    }
-
-
-//    public static class TimePickerDialogFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
-//
-//        @NonNull
-//        @Override
-//        public Dialog onCreateDialog(Bundle savedInstanceState) {
-//            final Calendar calendar = Calendar.getInstance();
-//            int mHour = calendar.get(Calendar.HOUR_OF_DAY);
-//            int mMinute = calendar.get(Calendar.MINUTE);
-//            MainActivity activity = (MainActivity) getActivity();
-//            return new TimePickerDialog(getActivity(), this, mHour, mMinute, false);
-//        }
-//
-//        @Override
-//        public void onTimeSet(TimePicker timePicker, int hh, int mmm) {
-//
-//            String hourString = hh < 10 ? "0"+hh : ""+hh;
-//            String minuteString = mmm < 10 ? "0"+mmm : ""+mmm;
-//
-//
-//            SimpleDateFormat df = new SimpleDateFormat("hh:mm a");
-//            Calendar mCalendar = Calendar.getInstance();
-//            mCalendar.set(Calendar.HOUR_OF_DAY, hh);
-//            mCalendar.set(Calendar.MINUTE, mmm);
-//            mCalendar.set(Calendar.SECOND,0);
-//
-////            Date date = mCalendar.getTime();
-////            if(TIME_PICKER_DIALOG_TAG == 2) {
-////                alertTime.setText(df.format(date));
-////            }else if(TIME_PICKER_DIALOG_TAG  == 4){
-////                dueTime.setText(df.format(date));
-////            }
-//
-//        }
-//
-//
-//    }
-
-
-    public class CustomTimePickerDialog extends TimePickerDialog {
-
-        private final static int TIME_PICKER_INTERVAL = 5;
-        private TimePicker mTimePicker;
-        private final OnTimeSetListener mTimeSetListener;
-        private final boolean mIs24HourView;
-
-        public CustomTimePickerDialog(Context context, OnTimeSetListener listener,
-                                      int hourOfDay, int minute, boolean is24HourView) {
-            super(context, TimePickerDialog.THEME_HOLO_LIGHT, null, hourOfDay,
-                    minute / TIME_PICKER_INTERVAL, is24HourView);
-            mTimeSetListener = listener;
-            mIs24HourView = false;
-        }
-
-        @Override
-        public void updateTime(int hourOfDay, int minuteOfHour) {
-            mTimePicker.setCurrentHour(hourOfDay);
-            mTimePicker.setCurrentMinute(minuteOfHour / TIME_PICKER_INTERVAL);
-        }
-
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-            switch (which) {
-                case BUTTON_POSITIVE:
-                    if (mTimeSetListener != null) {
-                        mTimeSetListener.onTimeSet(mTimePicker, mTimePicker.getCurrentHour(),
-                                mTimePicker.getCurrentMinute() * TIME_PICKER_INTERVAL);
-                    }
-                    break;
-                case BUTTON_NEGATIVE:
-                    cancel();
-                    break;
-            }
-        }
-
-        @Override
-        public void onAttachedToWindow() {
-            super.onAttachedToWindow();
-            try {
-                Class<?> classForid = Class.forName("com.android.internal.R$id");
-                Field timePickerField = classForid.getField("timePicker");
-                mTimePicker = (TimePicker) findViewById(timePickerField.getInt(null));
-                Field field = classForid.getField("minute");
-
-                NumberPicker minuteSpinner = (NumberPicker) mTimePicker
-                        .findViewById(field.getInt(null));
-                minuteSpinner.setMinValue(0);
-                minuteSpinner.setMaxValue((60 / TIME_PICKER_INTERVAL) - 1);
-                List<String> displayedValues = new ArrayList<>();
-                for (int i = 0; i < 60; i += TIME_PICKER_INTERVAL) {
-                    displayedValues.add(String.format("%02d", i));
-                }
-                minuteSpinner.setDisplayedValues(displayedValues
-                        .toArray(new String[displayedValues.size()]));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
 
     }

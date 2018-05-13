@@ -35,8 +35,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:layout_marginTop="56dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:orientation="vertical">
 
         <ImageView
@@ -45,13 +46,11 @@
             android:layout_gravity="center"
             android:layout_marginBottom="16dp"
             android:layout_marginTop="30dp"
-            android:src="@drawable/pot" />
+            android:src="@drawable/pic_pot" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:orientation="horizontal">
 

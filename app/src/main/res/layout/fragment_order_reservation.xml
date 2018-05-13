@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
-
     <include layout="@layout/tool_bar_title"></include>
 
     <RelativeLayout
@@ -51,7 +50,6 @@
                 android:padding="6dp"
                 android:src="@drawable/pic_pot" />
 
-
             <TextView
                 android:id="@+id/tvNews"
                 android:layout_width="match_parent"
@@ -86,29 +84,27 @@
 
                 <ImageView
                     android:id="@+id/imageDate"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_alignParentStart="true"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:layout_alignParentTop="true"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="15dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/date" />
-
+                    android:src="@drawable/date"
+                    tools:ignore="RtlCompat" />
 
                 <TextView
                     android:id="@+id/tvReserveDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="10dp"
                     android:layout_toRightOf="@id/imageDate"
                     android:text="@string/dateName"
                     android:textColor="@color/colorContent"
-                    android:textSize="30sp" />
+                    android:textSize="25dp" />
 
                 <LinearLayout
                     android:layout_width="fill_parent"
@@ -119,17 +115,13 @@
                     <TextView
                         android:id="@+id/tvDateContent"
                         android:layout_width="120dp"
-                        android:layout_height="50dp"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_gravity="right|center_horizontal"
-                        android:gravity="center"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:layout_toRightOf="@id/tvReserveDate"
-                        android:text="@string/text_Date"
-                        android:textSize="20dp" />
+                        android:layout_height="fill_parent"
+                        android:layout_gravity="right|center_vertical"
+                        android:gravity="right|center_vertical"
+                        android:layout_marginEnd="20dp"
+                        android:textSize="20dp"
+                        android:visibility="gone"
+                        tools:ignore="RtlCompat" />
 
                 </LinearLayout>
 
@@ -150,50 +142,45 @@
 
                 <ImageView
                     android:id="@+id/imageTime"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="15dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/time" />
-
+                    android:src="@drawable/time"
+                    tools:ignore="RtlCompat" />
 
                 <TextView
                     android:id="@+id/tvReserveTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="10dp"
                     android:layout_toRightOf="@id/imageDate"
                     android:text="@string/timeName"
                     android:textColor="@color/colorContent"
-                    android:textSize="30sp" />
+                    android:textSize="25dp" />
 
                 <LinearLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/tvTimeContent"
                         android:layout_width="120dp"
-                        android:layout_height="50dp"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
+                        android:layout_height="fill_parent"
                         android:layout_gravity="right|center_horizontal"
-                        android:gravity="center"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:layout_toRightOf="@string/text_Time"
-                        android:text="@string/text_Date"
-                        android:textSize="20dp" />
+                        android:layout_marginEnd="20dp"
+                        android:gravity="right|center_vertical"
+                        android:textSize="20dp"
+                        android:visibility="gone"
+                        tools:ignore="RtlCompat" />
 
                 </LinearLayout>
 
@@ -204,9 +191,8 @@
                 android:layout_height="1dp"
                 android:background="@color/ColorListViewLine" />
 
-
             <LinearLayout
-                android:id="@+id/dateButton2"
+                android:id="@+id/personButton"
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -215,29 +201,29 @@
 
                 <ImageView
                     android:id="@+id/imageOrderViewe"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="15dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/reservation" />
-
+                    android:src="@drawable/reservation"
+                    tools:ignore="RtlCompat" />
 
                 <TextView
                     android:id="@+id/tvReserve"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="10dp"
                     android:layout_toRightOf="@id/imageDate"
                     android:text="@string/personName"
                     android:textColor="@color/colorContent"
-                    android:textSize="30sp" />
+                    android:textSize="25sp"
+                    tools:ignore="RtlCompat" />
 
                 <LinearLayout
                     android:layout_width="fill_parent"
@@ -245,36 +231,18 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-
-
-                    <EditText
-                        android:id="@+id/edPersonNumber"
-                        android:layout_width="120dp"
-                        android:layout_height="50dp"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_gravity="right|center_horizontal"
-                        android:gravity="center"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:textColorHint="@color/edPersonColor"
-                        android:textSize="20sp" />
-
                     <TextView
-                        android:id="@+id/tvDateContent11"
-                        android:layout_width="120dp"
-                        android:layout_height="50dp"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
+                        android:id="@+id/edPersonNumber"
+                        android:layout_width="80dp"
+                        android:layout_height="fill_parent"
                         android:layout_gravity="right|center_horizontal"
-                        android:gravity="center"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:layout_toRightOf="@id/tvReserveDate"
-                        android:text="@string/text_Date"
-                        android:textSize="20dp" />
+                        android:gravity="right|center_vertical"
+                        android:layout_marginEnd="20dp"
+                        android:textColorHint="@color/edPersonColor"
+                        android:textSize="20dp"
+                        android:visibility="gone"
+                        android:inputType="number"
+                        tools:ignore="RtlCompat" />
 
                 </LinearLayout>
 
@@ -289,6 +257,5 @@
 
 
     </ScrollView>
-
 
 </RelativeLayout>
