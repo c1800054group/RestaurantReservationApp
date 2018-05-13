@@ -74,7 +74,7 @@ public class CartFragmentConfirmText extends Fragment {
         discount_checkout = view.findViewById(R.id.discount_checkout);
 
         String orderID="";
-        orderid.setText(orderID = pref.getString("orderID",""));
+        orderid.setText(orderID = String.valueOf(pref.getInt("orderID",0)));
         date.setText("");
         discount_checkout.setText(pref.getString("Discount",""));
         total_checkout.setText(pref.getString("money",""));

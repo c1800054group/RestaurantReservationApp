@@ -305,15 +305,8 @@ public class CartFragmentConfirm extends Fragment {
                         return;
                     }
 
+                pref.edit().putInt("orderID",Integer.valueOf(oderID_re) ).putString("money",money).apply();
 
-
-
-
-
-//                pref.edit().clear().apply();
-                pref.edit().putString("orderID",oderID_re).putString("money",money).apply();
-//                        String id = pref.getString("orderID","");
-//                        Common.showToast(getActivity(),id);
 
                 Common.switchFragment(new CartFragmentConfirmText(), getActivity(), true);
 
