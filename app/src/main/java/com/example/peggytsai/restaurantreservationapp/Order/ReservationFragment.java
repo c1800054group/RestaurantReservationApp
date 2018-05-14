@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +32,8 @@ import com.google.gson.JsonObject;
 import java.util.Calendar;
 
 import static android.content.Context.MODE_PRIVATE;
+import static android.content.DialogInterface.BUTTON_NEGATIVE;
+import static android.content.DialogInterface.BUTTON_POSITIVE;
 
 
 public class ReservationFragment extends Fragment {
@@ -133,9 +136,34 @@ public class ReservationFragment extends Fragment {
                     customNotButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+
+//                            AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+//                            alertDialog.setTitle( Html.fromHtml("<font color='#005B4F'>"+getResources()
+//                                    .getString(R.string.text_LiveOrdering)+"</font>"));
+//                            alertDialog.setMessage(message);
+//                            alertDialog.setCancelable(true);
+//                            alertDialog.setButton(BUTTON_POSITIVE,"確定", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    Fragment cartFragmentShow = new CartFragmentShow();
+//                                    Common.FragmentSwitch = 1;
+//                                    Common.switchFragment(cartFragmentShow,getActivity(),true);
+//                                }
+//                            });
+//                            alertDialog.setButton(BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    dialog.dismiss();
+//                                }
+//                            });
+//                            alertDialog.show();
+//
+
+
+
                             alertDialog.dismiss();
                             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                            builder.setTitle("訂位完成");
+                            builder.setTitle(Html.fromHtml("<font color='#009688'>"+"訂位完成"+"</font>"));
                             builder.setMessage("若要稍後點餐\n請至\"訂單查詢\"修改");
                             builder.setNegativeButton("前往訂單查詢", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {

@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -34,13 +35,12 @@ import static android.content.DialogInterface.BUTTON_POSITIVE;
 
 public class OrderFragment extends Fragment {
     private ListView lvOrder;
-    private String message = "現場點餐請將手機給服務生掃描QR code";
+    private String message = "請將手機給服務生掃描QR code";
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_order, container, false);
-//        getActivity().setTitle("定位/點餐");
 
         TextView tvtoolBarTitle = view.findViewById(R.id.tvTool_bar_title);
         tvtoolBarTitle.setText(R.string.text_order);
@@ -58,10 +58,8 @@ public class OrderFragment extends Fragment {
                     Fragment reservationFragment = new ReservationFragment();
                     Common.switchFragment(reservationFragment, getActivity(), true);
                 } else if (position == 1) {
-//                    QrCodeFragment qrCodeFragment = new QrCodeFragment();
-//                    Common.switchFragment(qrCodeFragment,getActivity(),true);
                     AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
-                    alertDialog.setTitle( Html.fromHtml("<font color='red'>"+getResources()
+                    alertDialog.setTitle( Html.fromHtml("<font color='#009688'>"+getResources()
                             .getString(R.string.text_LiveOrdering)+"</font>"));
                     alertDialog.setMessage(message);
                     alertDialog.setCancelable(true);
@@ -80,6 +78,11 @@ public class OrderFragment extends Fragment {
                         }
                     });
                     alertDialog.show();
+                    Button nbutton = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+                    nbutton.setTextColor(getResources().getColor(R.color.colorButton));
+                    Button pbutton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                    pbutton.setTextColor(getResources().getColor(R.color.colorButton));
+
 
                 } else if (position == 2) {
                     Common.showToast(getActivity(), "外送點餐");
