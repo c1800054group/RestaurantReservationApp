@@ -96,7 +96,8 @@ public class RatingNewFragment extends Fragment {
                     Common.showToast(getActivity(), R.string.msg_NoNetwork);
                 }
                 /* 回前一個Fragment */
-                getFragmentManager().popBackStack();
+                Fragment ratingFragment = new RatingFragment();
+                Common.switchFragment(ratingFragment, getActivity(), false);
             }
         });
 
