@@ -17,5 +17,6 @@
     <color name="clrDatePrimary">#005B4F</color>
     <color name="clrDatePrimaryDark">#00897B</color>
     <color name="clrDateAccent">#00897B</color>
+    <color name="colorRatingNormal">#D7D7D7</color>
 
 </resources>

@@ -62,7 +62,7 @@ public class MessageFragment extends Fragment {
         btMessageNew = view.findViewById(R.id.btMessageNew);
 
         if (authority_id == 4) {
-            tvtoolBarTitle.setText(R.string.text_RatingManager);
+            tvtoolBarTitle.setText(R.string.text_MessageManager);
 
             btService.setVisibility(BottomNavigationView.GONE);
             btMessageNew.setVisibility(BottomNavigationView.VISIBLE);

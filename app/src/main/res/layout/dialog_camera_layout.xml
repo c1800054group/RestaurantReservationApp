@@ -6,9 +6,10 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@color/colorButton"
+        android:background="@color/clrDatePrimary"
         android:text="新增圖片"
         android:gravity="center"
+        android:textColor="@color/colorWhite"
         android:textSize="30dp"/>
 
 

@@ -21,7 +21,6 @@
     <string name="text_name">\t姓\t\t名</string>
     <string name="hint_insertName">請輸入姓名</string>
     <string name="text_title">\t稱\t\t謂</string>
-    <string name="text_account1">帳&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;號</string>
     <string name="text_account">\t帳\t\t號</string>
     <string name="text_password">\t密\t\t碼</string>
     <string name="text_passwordOld">&#160;舊&#160;密&#160;碼</string>
@@ -91,14 +90,15 @@
     <string name="hint_etCommentReply">請輸入回應</string>
     <string name="btRating">評價</string>
     <string name="text_ComentDelete">刪除評價</string>
-    <string name="message_text_title">標題</string>
+    <string name="message_text_title">\t標\t\t題</string>
     <string name="hint_message_title">請輸入標題</string>
     <string name="message_text_promotion_message">優惠訊息</string>
     <string name="hint_message_text_promotion_message">請輸入優惠訊息</string>
-    <string name="text_message_discount">折扣</string>
+    <string name="text_message_discount">\t折\t\t扣</string>
     <string name="hint_message_discount">請輸入折扣</string>
     <string name="message_text_inset_image">新增圖片</string>
     <string name="text_save">儲存</string>
+    <string name="text_Edit">編輯</string>
     <string name="hint_message_start_time">請選取開始時間</string>
     <string name="text_message_message_start_time">開始日期</string>
     <string name="text_message_message_end_time">結束日期</string>

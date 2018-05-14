@@ -107,7 +107,7 @@ public class ReservationFragment extends Fragment {
                     Common.showToast(getActivity(), "人數尚未填寫");
                 } else {
                     insertDateData();
-                    view = LayoutInflater.from(getActivity()).inflate(R.layout.custom_layout, null);
+                    view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_order_reservation_layout, null);
                     Button customConButton = view.findViewById(R.id.CustomConButton);
                     Button customNotButton = view.findViewById(R.id.CustomNotButton);
                     Button CustomCancelButton = view.findViewById(R.id.CustomCancelButton);
@@ -294,6 +294,7 @@ public class ReservationFragment extends Fragment {
         dialog_list.show();
 
     }
+
     private void showPerson() {
 
         final String[] setPerson = {"1","2","3","4","5","6","7","8","9","10","11","12",

@@ -1,6 +1,8 @@
 package com.example.peggytsai.restaurantreservationapp.Manager;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,13 +13,12 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.peggytsai.restaurantreservationapp.Main.Common;
@@ -53,33 +54,16 @@ public class FoodManagerFragment extends Fragment {
         navigationView.inflateMenu(R.menu.navigate_menu_manager);
 
 
-
-        btMenuShowMenu = view.findViewById(R.id.btMenuShowMenu);
-        btMenuShowMenu.setText("返回");
-        btMenuShowMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//
-//                navigationView = getActivity().findViewById(R.id.Navigation);
-//                navigationView.getMenu().clear();
-//                navigationView.inflateMenu(R.menu.navigate_menu_manager);
-
-            }
-        });
-
-
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewPager_all);
 //        viewPager.setAdapter(  new MyPagerAdapter(getChildFragmentManager())  );  //直接返回 嵌套的子fragment
-        viewPager.setAdapter(  new SamplePagerAdapter() );  //直接返回 嵌套的子fragment
-
-        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
+        viewPager.setAdapter(new SamplePagerAdapter());  //直接返回 嵌套的子fragment
+        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabFoodLayout);
         tabLayout.setupWithViewPager(viewPager);
-
 
         return view;
     }
 
-    private void list_connect(View view,int position) {
+    private void list_connect(View view, int position) {
 
         if (Common.networkConnected(getActivity())) {//檢查網路連線
 
@@ -88,12 +72,15 @@ public class FoodManagerFragment extends Fragment {
 
                 Common.MENU_list = new MenuGetAllTask().execute(url).get();
 
-                if(position==0){
+                if (position == 0) {
                     menus_list = Common.MENU_list.get(0);
-                }else{
-                    menus_list = Common.MENU_list.get(1);
-                }
 
+                } else if (position == 1) {
+                    menus_list = Common.MENU_list.get(1);
+
+                } else if (position == 2) {
+                    menus_list = Common.MENU_list.get(2);
+                }
 
             } catch (Exception e) {
                 Log.e(TAG, e.toString());
@@ -105,27 +92,24 @@ public class FoodManagerFragment extends Fragment {
 
             } else {
                 //連線到 將清單 儲存至頁面供 該頁面上所有ftagment 使用
-
                 //UI 顯示
                 recyclerView = view.findViewById(R.id.recyceleview);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                recyclerView.setAdapter( new ShowAdapter(menus_list, getContext()));
+                recyclerView.setAdapter(new ShowAdapter(menus_list, getContext()));
             }
         } else {
             Common.showToast(getActivity(), "text_NoNetwork");
-//            item_list2 = getitem();
+
         }
-        //都做
 
     }
-
 
     private class SamplePagerAdapter extends PagerAdapter {
 
 
         @Override
         public int getCount() {
-            return 2;
+            return 3;
         }
 
         @Override
@@ -135,79 +119,52 @@ public class FoodManagerFragment extends Fragment {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            String s1="";
-            if(position==0){
-                s1="主餐";
-            }else{
-                s1="附餐";
+            String s1 = "";
+            if (position == 0) {
+                s1 = "主餐";
+            } else if (position == 1){
+                s1 = "附餐";
+            } else if (position == 2){
+                s1 = "加購";
             }
-
-            return s1 + (position + 1);
+            return s1;
 
         }
-
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             View view = getLayoutInflater().inflate(R.layout.fragment_cart,
                     container, false);
             container.addView(view);
-//            TextView title = (TextView) view.findViewById(R.id.item_title);
-//            title.setText(String.valueOf(position + 1));
-            if(position==0){
 
-                list_connect(view,position);
-//                menus_list=getlist();
-            }else{
-                list_connect(view,position);
-//                menus_list=getlist2();
+            if (position == 0) {
+
+                list_connect(view, position);
+            } else if (position == 1){
+                list_connect(view, position);
+            } else if (position == 2){
+                list_connect(view, position);
             }
-
 
             recyclerView = view.findViewById(R.id.recyceleview);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-            recyclerView.setAdapter( new ShowAdapter(menus_list, getContext()));
-
-
-
+            recyclerView.setAdapter(new ShowAdapter(menus_list, getContext()));
 
             return view;
         }
+
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
             container.removeView((View) object);
         }
 
-
     }
-
-//    private List<Menu> getlist() {
-//
-//        List<Menu> list = new ArrayList<>();
-//        list.add(new Menu("jim","200",1));
-//        list.add(new Menu("jim1","100",1));
-//        list.add(new Menu("jim2","300",1));
-//
-//
-//        return list;
-//    }
-//    private List<Menu> getlist2() {
-//
-//        List<Menu> list = new ArrayList<>();
-//        list.add(new Menu("hun","2000",1));
-//        list.add(new Menu("hun1","1000",1));
-//        list.add(new Menu("hun2","3000",1));
-//
-//
-//        return list;
-//    }
-
-
 
     public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.MyViewHolder> {
         private List<Menu> item_list;
         private Context context;
         private int imageSize;
+
         public ShowAdapter(List<Menu> item_list, Context context) {   //要加入 項目20~30的變數  (項目數量)
             this.item_list = item_list;
             this.context = context;
@@ -215,6 +172,7 @@ public class FoodManagerFragment extends Fragment {
             imageSize = context.getResources().getDisplayMetrics().widthPixels / 4; //取的螢幕寬度 抓1/4大小
 
         }
+
         @Override
         public int getItemCount() {
             return item_list.size();
@@ -229,20 +187,19 @@ public class FoodManagerFragment extends Fragment {
         }
 
         class MyViewHolder extends RecyclerView.ViewHolder {
-            private ImageView imageView;
+            private ImageView image_quantity_view;
 
-            private TextView tt_name;
-            private TextView tt_quantity;
-            private EditText ee_set_quantity;
+            private TextView text_quantity_name, quantity;
 
+            private LinearLayout lv_set_quantity;
 
             public MyViewHolder(View itemview) {
                 super(itemview);//  可接view 建構式   表示RecyclerView.ViewHolder 可能會有 view屬性
-                imageView = itemview.findViewById(R.id.image_view);
+                image_quantity_view = itemview.findViewById(R.id.image_quantity_view);
 
-                tt_name = itemview.findViewById(R.id.text_name);
-                tt_quantity = itemview.findViewById(R.id.quantity);
-                ee_set_quantity = itemview.findViewById(R.id.set_quantity);
+                text_quantity_name = itemview.findViewById(R.id.text_quantity_name);
+                quantity = itemview.findViewById(R.id.quantity);
+                lv_set_quantity = itemview.findViewById(R.id.lv_set_quantity);
 
             }
         }
@@ -254,39 +211,51 @@ public class FoodManagerFragment extends Fragment {
             String url = Common.URL + "/MenuServlet";
             int id = menu.getId();
 
-            new MenuGetImageTask(holder.imageView).execute(url, id, imageSize);
-            holder.tt_name.setText(menu.getName());
-            holder.tt_quantity.setText(String.valueOf(menu.getStock()));
+            new MenuGetImageTask(holder.image_quantity_view).execute(url, id, imageSize);
+            holder.text_quantity_name.setText(menu.getName());
+            holder.quantity.setText(String.valueOf(menu.getStock()));
 
-
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
+            holder.lv_set_quantity.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    if( ! holder.ee_set_quantity.getText().toString().trim().isEmpty()){
 
+                    final String[] setQuantit = {"1","2","3","4","5","6","7","8","9","10","11","12",
+                            "13","14","15","16","17","18","19","20"};
 
+                    AlertDialog.Builder dialog_list = new AlertDialog.Builder(getActivity());
+                    dialog_list.setTitle("請選擇補貨數量");
+                    dialog_list.setItems(setQuantit, new DialogInterface.OnClickListener(){
+                        @Override
 
-                        if (Common.networkConnected(getActivity())) {//檢查網路連線
+                        //只要你在onClick處理事件內，使用which參數，就可以知道按下陣列裡的哪一個了
+                        public void onClick(DialogInterface dialog, int which) {
+                            int quantity_add = Integer.parseInt(setQuantit[which]);
+                            int quantity_total = quantity_add + menu.getStock();
 
-                            JsonObject jsonObject = new JsonObject();
-                            jsonObject.addProperty("action", "menuUpdata_stock");
-                            jsonObject.addProperty("menu_stock", holder.ee_set_quantity.getText().toString().trim());
-                            jsonObject.addProperty("menu_id", String.valueOf(menu.getId()));
+                            if (!String.valueOf(quantity_add).isEmpty()) {
 
-                            MenuUpdataTask = new MyTask(Common.URL+"/MenuServlet", jsonObject.toString());
-                            MenuUpdataTask.execute();
+                                if (Common.networkConnected(getActivity())) {//檢查網路連線
 
-                            Common.showToast(getActivity(),"庫儲貨更新為: "+holder.ee_set_quantity.getText().toString().trim());
-                            holder.tt_quantity.setText(holder.ee_set_quantity.getText().toString().trim());
-                        } else {
-                            Common.showToast(getContext(), "text_NoNetwork");
+                                    JsonObject jsonObject = new JsonObject();
+                                    jsonObject.addProperty("action", "menuUpdata_stock");
+                                    jsonObject.addProperty("menu_stock", String.valueOf(quantity_total));
+                                    jsonObject.addProperty("menu_id", String.valueOf(menu.getId()));
+
+                                    MenuUpdataTask = new MyTask(Common.URL + "/MenuServlet", jsonObject.toString());
+                                    MenuUpdataTask.execute();
+
+                                    Common.showToast(getActivity(), menu.getName() + " 庫儲貨更新為: " + String.valueOf(quantity_total));
+                                    holder.quantity.setText(String.valueOf(quantity_total));
+                                } else {
+                                    Common.showToast(getContext(), "text_NoNetwork");
+                                }
+
+                            }
+
                         }
-
-
-
-                    }
-
+                    });
+                    dialog_list.show();
 
                 }
             });
@@ -294,12 +263,15 @@ public class FoodManagerFragment extends Fragment {
 
 
 
+
+
         }
 
+        private void showQuantity() {
 
 
+        }
 
     }//ItemAdapter extends RecyclerView.Adapter <ItemAdapter.MyViewHolder>{
-
 
 }

@@ -16,7 +16,7 @@
         tools:ignore="RtlCompat">
 
         <TextView
-            android:id="@+id/btMessageSave"
+            android:id="@+id/btMessageEditSave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -66,7 +66,7 @@
                         android:textSize="20dp" />
 
                     <EditText
-                        android:id="@+id/etMessageInsertTitle"
+                        android:id="@+id/etMessageEditTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/edittext"
@@ -90,7 +90,7 @@
                         android:textSize="20sp" />
 
                     <TextView
-                        android:id="@+id/tvMessageInsertStartTime"
+                        android:id="@+id/tvMessageEditStartTime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/edittext"
@@ -113,7 +113,7 @@
                         android:textSize="20sp" />
 
                     <TextView
-                        android:id="@+id/tvMessageInsertEndTime"
+                        android:id="@+id/tvMessageEditEndTime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/edittext"
@@ -136,7 +136,7 @@
                         android:textSize="20dp" />
 
                     <EditText
-                        android:id="@+id/etMessageInsertDiscount"
+                        android:id="@+id/etMessageEditDiscount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/edittext"
@@ -155,7 +155,7 @@
                     android:textSize="20dp" />
 
                 <EditText
-                    android:id="@+id/etMessageInsertPromotionMessage"
+                    android:id="@+id/etMessageEditPromotionMessage"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
                     android:background="@drawable/edittext"
@@ -176,13 +176,13 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:id="@+id/ivMessageInsertImage"
+                        android:id="@+id/ivMessageEditImage"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:src="@drawable/pic_pot" />
 
                     <Button
-                        android:id="@+id/btMessageInsertPicture"
+                        android:id="@+id/btMessageEditPicture"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"

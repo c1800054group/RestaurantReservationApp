@@ -66,6 +66,7 @@ public class MessageInsertFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_message_manager_insert, container, false);
 
         TextView tvtoolBarTitle = view.findViewById(R.id.tvTool_bar_title);
@@ -76,6 +77,7 @@ public class MessageInsertFragment extends Fragment {
     }
 
     private void findViews(View view) {
+
         etMessageInsertTitle = view.findViewById(R.id.etMessageInsertTitle);
         etMessageInsertPromotionMessage = view.findViewById(R.id.etMessageInsertPromotionMessage);
         etMessageInsertDiscount = view.findViewById(R.id.etMessageInsertDiscount);
@@ -84,9 +86,6 @@ public class MessageInsertFragment extends Fragment {
         btMessageSave = view.findViewById(R.id.btMessageSave);
         ivMessageInsertImage = view.findViewById(R.id.ivMessageInsertImage);
         btMessageInsertPicture = view.findViewById(R.id.btMessageInsertPicture);
-
-
-
 
         tvMessageInsertStartTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,8 +102,6 @@ public class MessageInsertFragment extends Fragment {
                 datePickerDialog.show();
             }
         });
-
-
 
         btMessageSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -176,7 +173,8 @@ public class MessageInsertFragment extends Fragment {
                     Common.showToast(getActivity(), R.string.msg_NoNetwork);
                 }
                 /* 回前一個Fragment */
-                getFragmentManager().popBackStack();
+                Fragment messageFragment = new MessageFragment();
+                Common.switchFragment(messageFragment,getActivity(),true);
             }
         });
 
@@ -191,7 +189,7 @@ public class MessageInsertFragment extends Fragment {
 
     private void showAlertDialog() {
         final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
-        View alertView = getLayoutInflater().inflate(R.layout.camera_dialog_layout,null);
+        View alertView = getLayoutInflater().inflate(R.layout.dialog_camera_layout,null);
         ImageView ivDialogCamera = alertView.findViewById(R.id.ivDialogCamera);
         ImageView ivDialogSelectPicture = alertView.findViewById(R.id.ivDialogSelectPicture);
 
@@ -238,9 +236,22 @@ public class MessageInsertFragment extends Fragment {
                 String text = year + "/" + (month + 1) + "/" + dayOfMonth;
                 textView.setText(text);
             }
+
         },gregorianCalendar.get(Calendar.YEAR),gregorianCalendar.get(Calendar.MONTH)
                 ,gregorianCalendar.get(Calendar.DAY_OF_MONTH));
+
+        DatePicker dp = datePickerDialog.getDatePicker();
+
+        final Calendar calendar = Calendar.getInstance();
+        //設定最早時間為今天
+        calendar.add(Calendar.DAY_OF_MONTH, 0);
+        dp.setMinDate(calendar.getTimeInMillis());
+
+        //設定最久時間為4週後
+        calendar.add(Calendar.MONTH, 12);
+        dp.setMaxDate(calendar.getTimeInMillis());
     }
+
     private boolean isIntentAvailable(Context context, Intent intent) {
         PackageManager packageManager = context.getPackageManager();
         List<ResolveInfo> list = packageManager.queryIntentActivities(intent,
