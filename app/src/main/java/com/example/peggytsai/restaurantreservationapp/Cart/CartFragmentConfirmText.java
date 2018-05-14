@@ -127,7 +127,7 @@ public class CartFragmentConfirmText extends Fragment {
         }
 
 
-        pref.edit().putString("桌號","").putString("人數","").putString("日期時間","").putString("Coupon","").putString("Discount","").putString("money",""); //clear
+        pref.edit().putString("人數","").putString("日期時間","").putString("Coupon","").putString("Discount","").putString("money","").apply(); //clear
 
 
 

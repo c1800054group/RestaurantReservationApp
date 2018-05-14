@@ -1,12 +1,17 @@
 package com.example.peggytsai.restaurantreservationapp.Main;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -18,6 +23,7 @@ import com.example.peggytsai.restaurantreservationapp.Cart.CartFragmentShow;
 import com.example.peggytsai.restaurantreservationapp.Check.CheckFragment;
 import com.example.peggytsai.restaurantreservationapp.Check.CheckManagerFragment;
 import com.example.peggytsai.restaurantreservationapp.Check.CheckWaiterFragment;
+import com.example.peggytsai.restaurantreservationapp.Check.CheckWaiterTabFragment;
 import com.example.peggytsai.restaurantreservationapp.Manager.FoodManagerFragment;
 import com.example.peggytsai.restaurantreservationapp.Member.MemberIndexFragment;
 import com.example.peggytsai.restaurantreservationapp.Login.LoginFragment;
@@ -28,10 +34,14 @@ import com.example.peggytsai.restaurantreservationapp.Message.MessageFragment;
 import com.example.peggytsai.restaurantreservationapp.R;
 import com.example.peggytsai.restaurantreservationapp.Rating.RatingFragment;
 import com.example.peggytsai.restaurantreservationapp.Waiter.ServiceManagerFragment;
+import com.example.peggytsai.restaurantreservationapp.Waiter.WaiterTabFragment;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView navigation;
-
+    private static final int REQ_PERMISSIONS = 0;
     @SuppressLint("StringFormatInvalid")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
 
                 //waiter menu
                 case R.id.item_CheckWaiter:
-                    fragment = new CheckWaiterFragment();
+                    fragment = new CheckWaiterTabFragment();
                     switchFragment(fragment);
                     setTitle(R.string.text_CheckWaiter);
                     return true;
@@ -118,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                     setTitle(R.string.text_CheckManager);
                     return true;
                 case R.id.item_ServiceWaiter:
-                    fragment = new ServiceManagerFragment();
+                    fragment = new WaiterTabFragment();
                     switchFragment(fragment);
                     setTitle(R.string.text_ServiceWaiter);
                     return true;
@@ -171,4 +181,49 @@ public class MainActivity extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        askPermissions();
+    }
+
+    private void askPermissions(){
+
+        String[] permissions = {
+                Manifest.permission.CAMERA
+        };
+        Set<String> permissionsRequest = new HashSet<>();
+        for (String permission : permissions) {
+            int result = ContextCompat.checkSelfPermission(this,permission);
+            if (result != PackageManager.PERMISSION_GRANTED){
+                permissionsRequest.add(permission);
+            }
+        }
+        if(!permissionsRequest.isEmpty()){
+            ActivityCompat.requestPermissions(this,permissionsRequest.toArray(
+                    new String[permissionsRequest.size()]), REQ_PERMISSIONS);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        switch (requestCode){
+            case REQ_PERMISSIONS:
+                String text = "";
+                for (int i = 0; i < grantResults.length; i++){
+                    if (grantResults[i] != PackageManager.PERMISSION_GRANTED){
+                        text += permissions[i] + "\n";
+                    }
+                }
+                if (!text.isEmpty()){
+                    text += getString(R.string.text_NotGranted);
+                    Common.showToast(this,text);
+                }
+                break;
+        }
+
+
+    }
 }

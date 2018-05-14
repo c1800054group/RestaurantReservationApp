@@ -1,11 +1,14 @@
 package com.example.peggytsai.restaurantreservationapp.Order;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,16 +19,22 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.peggytsai.restaurantreservationapp.Cart.CartFragmentShow;
 import com.example.peggytsai.restaurantreservationapp.Main.Common;
+import com.example.peggytsai.restaurantreservationapp.Manager.FoodManagerFragment;
 import com.example.peggytsai.restaurantreservationapp.Other.QrCodeFragment;
 import com.example.peggytsai.restaurantreservationapp.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.DialogInterface.BUTTON_NEGATIVE;
+import static android.content.DialogInterface.BUTTON_POSITIVE;
+
 
 public class OrderFragment extends Fragment {
     private ListView lvOrder;
+    private String message = "現場點餐請將手機給服務生掃描QR code";
 
     @Nullable
     @Override
@@ -49,8 +58,28 @@ public class OrderFragment extends Fragment {
                     Fragment reservationFragment = new ReservationFragment();
                     Common.switchFragment(reservationFragment, getActivity(), true);
                 } else if (position == 1) {
-                    QrCodeFragment qrCodeFragment = new QrCodeFragment();
-                    Common.switchFragment(qrCodeFragment,getActivity(),true);
+//                    QrCodeFragment qrCodeFragment = new QrCodeFragment();
+//                    Common.switchFragment(qrCodeFragment,getActivity(),true);
+                    AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+                    alertDialog.setTitle( Html.fromHtml("<font color='red'>"+getResources()
+                            .getString(R.string.text_LiveOrdering)+"</font>"));
+                    alertDialog.setMessage(message);
+                    alertDialog.setCancelable(true);
+                    alertDialog.setButton(BUTTON_POSITIVE,"確定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Fragment cartFragmentShow = new CartFragmentShow();
+                            Common.FragmentSwitch = 1;
+                            Common.switchFragment(cartFragmentShow,getActivity(),true);
+                        }
+                    });
+                    alertDialog.setButton(BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    alertDialog.show();
 
                 } else if (position == 2) {
                     Common.showToast(getActivity(), "外送點餐");

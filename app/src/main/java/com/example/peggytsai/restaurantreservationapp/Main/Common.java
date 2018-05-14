@@ -15,6 +15,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.Toast;
 
+import com.example.peggytsai.restaurantreservationapp.Check.CheckOrder;
 import com.example.peggytsai.restaurantreservationapp.Menu.Menu;
 import com.example.peggytsai.restaurantreservationapp.Menu.OrderMenu;
 import com.example.peggytsai.restaurantreservationapp.R;

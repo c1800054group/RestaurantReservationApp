@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.peggytsai.restaurantreservationapp.Check.CheckWaiterWebSocketClient;
 import com.example.peggytsai.restaurantreservationapp.Main.Common;
 import com.example.peggytsai.restaurantreservationapp.Main.MyTask;
 import com.example.peggytsai.restaurantreservationapp.Menu.Coupon;
@@ -26,14 +27,18 @@ import com.example.peggytsai.restaurantreservationapp.Menu.Menu;
 import com.example.peggytsai.restaurantreservationapp.Menu.MenuGetImageTask;
 import com.example.peggytsai.restaurantreservationapp.Menu.OrderMenu;
 import com.example.peggytsai.restaurantreservationapp.R;
+import com.example.peggytsai.restaurantreservationapp.Waiter.ServiceWebSocketClient;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -55,6 +60,10 @@ public class CartFragmentConfirm extends Fragment {
 
     private TextView tt_toolbar;
     private TextView btCartText;
+
+
+    private CheckWaiterWebSocketClient checkWaiterWebSocketClient;
+
     private Coupon coupon ;
     private  List<String> list = new ArrayList<String>();
 
@@ -108,6 +117,28 @@ public class CartFragmentConfirm extends Fragment {
 
 
 
+//        pref = getActivity().getSharedPreferences("preference",getActivity().MODE_PRIVATE);
+//        pref.edit()
+//                .putString("Subtotal_main", money)
+//                .apply();
+
+
+
+        pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
+
+        String memberName = pref.getString("memberName","");
+
+        //連接webSocket
+        URI uri = null;
+        try {
+            uri = new URI(Common.URL+"/CheckOrderWebSocket/" + memberName);
+        } catch (URISyntaxException e) {
+            Log.e(TAG, e.toString());
+        }
+        if (checkWaiterWebSocketClient == null) {
+            checkWaiterWebSocketClient = new CheckWaiterWebSocketClient(uri, getContext());
+            checkWaiterWebSocketClient.connect();
+        }
 
         return view;
 
@@ -120,6 +151,7 @@ public class CartFragmentConfirm extends Fragment {
 //        discount = view.findViewById(R.id.discount);//折價
 
         count.setText(String.valueOf(Common.CART.size()));
+
 
         text_total = view.findViewById(R.id.total);        //計算並顯示
 
@@ -178,7 +210,7 @@ public class CartFragmentConfirm extends Fragment {
 
 
 
-        alertDialog.show();
+                alertDialog.show();
 
 
             }
@@ -247,7 +279,26 @@ public class CartFragmentConfirm extends Fragment {
 //                            Common.showToast(getActivity(),oderID+"first");
                 } catch (Exception e) {
 
+//
+//                        try {
+//                            Thread.currentThread().sleep(3000);
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
                 }
+
+                //送出
+                if (checkWaiterWebSocketClient != null) {
+                    Log.d("aaaaaaaaaa",jsonObject.toString());
+                    checkWaiterWebSocketClient.send(jsonObject.toString());
+                }
+                //斷線
+                if (checkWaiterWebSocketClient != null) {
+                    checkWaiterWebSocketClient.close();
+                    checkWaiterWebSocketClient = null;
+                }
+
+
                     Gson gson = new GsonBuilder().setDateFormat("yyyy-mm-dd hh:mm:ss").create();
                     JsonObject jsonObject_return = gson.fromJson(oderID_re.toString(),JsonObject.class);
 
