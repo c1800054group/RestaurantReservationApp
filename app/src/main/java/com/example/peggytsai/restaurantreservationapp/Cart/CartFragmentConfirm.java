@@ -243,10 +243,10 @@ public class CartFragmentConfirm extends Fragment {
                 person = pref.getString("人數","");
                 data = pref.getString("日期時間","");
 
-                if(table_member == "" && person=="" && data == ""){
-                    Common.showToast(getActivity(),"資料有錯誤  全為空值 有桌號 或 人物與時間 沒抓到資料");
-                    return;
-                }
+//                if(table_member == "" && person=="" && data == ""){
+//                    Common.showToast(getActivity(),"資料有錯誤  全為空值 有桌號 或 人物與時間 沒抓到資料");
+//                    return;
+//                }
 
 //
 //                        if(person=="" || data=="" || person == null || data == null){
