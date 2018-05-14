@@ -140,7 +140,6 @@ public class OrderFragment extends Fragment {
                     .findViewById(R.id.tvReserve);
             tvType.setText(String.valueOf(order.getType()));
 
-//            Order order1 = Orderlist.get(position);
             ImageView ivNextImage = itemview
                     .findViewById(R.id.ivNextView);
             ivNextImage.setImageResource(order.getNextImage());
