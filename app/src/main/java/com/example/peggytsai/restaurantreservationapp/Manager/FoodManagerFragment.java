@@ -50,8 +50,11 @@ public class FoodManagerFragment extends Fragment {
         tvtoolBarTitle.setText(R.string.text_FoodManager);
 
         navigationView = getActivity().findViewById(R.id.Navigation);
-        navigationView.getMenu().clear();
-        navigationView.inflateMenu(R.menu.navigate_menu_manager);
+        if (!(navigationView.getSelectedItemId() == R.id.item_FoodManager)){
+            navigationView.getMenu().clear();
+            navigationView.inflateMenu(R.menu.navigate_menu_manager);
+        }
+
 
 
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewPager_all);

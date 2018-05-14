@@ -64,7 +64,7 @@ public class ReservationFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_order_reservation, container, false);
 
         TextView tvtoolBarTitle = view.findViewById(R.id.tvTool_bar_title);
-//        tvtoolBarTitle.setText(R.string.text_Reservaton);
+        tvtoolBarTitle.setText(R.string.text_Reservaton);
 
         findView();
         dateButton.setOnClickListener(
@@ -297,8 +297,8 @@ public class ReservationFragment extends Fragment {
             public void onDateSet(DatePicker datePicker, int y, int m, int d) {
                 //個位數補0
                 int m1 = m + 1;
-                String month = m1 < 10 ? "-" + m1 : "-" + m1;
-                String date = d < 10 ? "-" + d : "-" + d;
+                String month = m1 < 10 ? "/0" + m1 : "/" + m1;
+                String date = d < 10 ? "/0" + d : "/" + d;
 
                 tvDateContent.setText(y + month + date);
                 String month2 = month.replace("/","-");
