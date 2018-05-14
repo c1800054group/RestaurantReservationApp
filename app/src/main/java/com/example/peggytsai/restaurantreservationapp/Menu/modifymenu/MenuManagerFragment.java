@@ -24,8 +24,7 @@ import java.util.List;
 
 public class MenuManagerFragment extends Fragment {
 
-    private TextView tt_toolbar;
-    private TextView btMenuModify;
+    private TextView tt_toolbar,btMenuNew;
     private View view;
 
     private MyPagerAdapter adapter;
@@ -37,46 +36,23 @@ public class MenuManagerFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_menu_modify, container, false);
 
         tt_toolbar = view.findViewById(R.id.tvTool_bar_title);
-        btMenuModify = view.findViewById(R.id.btMenuModify);
-
-        final FloatingActionButton btAdd = view.findViewById(R.id.btAdd);
+        btMenuNew = view.findViewById(R.id.btMenuNew);
 
 
 
-        btAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Common.switchFragment(new MenuModifyFragmentInsert(), getActivity(), true);
-
-//                getFragmentManager().beginTransaction().replace(R.id.main_activty, new MenuModifyFragmentInsert()).addToBackStack("").commit();
-            }
-        });
-
-
-            //只要有tablayout 就要在前面的分頁先  切換  Common.FragmentSwitch
-//            final Use_fragment useFragment = new Use_fragment();
-
-            tt_toolbar.setText("菜單管理");
-              btMenuModify.setText("返回");
-             btMenuModify.setOnClickListener(new View.OnClickListener() {
+            tt_toolbar.setText(R.string.text_MenuManager);
+            btMenuNew.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    Common.switchFragment(new MenuModifyFragmentInsert(), getActivity(), true);
 //                    Common.switchFragment(new ShowMenuFragment(), getActivity(), true);
 //                    Use_fragment useFragment = new Use_fragment();
 //                    useFragment.use_fragment(new ShowMenuFragment(), getFragmentManager());
                 }
             });
 
-
-
-
-
         veiw_set();
-
-
-
-
-
 
         return view;
     }
@@ -104,7 +80,7 @@ public class MenuManagerFragment extends Fragment {
             pageList = new ArrayList<>();
             pageList.add(new Page(new MenuModifyFragmentMain(), "主餐"));
             pageList.add(new Page(new MenuModifyFragmentSub(), "附餐"));
-
+            pageList.add(new Page(new MenuModifyFragmentAdd(), "加購"));
 
         }
 
@@ -123,12 +99,6 @@ public class MenuManagerFragment extends Fragment {
             return pageList.get(position).getTitle();
         }
     }
-
-
-
-
-
-
 
 
 

@@ -60,7 +60,7 @@ public class MenuFragment extends Fragment {
     private void veiw_set() {
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewPager_all);
         viewPager.setAdapter(adapter);  //直接返回 嵌套的子fragment
-        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
+        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabMenuLayout);
         tabLayout.setupWithViewPager(viewPager);
 
 
