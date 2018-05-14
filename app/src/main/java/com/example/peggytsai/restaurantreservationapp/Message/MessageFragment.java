@@ -81,20 +81,27 @@ public class MessageFragment extends Fragment {
             btService.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getActivity(),"Text!",Toast.LENGTH_SHORT).show();
-                    URI uri = null;
-                    try {
-                        uri = new URI(Common.URL+"/ServerBellServer/" + "8");
-                    } catch (URISyntaxException e) {
-                        Log.e(TAG, e.toString());
-                    }
-                    if (serviceWebSocketClient == null) {
-                        serviceWebSocketClient = new ServiceWebSocketClient(uri, getContext());
-                        serviceWebSocketClient.connect();
-                    }
-                    if (serviceWebSocketClient != null) {
-                        serviceWebSocketClient.close();
-                        serviceWebSocketClient = null;
+//                    Toast.makeText(getActivity(),"Text!",Toast.LENGTH_SHORT).show();
+                    SharedPreferences pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
+                    String tableNumber = pref.getString("桌號","");
+                    if (!tableNumber.equals("")) {
+                        URI uri = null;
+                        try {
+                            uri = new URI(Common.URL + "/ServerBellServer/" + tableNumber);
+                        } catch (URISyntaxException e) {
+                            Log.e(TAG, e.toString());
+                        }
+                        if (serviceWebSocketClient == null) {
+                            serviceWebSocketClient = new ServiceWebSocketClient(uri, getContext());
+                            serviceWebSocketClient.connect();
+                        }
+                        if (serviceWebSocketClient != null) {
+                            serviceWebSocketClient.close();
+                            serviceWebSocketClient = null;
+                        }
+                        Common.showToast(getActivity(),"已幫您呼叫服務生");
+                    }else {
+                        Common.showToast(getActivity(),"尚未入座");
                     }
                 }
             });

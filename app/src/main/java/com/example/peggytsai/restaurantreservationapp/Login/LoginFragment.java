@@ -47,6 +47,10 @@ public class LoginFragment extends Fragment {
         findView();
         navigation = getActivity().findViewById(R.id.Navigation);
         navigation.setVisibility(BottomNavigationView.GONE);
+
+        SharedPreferences pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
+        pref.edit().putString("桌號","").apply();
+
         return view;
     }
 

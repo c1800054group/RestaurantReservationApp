@@ -1,11 +1,10 @@
-package com.example.peggytsai.restaurantreservationapp.Waiter;
+package com.example.peggytsai.restaurantreservationapp.Check;
+
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,27 +13,26 @@ import android.widget.TextView;
 
 import com.example.peggytsai.restaurantreservationapp.R;
 
-public class WaiterTabFragment extends Fragment {
+public class CheckWaiterTabFragment extends Fragment{
+    public static ViewPager vpService;
+
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_waiter, container, false);
-
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_waiter,container,false);
 
         TextView tvtoolBarTitle = view.findViewById(R.id.tvTool_bar_title);
-        tvtoolBarTitle.setText(R.string.text_ServiceWaiter);
+        tvtoolBarTitle.setText(R.string.text_CheckWaiter);
 
         TabLayout tlService = view.findViewById(R.id.tlService);
-        tlService.addTab(tlService.newTab().setText("未服務"));
-        tlService.addTab(tlService.newTab().setText("已服務"));
+        tlService.addTab(tlService.newTab().setText("未送餐"));
+        tlService.addTab(tlService.newTab().setText("已送餐"));
         tlService.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        final ViewPager vpService = view.findViewById(R.id.vpService);
-        WaiterTabPagerAdapter waiterTabPagerAdapter = new WaiterTabPagerAdapter
+        vpService = view.findViewById(R.id.vpService);
+        CheckWaiterTabPagerAdapter checkWaiterTabPagerAdapter = new CheckWaiterTabPagerAdapter
                 (getActivity().getSupportFragmentManager(),tlService.getTabCount());
-
-//        vpService.setOffscreenPageLimit(1);
-        vpService.setAdapter(waiterTabPagerAdapter);
+        vpService.setAdapter(checkWaiterTabPagerAdapter);
 
         vpService.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tlService));
         tlService.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -53,6 +51,8 @@ public class WaiterTabFragment extends Fragment {
 
             }
         });
+
+
 
         return view;
     }

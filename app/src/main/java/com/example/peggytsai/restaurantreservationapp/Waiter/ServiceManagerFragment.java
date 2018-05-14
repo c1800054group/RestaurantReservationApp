@@ -5,17 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -43,7 +38,7 @@ public class ServiceManagerFragment extends Fragment {
     private List<String> tableList;
     private RecyclerView rvService;
     private ServiceWebSocketClient serviceWebSocketClient;
-    private String email;
+    private String memberName;
 
     @Nullable
     @Override
@@ -51,9 +46,12 @@ public class ServiceManagerFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_service_manager, container, false);
 
 
-//        navigationView = getActivity().findViewById(R.id.Navigation);
-//        navigationView.getMenu().clear();
-//        navigationView.inflateMenu(R.menu.navigate_menu_waiter);
+        navigationView = getActivity().findViewById(R.id.Navigation);
+        if (!(navigationView.getSelectedItemId()== R.id.item_ServiceWaiter)){
+            navigationView.getMenu().clear();
+            navigationView.inflateMenu(R.menu.navigate_menu_waiter);
+        }
+
 
         // 初始化LocalBroadcastManager並註冊BroadcastReceiver
         broadcastManager = LocalBroadcastManager.getInstance(getActivity());
@@ -67,11 +65,11 @@ public class ServiceManagerFragment extends Fragment {
 
         //取得偏好設定的帳號
         SharedPreferences pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
-        email = pref.getString("email","");
+        memberName = pref.getString("memberName","");
 
         URI uri = null;
         try {
-            uri = new URI(Common.URL+"/ServerBellServer/" + email);
+            uri = new URI(Common.URL+"/ServerBellServer/" + memberName);
         } catch (URISyntaxException e) {
             Log.e(TAG, e.toString());
         }
@@ -103,9 +101,9 @@ public class ServiceManagerFragment extends Fragment {
                 // 有user連線
                 case "open":
 
-                    if (tableName.equals(email)){
+                    if (tableName.equals(memberName)){
                         tableList = new ArrayList<>(stateMessage.getUsers());
-                        tableList.remove(email);
+                        tableList.remove(memberName);
                     }else {
                         // 如果其他user連線且尚未加入，就加上
                         if (!tableList.contains(tableName)) {
