@@ -250,6 +250,7 @@ public class FoodManagerFragment extends Fragment {
 
                                     Common.showToast(getActivity(), menu.getName() + " 庫儲貨更新為: " + String.valueOf(quantity_total));
                                     holder.quantity.setText(String.valueOf(quantity_total));
+                                    menu.setStock(Integer.parseInt(holder.quantity.getText().toString().trim()));
                                 } else {
                                     Common.showToast(getContext(), "text_NoNetwork");
                                 }

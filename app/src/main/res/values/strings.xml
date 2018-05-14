@@ -130,6 +130,9 @@
     <string name="menu_name">\t菜\t\t名</string>
     <string name="hint_menu_name">請輸入菜名</string>
     <string name="menu_price">\t價\t\t格</string>
+    <string name="menu_type">\t種\t\t類</string>
+    <string name="hint_menu_price">請輸入價格</string>
+    <string name="menu_delete">刪除此菜單</string>
 
 
 </resources>
