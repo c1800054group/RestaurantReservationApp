@@ -36,7 +36,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:text="整個套餐非常豐富,湯頭好喝,肉新鮮"
-            android:textColor="@color/colorContent"
+
             android:textSize="25dp" />
 
 
@@ -83,7 +83,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
             android:text="謝謝您的肯定！"
-            android:textColor="@color/colorContent"
+
             android:textSize="25dp"
             android:visibility="gone" />
 

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -36,6 +37,7 @@ import com.google.gson.reflect.TypeToken;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.lang.reflect.Type;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -271,7 +273,7 @@ public class CartFragmentConfirm extends Fragment {
 
                 String oderID_re = "";
 
-                upcartTask = new MyTask(Common.URL+"/OrderServlet", jsonObject.toString());
+                upcartTask = new MyTask(Common.URL+"/CheckOrderServlet", jsonObject.toString());
 //                        upcartTask.execute();
 
                 try {

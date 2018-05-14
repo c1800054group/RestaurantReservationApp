@@ -102,7 +102,7 @@ public class CartFragmentConfirmText extends Fragment {
                 jsonObject.addProperty("action", "getTimestamp");
                 jsonObject.addProperty("orderId", orderID);
 
-                getTimestamp = new MyTask(Common.URL+"/OrderServlet", jsonObject.toString());
+                getTimestamp = new MyTask(Common.URL+"/CheckOrderServlet", jsonObject.toString());
 
                 String result;
 

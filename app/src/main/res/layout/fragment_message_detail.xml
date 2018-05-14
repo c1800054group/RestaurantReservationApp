@@ -11,7 +11,9 @@
 
     <include
         layout="@layout/tool_bar_title"
-        android:id="@+id/tool_bar_title_logout"></include>
+        android:id="@+id/tool_bar_title_logout">
+
+    </include>
 
     <RelativeLayout
         android:id="@+id/rv_btMessageSave"

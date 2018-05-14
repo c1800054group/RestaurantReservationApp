@@ -113,6 +113,22 @@
     <string name="text_Time">00:00</string>
     <string name="text_Person">0人</string>
     <string name="text_NotGranted">不允許</string>
+    <string name="text_rating_new">新增評論</string>
+    <string name="checkOrder">訂位</string>
+    <string name="checkRecord">點餐紀錄</string>
+    <string name="orderPagerItem">2018-07-04 18:00</string>
+    <string name="showDate">日期</string>
+    <string name="showOrderId">訂單編號</string>
+    <string name="showTaype">品項</string>
+    <string name="OrderType">海鮮鍋,我我我</string>
+    <string name="showDate1">2108/04/30</string>
+    <string name="OrderNumber">1</string>
+    <string name="tvTyeCount">數量</string>
+    <string name="tvTypePrice">小計</string>
+    <string name="tvPutCount">3</string>
+    <string name="tvPutPrice">200</string>
+    <string name="detailType">海鮮鍋</string>
+    <string name="check1Type">牛肉鍋</string>
 
 
 </resources>

@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--<color name="colorPrimary">#003C8F</color>-->
+    <!--<color name="colorPrimaryDark">#1565C0</color>-->
+    <!--<color name="colorAccent">#FF4081</color>-->
+    <!--<color name="colorName">#132dd4</color>-->
+    <!--<color name="colorButton">#009688</color>-->
+    <!--<color name="colorButtonBlue">#5E92F3</color>-->
+    <!--<color name="colorBackground">#FAFAFA</color>-->
+    <!--<color name="colorMessageDetail">#000000</color>-->
+    <!--<color name="colorWarning">#ff0000</color>-->
+    <!--<color name="colorWhite">#ffffff</color>-->
+    <!--<color name="edPersonColor">#d2d0d0</color>-->
+    <!--<color name="confirmBg">#6da2e4</color>-->
+    <!--<color name="orderColor">#f2f4f5</color>-->
+    <!--<color name="ColorListViewLine">#EDEDED</color>-->
+    <!--<color name="clrDatePrimary">#005B4F</color>-->
+    <!--<color name="clrDatePrimaryDark">#00897B</color>-->
+    <!--<color name="clrDateAccent">#00897B</color>-->
+    <color name="colorRatingNormal">#D7D7D7</color>
     <color name="colorPrimary">#003C8F</color>
     <color name="colorPrimaryDark">#1565C0</color>
     <color name="colorAccent">#ff9d9b</color>
@@ -17,6 +35,5 @@
     <color name="clrDatePrimary">#005B4F</color>
     <color name="clrDatePrimaryDark">#00897B</color>
     <color name="clrDateAccent">#00897B</color>
-    <color name="colorRatingNormal">#D7D7D7</color>
 
 </resources>

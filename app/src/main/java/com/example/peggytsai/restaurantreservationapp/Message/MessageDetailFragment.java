@@ -85,10 +85,10 @@ public class MessageDetailFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
 
-                    Fragment fragment = new MessageEditFragment();
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("message", message);
-                    Common.switchFragmentBundle(fragment, getActivity(), false,bundle);
+//                    Fragment fragment = new MessageEditFragment();
+//                    Bundle bundle = new Bundle();
+//                    bundle.putSerializable("message", message);
+//                    Common.switchFragmentBundle(fragment, getActivity(), false,bundle);
 
                 }
             });

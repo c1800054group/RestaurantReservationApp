@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -19,17 +21,26 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
+import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.peggytsai.restaurantreservationapp.Check.OrderDetail;
 import com.example.peggytsai.restaurantreservationapp.Main.Common;
 import com.example.peggytsai.restaurantreservationapp.Main.MainActivity;
 
 import com.example.peggytsai.restaurantreservationapp.Cart.CartFragmentShow;
 import com.example.peggytsai.restaurantreservationapp.R;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 import static android.content.DialogInterface.BUTTON_NEGATIVE;
@@ -53,10 +64,11 @@ public class ReservationFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_order_reservation, container, false);
 
         TextView tvtoolBarTitle = view.findViewById(R.id.tvTool_bar_title);
-        tvtoolBarTitle.setText(R.string.text_Reservaton);
+//        tvtoolBarTitle.setText(R.string.text_Reservaton);
 
         findView();
-        dateButton.setOnClickListener(new View.OnClickListener() {
+        dateButton.setOnClickListener(
+                new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showDate();
@@ -109,7 +121,6 @@ public class ReservationFragment extends Fragment {
                 } else if (person1.trim().isEmpty()) {
                     Common.showToast(getActivity(), "人數尚未填寫");
                 } else {
-                    insertDateData();
                     view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_order_reservation_layout, null);
                     Button customConButton = view.findViewById(R.id.CustomConButton);
                     Button customNotButton = view.findViewById(R.id.CustomNotButton);
@@ -186,6 +197,7 @@ public class ReservationFragment extends Fragment {
 
                         }
                     });
+
                 }
 
             }
@@ -224,20 +236,29 @@ public class ReservationFragment extends Fragment {
                     .apply();
         }
 
+
         if (isVaild) {
             if (Common.networkConnected(getActivity())) {
                 JsonObject jsonObject = new JsonObject();
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Common.PREF_FILE,Context.MODE_PRIVATE);
+                int member_Id = sharedPreferences.getInt("memberID",0);
                 jsonObject.addProperty("action", "insert");
                 jsonObject.addProperty("date", d);
                 jsonObject.addProperty("person", person);
+                jsonObject.addProperty("memberId",member_Id);
 
                 try {
                     reservationTask = new ReservationInsertTask(Common.URL
-                            + "/ReserveSerVlet", jsonObject.toString());
-                    int count = Integer.valueOf(reservationTask.execute().get());
+                            + "/CheckOrderServlet", jsonObject.toString());
+                    String t = reservationTask.execute().get();
+                    Type listType = new TypeToken<List<OrderDetail>>(){ }.getType();
+                    List<OrderDetail> orderDetailList = new Gson().fromJson(t,listType);
 
-                    if (count == 0) {
+
+                    if (orderDetailList == null) {
                         Toast.makeText(getActivity(), "Reservation failed", Toast.LENGTH_LONG).show();
+                    } else {
+
                     }
 
                 } catch (Exception e) {
@@ -276,8 +297,8 @@ public class ReservationFragment extends Fragment {
             public void onDateSet(DatePicker datePicker, int y, int m, int d) {
                 //個位數補0
                 int m1 = m + 1;
-                String month = m1 < 10 ? "/0" + m1 : "/" + m1;
-                String date = d < 10 ? "/0" + d : "/" + d;
+                String month = m1 < 10 ? "-" + m1 : "-" + m1;
+                String date = d < 10 ? "-" + d : "-" + d;
 
                 tvDateContent.setText(y + month + date);
                 String month2 = month.replace("/","-");

@@ -11,21 +11,39 @@
 
 
     <TextView
-        android:id="@+id/bt11Check"
+        android:id="@+id/tv11Check"
         android:layout_width="130dp"
-        android:layout_height="20dp"
+        android:layout_height="30dp"
         android:text="@string/checkOrder"
+        android:textSize="20sp"
         android:layout_marginTop="60dp"
-        android:layout_marginLeft="60dp"/>
+        android:layout_marginLeft="90dp"/>
 
 
     <TextView
-        android:id="@+id/bt12Check"
+        android:id="@+id/tv12Check"
         android:layout_width="150dp"
-        android:layout_height="20dp"
+        android:layout_height="30dp"
         android:text="@string/checkRecord"
+        android:textSize="20sp"
         android:layout_marginTop="60dp"
-        android:layout_marginLeft="220dp"/>
+        android:layout_marginLeft="240dp"/>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tv11Check"
+        android:layout_marginTop="17dp">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/orderRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 
 
