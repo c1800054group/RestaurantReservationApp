@@ -61,6 +61,7 @@
             android:layout_marginEnd="25dp">
 
             <EditText
+                android:inputType="text"
                 android:id="@+id/et_name"
                 android:layout_gravity="center"
                 android:layout_width="match_parent"
@@ -77,6 +78,7 @@
 
 
             <EditText
+                android:inputType="number"
                 android:id="@+id/et_price"
                 android:layout_gravity="center"
                 android:layout_width="match_parent"

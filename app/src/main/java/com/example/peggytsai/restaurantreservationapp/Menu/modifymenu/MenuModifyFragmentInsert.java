@@ -75,8 +75,6 @@ public class MenuModifyFragmentInsert extends Fragment implements View.OnClickLi
         return view;
     }
 
-
-
     private void findbutton(View view) {
         tt_toolbar = view.findViewById(R.id.tvTool_bar_title);
         btMenuModifyInsert = view.findViewById(R.id.btMenuModifyInsert);
@@ -100,9 +98,6 @@ public class MenuModifyFragmentInsert extends Fragment implements View.OnClickLi
         bt_cancel.setOnClickListener(this);
         bt_insert.setOnClickListener(this);
         button.setOnClickListener(this);
-
-
-
 
         radioGroup = view.findViewById(R.id.rg_select_insert);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -151,60 +146,50 @@ public class MenuModifyFragmentInsert extends Fragment implements View.OnClickLi
                     Common.showToast(getActivity(), "NoCameraApp");
                 }
 
-
-
                 break;
             case R.id.bt_insert:
 
-
-                int x=0,y=0,z=0;
                 if( et_name.getText().toString().trim().isEmpty()){
                     et_name.setError("請輸入正確格式");
-                }else{x=1;}
+                    return;
+                }
 
                 if( et_price.getText().toString().trim().isEmpty()){
                     et_price.setError("請輸入正確格式");
-                }else{y=1;}
-                if(imageView!=null){
-
-                }else{z=1;}
-
-                if(x==1 && y==1 ){
-                    Menu menu = new Menu(et_name.getText().toString().trim(),et_price.getText().toString().trim(),selectRadio);
-
-                    if (image == null) {
-                        Common.showToast(getActivity(), " no image ");
-                        return;
-                    }
-
-                    //聯網 成功回傳Toast
-                    if (Common.networkConnected(getActivity())) {//檢查網路連線
-
-                        String imageBase64 = Base64.encodeToString(image, Base64.DEFAULT);
-                        JsonObject jsonObject = new JsonObject();
-
-                        jsonObject.addProperty("action", "menuInsert");
-                        jsonObject.addProperty("menu", new Gson().toJson( menu  ));
-                        jsonObject.addProperty("imageBase64", imageBase64);
-
-                        MenuInertTask = new MyTask(Common.URL+"/MenuServlet", jsonObject.toString());
-                        MenuInertTask.execute();
-                    } else {
-                        Common.showToast(getContext(), "text_NoNetwork");
-                    }
-
-
-                    //返回主取單
-                    Toast.makeText(getActivity(), "送出: "+selectRadio+" "+et_name.getText()+" "+et_price.getText(), Toast.LENGTH_SHORT).show();
-
-
+                    return;
                 }
+
+                if (image == null) {
+                    Common.showToast(getActivity(), " no image ");
+                    return;
+                }
+
+                Menu menu = new Menu(et_name.getText().toString().trim(),et_price.getText().toString().trim(),selectRadio);
+
+
+
+                //聯網 成功回傳Toast
+                if (Common.networkConnected(getActivity())) {//檢查網路連線
+
+                    String imageBase64 = Base64.encodeToString(image, Base64.DEFAULT);
+                    JsonObject jsonObject = new JsonObject();
+
+                    jsonObject.addProperty("action", "menuInsert");
+                    jsonObject.addProperty("menu", new Gson().toJson( menu  ));
+                    jsonObject.addProperty("imageBase64", imageBase64);
+
+                    MenuInertTask = new MyTask(Common.URL+"/MenuServlet", jsonObject.toString());
+                    MenuInertTask.execute();
+                } else {
+                    Common.showToast(getContext(), "text_NoNetwork");
+                }
+                //返回主取單
+                Toast.makeText(getActivity(), "送出: "+selectRadio+" "+et_name.getText()+" "+et_price.getText(), Toast.LENGTH_SHORT).show();
 
             case R.id.bt_cancel:
 
                 getFragmentManager().popBackStack();
                 break;
-
         }
 
     }
