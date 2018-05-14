@@ -117,7 +117,7 @@ public class CartFragmentConfirm extends Fragment {
     private void show(View view) {
 
         count = view.findViewById(R.id.count);//項目數
-        discount = view.findViewById(R.id.discount);//折價
+//        discount = view.findViewById(R.id.discount);//折價
 
         count.setText(String.valueOf(Common.CART.size()));
 
@@ -291,7 +291,7 @@ public class CartFragmentConfirm extends Fragment {
 
                         }
 
-                        Common.switchFragment(new CartFragmentShow(), getActivity(), false);
+                        Common.switchFragment(new CartFragmentShow(), getActivity(), true);
                         return;
 
 
