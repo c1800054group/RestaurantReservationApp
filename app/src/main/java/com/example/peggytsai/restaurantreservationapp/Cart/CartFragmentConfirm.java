@@ -288,18 +288,20 @@ public class CartFragmentConfirm extends Fragment {
 //                            e.printStackTrace();
 //                        }
                 }
-
-                //送出
-                if (checkWaiterWebSocketClient != null) {
-                    Log.d("aaaaaaaaaa",jsonObject.toString());
-                    checkWaiterWebSocketClient.send(jsonObject.toString());
+                try {
+                    //送出
+                    if (checkWaiterWebSocketClient != null) {
+                        Log.d("aaaaaaaaaa", jsonObject.toString());
+                        checkWaiterWebSocketClient.send(jsonObject.toString());
+                    }
+                    //斷線
+                    if (checkWaiterWebSocketClient != null) {
+                        checkWaiterWebSocketClient.close();
+                        checkWaiterWebSocketClient = null;
+                    }
+                }catch (Exception e){
+                    Log.d("web123",e.toString());
                 }
-                //斷線
-                if (checkWaiterWebSocketClient != null) {
-                    checkWaiterWebSocketClient.close();
-                    checkWaiterWebSocketClient = null;
-                }
-
 
                     Gson gson = new GsonBuilder().setDateFormat("yyyy-mm-dd hh:mm:ss").create();
                     JsonObject jsonObject_return = gson.fromJson(oderID_re.toString(),JsonObject.class);

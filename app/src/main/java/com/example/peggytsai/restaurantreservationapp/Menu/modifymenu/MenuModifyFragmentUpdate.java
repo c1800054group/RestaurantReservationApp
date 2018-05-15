@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -72,6 +73,10 @@ public class MenuModifyFragmentUpdate extends Fragment implements View.OnClickLi
     private RadioGroup radioGroup;
     private int selectRadio = 1;
 
+    private RadioButton rb_select_insert_main;
+    private RadioButton rb_select_insert_sub;
+    private RadioButton rb_select_insert_add;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -94,6 +99,12 @@ public class MenuModifyFragmentUpdate extends Fragment implements View.OnClickLi
         image_view = view.findViewById(R.id.image_view);
         int imageSize = getResources().getDisplayMetrics().widthPixels / 4;
 
+         rb_select_insert_main = view.findViewById(R.id.rb_select_insert_main);
+         rb_select_insert_sub = view.findViewById(R.id.rb_select_insert_sub);
+         rb_select_insert_add = view.findViewById(R.id.rb_select_insert_add);
+
+
+
 
         Bundle bundle = getArguments();
 
@@ -107,6 +118,16 @@ public class MenuModifyFragmentUpdate extends Fragment implements View.OnClickLi
 
                 et_name.setText(menu.getName());
                 et_price.setText(menu.getPrice());
+
+                if(menu.getType()==1){
+                    rb_select_insert_main.setChecked(true);
+                }else if(menu.getType()==2){
+                    rb_select_insert_sub.setChecked(true);
+                }else if(menu.getType()==3){
+                    rb_select_insert_add.setChecked(true);
+                }
+
+                selectRadio = menu.getType();
 
                 new MenuGetImageTask(image_view).execute(url, menu.getId(), imageSize);
             }
@@ -239,6 +260,7 @@ public class MenuModifyFragmentUpdate extends Fragment implements View.OnClickLi
                 if (Common.networkConnected(getActivity())) {//檢查網路連線
                     menu.setName(et_name.getText().toString().trim());
                     menu.setPrice(et_price.getText().toString().trim());
+                    menu.setType(selectRadio);
 
                     JsonObject jsonObject = new JsonObject();
                     jsonObject.addProperty("action", "menuUpdata");

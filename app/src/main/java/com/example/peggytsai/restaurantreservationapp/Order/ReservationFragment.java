@@ -132,6 +132,7 @@ public class ReservationFragment extends Fragment {
                     customConButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            insertDateData();
                             Common.switchFragment(new CartFragmentShow(), getActivity(), true);
                             alertDialog.cancel();
                         }
@@ -170,7 +171,7 @@ public class ReservationFragment extends Fragment {
 //                            alertDialog.show();
 //
 
-
+                            insertDateData();
 
                             alertDialog.dismiss();
                             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
