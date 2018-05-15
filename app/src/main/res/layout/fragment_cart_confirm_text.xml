@@ -47,8 +47,8 @@
 
 
                 <LinearLayout
-                    android:layout_marginTop="5dp"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="20dp"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -70,10 +70,11 @@
 
                 <LinearLayout
                     android:layout_marginTop="5dp"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="20dp"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    tools:ignore="RtlCompat">
 
                     <TextView
                         android:textSize="16sp"
@@ -93,18 +94,35 @@
 
                 <include layout="@layout/fragment_menu_checkout_item"></include>
 
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/ColorListViewLine" />
+
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/reCheckout"
                     android:layout_width="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_height="243dp">
 
                 </android.support.v7.widget.RecyclerView>
 
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/ColorListViewLine" />
+
                 <LinearLayout
                     android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    tools:ignore="RtlCompat">
                     <TextView
                         android:text="優惠折扣 :"
                         android:textSize="16sp"
@@ -152,17 +170,21 @@
                     android:background="@color/colorAccent"
                     android:text="  統一編號"
                     android:textSize="18sp"
+                    android:layout_marginTop="10dp"
+                    android:paddingStart="10dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    tools:ignore="RtlCompat" />
 
                 <TextView
-
                     android:layout_marginTop="10dp"
+                    android:paddingStart="10dp"
                     android:background="@color/colorAccent"
                     android:text="  付款方式"
                     android:textSize="18sp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    tools:ignore="RtlCompat" />
 
             </LinearLayout>
 
