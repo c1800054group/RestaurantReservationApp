@@ -289,6 +289,10 @@ public class CartFragmentConfirm extends Fragment {
 //                        }
                 }
                 try {
+                    if (table_member == ""){
+                        jsonObject.addProperty("table_member", "尚未入坐");
+                    }
+                    Thread.sleep(1000);
                     //送出
                     if (checkWaiterWebSocketClient != null) {
                         Log.d("aaaaaaaaaa", jsonObject.toString());
