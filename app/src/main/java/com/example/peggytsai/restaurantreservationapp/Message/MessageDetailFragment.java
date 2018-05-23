@@ -51,7 +51,7 @@ public class MessageDetailFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_message_detail, container, false);
 
         final Message message = (Message) getArguments().getSerializable("message");
-        byte [] b = getArguments().getByteArray("image");
+        final byte [] b = getArguments().getByteArray("image");
 
         TextView tvtoolBarTitle = view.findViewById(R.id.tvTool_bar_title);
         tvtoolBarTitle.setText(R.string.text_message);
@@ -85,10 +85,11 @@ public class MessageDetailFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
 
-//                    Fragment fragment = new MessageEditFragment();
-//                    Bundle bundle = new Bundle();
-//                    bundle.putSerializable("message", message);
-//                    Common.switchFragmentBundle(fragment, getActivity(), false,bundle);
+                    Fragment fragment = new MessageEditFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("message", message);
+                    bundle.putByteArray("image",b);
+                    Common.switchFragmentBundle(fragment, getActivity(), false,bundle);
 
                 }
             });

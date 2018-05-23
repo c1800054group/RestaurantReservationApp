@@ -44,10 +44,6 @@ public class CheckOrderFragment extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_check_1, container, false);
-
-        TextView tvtoolBarTitle = view.findViewById(R.id.tvTool_bar_title);
-        tvtoolBarTitle.setText(R.string.text_check);
-
         tv12Check = view.findViewById(R.id.tv12Check);
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -66,7 +62,7 @@ public class CheckOrderFragment extends android.support.v4.app.Fragment {
             @Override
             public void onClick(View v) {
                 CheckRecordFragment checkRecordFragment = new CheckRecordFragment();
-               Common.switchFragment(checkRecordFragment, getActivity(), false);
+                Common.switchFragment(checkRecordFragment, getActivity(), false);
             }
         });
 
@@ -154,7 +150,6 @@ public class CheckOrderFragment extends android.support.v4.app.Fragment {
                     Bundle bundle = new Bundle();
                     bundle.putString("tvOrderDate", orderDate);
                     bundle.putInt("orderId3",orderId3);
-
                     Log.d("hhhhhh", orderDate);
                     Fragment checkOrderDetailFragment = new CheckOrderDetailFragment();
                     Common.switchFragmentBundle(checkOrderDetailFragment, getActivity(), true, bundle);
@@ -183,4 +178,3 @@ public class CheckOrderFragment extends android.support.v4.app.Fragment {
 
     }
 }
-

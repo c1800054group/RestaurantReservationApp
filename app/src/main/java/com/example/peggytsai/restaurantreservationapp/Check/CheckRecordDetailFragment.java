@@ -2,6 +2,7 @@ package com.example.peggytsai.restaurantreservationapp.Check;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -35,7 +36,7 @@ public class CheckRecordDetailFragment extends Fragment {
     private RecyclerView recordDetailRecyclerView;
     private TextView tvOrderNumber2, tvOrderDate2;
     private View view;
-    private int orderId = 0;
+    private int orderId;
     private String date_order = " ";
 
 
@@ -46,6 +47,7 @@ public class CheckRecordDetailFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_check2_record_pager_detail, container, false);
 
         Bundle bundle = getArguments();
+
         orderId = bundle.getInt("orderId");
         date_order = bundle.getString("date_order1");
         Log.d("pppppp", date_order );
@@ -68,7 +70,11 @@ public class CheckRecordDetailFragment extends Fragment {
             String url = Common.URL + "/CheckOrderServlet";
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "checkAllOrder");
+            SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Common.PREF_FILE,Context.MODE_PRIVATE);
+            int memberId = sharedPreferences.getInt("memberID",0);
+            jsonObject.addProperty("memberId",memberId);
             jsonObject.addProperty("orderId",orderId);
+            Log.d("jjjjjjjjj",String.valueOf(orderId));
             String jsonOut = jsonObject.toString();
             ArrayList<CheckAllOrder> checkAllOrders = new ArrayList<CheckAllOrder>();
             recordDetailDetailTask = new MyTask(url, jsonOut);
@@ -128,7 +134,6 @@ public class CheckRecordDetailFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull RecordOrderDetailAdapter.MyViewHolder myViewHolder, int position) {
             CheckAllOrder checkAllOrder = checkAllOrders.get(position);
-            String  orderId = String.valueOf(checkAllOrder.getOrderId());
             String check2Type = checkAllOrder.getName();
             String check2Number = String.valueOf(checkAllOrder.getCount());
             String check2Price = String.valueOf(checkAllOrder.getPrice());

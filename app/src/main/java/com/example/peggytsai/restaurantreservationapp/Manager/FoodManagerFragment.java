@@ -267,8 +267,6 @@ public class FoodManagerFragment extends Fragment {
 
 
 
-
-
         }
 
         private void showQuantity() {

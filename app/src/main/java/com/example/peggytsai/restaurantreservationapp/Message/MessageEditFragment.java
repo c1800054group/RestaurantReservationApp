@@ -34,6 +34,7 @@ import com.example.peggytsai.restaurantreservationapp.Main.Common;
 import com.example.peggytsai.restaurantreservationapp.Main.MyTask;
 import com.example.peggytsai.restaurantreservationapp.Member.Member;
 import com.example.peggytsai.restaurantreservationapp.Member.MemberIndexFragment;
+import com.example.peggytsai.restaurantreservationapp.Menu.MenuGetImageTask;
 import com.example.peggytsai.restaurantreservationapp.R;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -68,10 +69,16 @@ public class MessageEditFragment extends Fragment {
     private byte[] image;
 
 
+    private MessageGetImageTask messageGetImageTask;
+
+    private int imageSize;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_message_manager_edit, container, false);
+
+
 
         TextView tvtoolBarTitle = view.findViewById(R.id.tvTool_bar_title);
         tvtoolBarTitle.setText(R.string.text_MessageManager);
@@ -88,10 +95,23 @@ public class MessageEditFragment extends Fragment {
         tvMessageEditStartTime = view.findViewById(R.id.tvMessageEditStartTime);
         tvMessageEditEndTime = view.findViewById(R.id.tvMessageEditEndTime);
         btMessageEditSave = view.findViewById(R.id.btMessageEditSave);
-        ivMessageEditImage = view.findViewById(R.id.ivMessageEditImage);
         btMessageEditPicture = view.findViewById(R.id.btMessageEditPicture);
 
         Message message = (Message) getArguments().getSerializable("message");
+        byte [] b = getArguments().getByteArray("image");
+
+
+        if (!(b == null)){
+            ImageView ivMessageDetail = view.findViewById(R.id.ivMessageEditImage);
+            ivMessageDetail.setImageBitmap(BitmapFactory.decodeByteArray(b, 0, b.length));
+        } else {
+
+            ivMessageEditImage = view.findViewById(R.id.ivMessageEditImage);
+        }
+
+
+
+
 
         //時間轉換
         String couponStar= String.valueOf(new SimpleDateFormat("yyyy/MM/dd").format(new Date(String.valueOf(message.getCoupon_start()))));
@@ -102,6 +122,10 @@ public class MessageEditFragment extends Fragment {
         etMessageEditDiscount.setText(String.valueOf(message.getCoupon_discount()));
         tvMessageEditStartTime.setText(couponStar);
         tvMessageEditEndTime.setText(couponEnd);
+
+
+        final int couponID = message.getCoupon_id();
+        final int messageID = message.getId();
 
         tvMessageEditStartTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,6 +152,7 @@ public class MessageEditFragment extends Fragment {
                 String messageEditDiscount = etMessageEditDiscount.getText().toString();
                 String messageEditStartTime = tvMessageEditStartTime.getText().toString();
                 String messageEditEndTime = tvMessageEditEndTime.getText().toString();
+
                 Date startTime = null, endTime = null;
 
                 try {
@@ -164,8 +189,8 @@ public class MessageEditFragment extends Fragment {
 
                 if (Common.networkConnected(getActivity())) {
                     String url = Common.URL + "/MessageServlet";
-                    Message message = new Message(0, messageEditTitle, messageEditPromotionMessage
-                            , 0, Float.valueOf(messageEditDiscount), startTime
+                    Message message = new Message(messageID, messageEditTitle, messageEditPromotionMessage
+                            , couponID, Float.valueOf(messageEditDiscount), startTime
                             , endTime);
                     String imageBase64 = Base64.encodeToString(image, Base64.DEFAULT);
                     JsonObject jsonObject = new JsonObject();

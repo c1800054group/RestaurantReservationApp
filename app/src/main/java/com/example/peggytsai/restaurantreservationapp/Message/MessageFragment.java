@@ -78,11 +78,11 @@ public class MessageFragment extends Fragment {
         } else if (authority_id == 1) {
             tvtoolBarTitle.setText(R.string.text_message);
 
-            navigationView = getActivity().findViewById(R.id.Navigation);
-            if (!(navigationView.getSelectedItemId() == R.id.item_Message)){
-                navigationView.getMenu().clear();
-                navigationView.inflateMenu(R.menu.navigate_menu);
-            }
+//            navigationView = getActivity().findViewById(R.id.Navigation);
+//            if (!(navigationView.getSelectedItemId() == R.id.item_Message)){
+//                navigationView.getMenu().clear();
+//                navigationView.inflateMenu(R.menu.navigate_menu);
+//            }
 
             btService.setOnClickListener(new View.OnClickListener() {
                 @Override

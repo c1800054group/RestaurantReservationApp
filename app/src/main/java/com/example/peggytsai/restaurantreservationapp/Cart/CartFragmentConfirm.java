@@ -99,7 +99,6 @@ public class CartFragmentConfirm extends Fragment {
 //                Common.showToast(getActivity(),coupon.getCoupon());
                 list.add(coupon.getCoupon());
 
-
                 if(list.size()>0){
                     pref.edit().putString("Coupon",coupon.getCoupon()).putString("Discount",String.valueOf(coupon.getDiscount())).apply();
                 }
@@ -117,14 +116,10 @@ public class CartFragmentConfirm extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));//MainActivity.this
         recyclerView.setAdapter(  new MenuAddAdapter(menus_list, getContext()));
 
-
-
 //        pref = getActivity().getSharedPreferences("preference",getActivity().MODE_PRIVATE);
 //        pref.edit()
 //                .putString("Subtotal_main", money)
 //                .apply();
-
-
 
         pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
 
@@ -153,7 +148,6 @@ public class CartFragmentConfirm extends Fragment {
 //        discount = view.findViewById(R.id.discount);//折價
 
         count.setText(String.valueOf(Common.CART.size()));
-
 
         text_total = view.findViewById(R.id.total);        //計算並顯示
 
