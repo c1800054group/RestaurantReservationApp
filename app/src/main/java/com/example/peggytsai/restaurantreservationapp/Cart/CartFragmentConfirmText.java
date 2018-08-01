@@ -23,6 +23,7 @@ import com.example.peggytsai.restaurantreservationapp.Menu.Coupon;
 import com.example.peggytsai.restaurantreservationapp.Menu.Menu;
 import com.example.peggytsai.restaurantreservationapp.Menu.MenuGetImageTask;
 import com.example.peggytsai.restaurantreservationapp.Menu.OrderMenu;
+import com.example.peggytsai.restaurantreservationapp.Menu.Socket;
 import com.example.peggytsai.restaurantreservationapp.Order.OrderFragment;
 import com.example.peggytsai.restaurantreservationapp.R;
 import com.google.gson.Gson;
@@ -135,6 +136,13 @@ public class CartFragmentConfirmText extends Fragment {
         return view;
 
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        Socket.disconnectServer();
     }
 
     public void KeyDown() {

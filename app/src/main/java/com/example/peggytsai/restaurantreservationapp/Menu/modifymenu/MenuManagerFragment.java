@@ -59,6 +59,7 @@ public class MenuManagerFragment extends Fragment {
 
     private void veiw_set() {
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewPager);
+        viewPager.setOffscreenPageLimit(3);
         viewPager.setAdapter(  new MyPagerAdapter(getChildFragmentManager())  );  //直接返回 嵌套的子fragment
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);

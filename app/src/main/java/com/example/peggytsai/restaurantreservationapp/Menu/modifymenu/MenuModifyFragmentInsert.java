@@ -4,6 +4,7 @@ package com.example.peggytsai.restaurantreservationapp.Menu.modifymenu;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
@@ -31,6 +32,7 @@ import android.widget.Toast;
 import com.example.peggytsai.restaurantreservationapp.Main.Common;
 import com.example.peggytsai.restaurantreservationapp.Main.MyTask;
 import com.example.peggytsai.restaurantreservationapp.Menu.Menu;
+import com.example.peggytsai.restaurantreservationapp.Menu.Socket;
 import com.example.peggytsai.restaurantreservationapp.R;
 import com.example.peggytsai.restaurantreservationapp.Rating.RatingFragment;
 import com.example.peggytsai.restaurantreservationapp.Rating.RatingNewFragment;
@@ -43,11 +45,13 @@ import java.io.FileNotFoundException;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.Context.MODE_PRIVATE;
 
 public class MenuModifyFragmentInsert extends Fragment implements View.OnClickListener {
 
     private EditText et_name;
     private EditText et_price;
+    private EditText et_count;
     private Button button, bt_cancel;
     private TextView bt_insert;
     private ImageView imageView;
@@ -79,6 +83,22 @@ public class MenuModifyFragmentInsert extends Fragment implements View.OnClickLi
         return view;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        SharedPreferences pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
+        String memberName = String.valueOf(  pref.getInt("memberID",0)    );
+
+        Socket.connectServer(getActivity(),memberName);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Socket.disconnectServer();
+    }
+
     private void findbutton(View view) {
         tt_toolbar = view.findViewById(R.id.tvTool_bar_title);
         bt_insert = view.findViewById(R.id.bt_insert);
@@ -94,6 +114,7 @@ public class MenuModifyFragmentInsert extends Fragment implements View.OnClickLi
 
         et_name = view.findViewById(R.id.et_name);
         et_price = view.findViewById(R.id.et_price);
+        et_count = view.findViewById(R.id.et_count);
         button = view.findViewById(R.id.button);
         imageView = view.findViewById(R.id.image);
         bt_cancel = view.findViewById(R.id.bt_cancel);
@@ -166,12 +187,30 @@ public class MenuModifyFragmentInsert extends Fragment implements View.OnClickLi
                     return;
                 }
 
+                if (et_count.getText().toString().trim().isEmpty()) {
+                    et_count.setError("請輸入正確格式");
+                    return;
+                }
+
+
                 if (image == null) {
                     Common.showToast(getActivity(), " no image ");
                     return;
                 }
 
-                Menu menu = new Menu(et_name.getText().toString().trim(), et_price.getText().toString().trim(), selectRadio);
+                int count = Integer.valueOf(   et_count.getText().toString().trim()  );
+
+                Menu menu = new Menu(et_name.getText().toString().trim(),
+                        et_price.getText().toString().trim(),
+                        selectRadio,
+                        count
+                        );
+
+//                        (et_name.getText().toString().trim(),
+//                        et_price.getText().toString().trim(),
+//                        selectRadio ,
+//                        et_count.getText().toString().trim()
+//                );
 
 
                 //聯網 成功回傳Toast
@@ -186,6 +225,16 @@ public class MenuModifyFragmentInsert extends Fragment implements View.OnClickLi
 
                     MenuInertTask = new MyTask(Common.URL + "/MenuServlet", jsonObject.toString());
                     MenuInertTask.execute();
+
+                    if (Socket.SocketClient != null){
+                        Socket.SocketClient.send("notifyDataSetChanged");
+
+                        SharedPreferences pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
+                        int num = pref.getInt("memberID",0);
+                        Socket.connectServer(getActivity(),  String.valueOf(num)  );
+                    }else {
+                        Common.showToast(getActivity(),"disconnect");
+                    }
                 } else {
                     Common.showToast(getContext(), "text_NoNetwork");
                 }

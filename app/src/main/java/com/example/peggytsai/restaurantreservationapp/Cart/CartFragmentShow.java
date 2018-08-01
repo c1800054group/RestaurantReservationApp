@@ -70,6 +70,7 @@ public class CartFragmentShow extends Fragment {
 
 
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewPager_all);
+        viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(new MyPagerAdapter(getChildFragmentManager()));  //直接返回 嵌套的子fragment
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabMenuLayout);
         tabLayout.setupWithViewPager(viewPager);

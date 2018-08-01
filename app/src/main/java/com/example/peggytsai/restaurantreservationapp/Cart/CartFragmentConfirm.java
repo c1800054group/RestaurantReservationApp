@@ -27,6 +27,7 @@ import com.example.peggytsai.restaurantreservationapp.Menu.Coupon;
 import com.example.peggytsai.restaurantreservationapp.Menu.Menu;
 import com.example.peggytsai.restaurantreservationapp.Menu.MenuGetImageTask;
 import com.example.peggytsai.restaurantreservationapp.Menu.OrderMenu;
+import com.example.peggytsai.restaurantreservationapp.Menu.Socket;
 import com.example.peggytsai.restaurantreservationapp.R;
 import com.example.peggytsai.restaurantreservationapp.Waiter.ServiceWebSocketClient;
 import com.google.gson.Gson;
@@ -141,6 +142,18 @@ public class CartFragmentConfirm extends Fragment {
 
 
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        SharedPreferences pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
+        int num = pref.getInt("memberID",0);
+        Socket.connectServer(getActivity(),  String.valueOf(num)  );
+
+    }
+
+
 
     private void show(View view) {
 
@@ -272,6 +285,9 @@ public class CartFragmentConfirm extends Fragment {
 
                 try {
                     oderID_re = upcartTask.execute().get();
+
+                    Socket.SocketClient.send("notifyDataSetChanged");
+
 //                            Common.showToast(getActivity(),oderID+"first");
                 } catch (Exception e) {
 
@@ -475,12 +491,13 @@ public class CartFragmentConfirm extends Fragment {
                                 orderMenu.setQuantity(orderMenu.getQuantity()-1);
                                 if( orderMenu.getQuantity()==0){
                                     Common.CART.remove(orderMenu);
-//                                    menus_list.remove(menu);
-//                                        notifyDataSetChanged();
+
                                     item_list.remove(menu);
                                     notifyDataSetChanged();
                                 }
                                 holder.tt_count.setText(String.valueOf(   orderMenu.getQuantity()  )); //所以使用區域變數 替代顯示的內容
+
+                                holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.colorBackground));
                             }
 
                             break;
@@ -488,16 +505,22 @@ public class CartFragmentConfirm extends Fragment {
                         case R.id.img_plus:
                             //項目++
 
+                            if(menu.getStock() > orderMenu.getQuantity()){
+                                if(orderMenu.getQuantity()<9){
 
-                            if(orderMenu.getQuantity()<9){
+                                    orderMenu.setQuantity(orderMenu.getQuantity() + 1);
+                                    holder.tt_count.setText(String.valueOf( orderMenu.getQuantity() ));
+                                    if(index == -1){
+                                        Common.CART.add(orderMenu);
+                                    }
 
-                                orderMenu.setQuantity(orderMenu.getQuantity() + 1);
-                                holder.tt_count.setText(String.valueOf( orderMenu.getQuantity() ));
-                                if(index == -1){
-                                    Common.CART.add(orderMenu);
+                                }
+                            }else {
+                                if(menu.getStock() <= orderMenu.getQuantity()){
+                                    holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.colorWarning));
+                                    Common.showToast(context,"選擇已經到達庫存上線了呦");
                                 }
                             }
-
                             break;
 //                        case R.id.bt_cart_submit:
 //                            break;
@@ -516,7 +539,7 @@ public class CartFragmentConfirm extends Fragment {
                     //加入物件
                     //cope2.OrderMenu.getQuantity()' on a null object reference
 //                Toast.makeText(context, String.valueOf( orderMenu.getQuantity()  ), Toast.LENGTH_SHORT).show();
-                    Toast.makeText(context, String.valueOf( Common.CART.size()  ), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, String.valueOf( Common.CART.size()  ), Toast.LENGTH_SHORT).show();
 
 
                 }//onClick(View v) {

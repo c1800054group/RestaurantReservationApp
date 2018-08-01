@@ -1,16 +1,22 @@
 package com.example.peggytsai.restaurantreservationapp.Manager;
 
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -21,16 +27,20 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.peggytsai.restaurantreservationapp.Cart.CartFragmentShow;
 import com.example.peggytsai.restaurantreservationapp.Main.Common;
 import com.example.peggytsai.restaurantreservationapp.Main.MyTask;
 import com.example.peggytsai.restaurantreservationapp.Menu.Menu;
 import com.example.peggytsai.restaurantreservationapp.Menu.MenuGetAllTask;
 import com.example.peggytsai.restaurantreservationapp.Menu.MenuGetImageTask;
+import com.example.peggytsai.restaurantreservationapp.Menu.Socket;
 import com.example.peggytsai.restaurantreservationapp.R;
 import com.google.gson.JsonObject;
 
 
 import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class FoodManagerFragment extends Fragment {
     private final static String TAG = "Food";
@@ -40,11 +50,17 @@ public class FoodManagerFragment extends Fragment {
 
     private List<Menu> menus_list;
     private MyTask MenuUpdataTask;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private ViewPager viewPager;
+    private View view;
+
+    private LocalBroadcastManager broadcastManager;
+    private  IntentFilter stockFilter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_food_manager, container, false);
+        view = inflater.inflate(R.layout.fragment_food_manager, container, false);
 
         TextView tvtoolBarTitle = view.findViewById(R.id.tvTool_bar_title);
         tvtoolBarTitle.setText(R.string.text_FoodManager);
@@ -55,15 +71,39 @@ public class FoodManagerFragment extends Fragment {
             navigationView.inflateMenu(R.menu.navigate_menu_manager);
         }
 
+        swipeRefreshLayout =
+                view.findViewById(R.id.swipeRefreshLayout);
 
+        flash();
+        veiw_set();
 
-        ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewPager_all);
-//        viewPager.setAdapter(  new MyPagerAdapter(getChildFragmentManager())  );  //直接返回 嵌套的子fragment
-        viewPager.setAdapter(new SamplePagerAdapter());  //直接返回 嵌套的子fragment
-        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabFoodLayout);
-        tabLayout.setupWithViewPager(viewPager);
+        broadcastManager = LocalBroadcastManager.getInstance(getActivity());
+        stockFilter = new IntentFilter("stock");    //ChatWebSocketClient
+        StockReceiver stockReceiver = new StockReceiver(view);
+        broadcastManager.registerReceiver(stockReceiver, stockFilter);
 
         return view;
+    }
+
+    private class StockReceiver extends BroadcastReceiver {
+        private View view;
+        public StockReceiver(View view) {
+            this.view = view;
+        }
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            String message = intent.getStringExtra("message");
+            if(  message.equals("notifyDataSetChanged")  ){
+
+                int viewPager_switch = viewPager.getCurrentItem();
+                veiw_set();
+                viewPager.setCurrentItem(viewPager_switch);
+                Log.d("Food","Food");
+//                Common.showToast(getActivity(),message);
+            }
+
+        }
     }
 
     private void list_connect(View view, int position) {
@@ -107,6 +147,46 @@ public class FoodManagerFragment extends Fragment {
 
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        SharedPreferences pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
+        String memberName = String.valueOf(  pref.getInt("memberID",0)    );
+
+        Socket.connectServer(getActivity(),memberName);
+//        Common.showToast(getActivity(),memberName);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        Socket.disconnectServer();
+    }
+    private void veiw_set() {
+        viewPager = (ViewPager) view.findViewById(R.id.viewPager_all);
+//        viewPager.setAdapter(  new MyPagerAdapter(getChildFragmentManager())  );  //直接返回 嵌套的子fragment
+        viewPager.setAdapter(new SamplePagerAdapter());  //直接返回 嵌套的子fragment
+        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabFoodLayout);
+        tabLayout.setupWithViewPager(viewPager);
+    }
+    private void flash() {
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(true); //開啟刷新
+
+                int viewPager_switch = viewPager.getCurrentItem();
+                veiw_set();
+                viewPager.setCurrentItem(viewPager_switch);
+
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+    }
+
     private class SamplePagerAdapter extends PagerAdapter {
 
 
@@ -148,11 +228,6 @@ public class FoodManagerFragment extends Fragment {
             } else if (position == 2){
                 list_connect(view, position);
             }
-
-            recyclerView = view.findViewById(R.id.recyceleview);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-            recyclerView.setAdapter(new ShowAdapter(menus_list, getContext()));
-
             return view;
         }
 
@@ -229,9 +304,8 @@ public class FoodManagerFragment extends Fragment {
                     AlertDialog.Builder dialog_list = new AlertDialog.Builder(getActivity());
                     dialog_list.setTitle("請選擇補貨數量");
                     dialog_list.setItems(setQuantit, new DialogInterface.OnClickListener(){
-                        @Override
-
                         //只要你在onClick處理事件內，使用which參數，就可以知道按下陣列裡的哪一個了
+                        @Override
                         public void onClick(DialogInterface dialog, int which) {
                             int quantity_add = Integer.parseInt(setQuantit[which]);
                             int quantity_total = quantity_add + menu.getStock();
@@ -251,6 +325,18 @@ public class FoodManagerFragment extends Fragment {
                                     Common.showToast(getActivity(), menu.getName() + " 庫儲貨更新為: " + String.valueOf(quantity_total));
                                     holder.quantity.setText(String.valueOf(quantity_total));
                                     menu.setStock(Integer.parseInt(holder.quantity.getText().toString().trim()));
+
+
+                                    if (Socket.SocketClient != null){
+                                        Socket.SocketClient.send("notifyDataSetChanged");
+
+                                        SharedPreferences pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
+                                        int num = pref.getInt("memberID",0);
+                                        Socket.connectServer(getActivity(),  String.valueOf(num)  );
+                                    }else {
+                                        Common.showToast(getActivity(),"disconnect");
+                                    }
+
                                 } else {
                                     Common.showToast(getContext(), "text_NoNetwork");
                                 }
@@ -263,9 +349,6 @@ public class FoodManagerFragment extends Fragment {
 
                 }
             });
-
-
-
 
         }
 
