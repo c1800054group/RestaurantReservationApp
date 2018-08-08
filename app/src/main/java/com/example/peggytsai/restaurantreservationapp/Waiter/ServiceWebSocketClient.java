@@ -39,9 +39,10 @@ public class ServiceWebSocketClient extends WebSocketClient {
 
     @Override
     public void onMessage(String message) {
+        Log.d(TAG, "onMessage123: " + message);
         JsonObject jsonObject = gson.fromJson(message, JsonObject.class);
         // type: 訊息種類，有open(有user連線), close(有user離線), chat(其他user傳送來的聊天訊息)
-        String type = jsonObject.get("type").getAsString();
+        String type = jsonObject.get("action").getAsString();
         sendMessageBroadcast(type, message);
         Log.d(TAG, "onMessage: " + message);
 
