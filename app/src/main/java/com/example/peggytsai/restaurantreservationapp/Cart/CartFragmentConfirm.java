@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -36,6 +37,7 @@ import com.google.gson.reflect.TypeToken;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.lang.reflect.Type;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -97,7 +99,6 @@ public class CartFragmentConfirm extends Fragment {
 //                Common.showToast(getActivity(),coupon.getCoupon());
                 list.add(coupon.getCoupon());
 
-
                 if(list.size()>0){
                     pref.edit().putString("Coupon",coupon.getCoupon()).putString("Discount",String.valueOf(coupon.getDiscount())).apply();
                 }
@@ -115,14 +116,10 @@ public class CartFragmentConfirm extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));//MainActivity.this
         recyclerView.setAdapter(  new MenuAddAdapter(menus_list, getContext()));
 
-
-
 //        pref = getActivity().getSharedPreferences("preference",getActivity().MODE_PRIVATE);
 //        pref.edit()
 //                .putString("Subtotal_main", money)
 //                .apply();
-
-
 
         pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
 
@@ -151,7 +148,6 @@ public class CartFragmentConfirm extends Fragment {
 //        discount = view.findViewById(R.id.discount);//折價
 
         count.setText(String.valueOf(Common.CART.size()));
-
 
         text_total = view.findViewById(R.id.total);        //計算並顯示
 
@@ -241,10 +237,10 @@ public class CartFragmentConfirm extends Fragment {
                 person = pref.getString("人數","");
                 data = pref.getString("日期時間","");
 
-                if(table_member == "" && person=="" && data == ""){
-                    Common.showToast(getActivity(),"資料有錯誤  全為空值 有桌號 或 人物與時間 沒抓到資料");
-                    return;
-                }
+//                if(table_member == "" && person=="" && data == ""){
+//                    Common.showToast(getActivity(),"資料有錯誤  全為空值 有桌號 或 人物與時間 沒抓到資料");
+//                    return;
+//                }
 
 //
 //                        if(person=="" || data=="" || person == null || data == null){
@@ -271,7 +267,7 @@ public class CartFragmentConfirm extends Fragment {
 
                 String oderID_re = "";
 
-                upcartTask = new MyTask(Common.URL+"/OrderServlet", jsonObject.toString());
+                upcartTask = new MyTask(Common.URL+"/CheckOrderServlet", jsonObject.toString());
 //                        upcartTask.execute();
 
                 try {
@@ -286,18 +282,24 @@ public class CartFragmentConfirm extends Fragment {
 //                            e.printStackTrace();
 //                        }
                 }
-
-                //送出
-                if (checkWaiterWebSocketClient != null) {
-                    Log.d("aaaaaaaaaa",jsonObject.toString());
-                    checkWaiterWebSocketClient.send(jsonObject.toString());
+                try {
+                    if (table_member == ""){
+                        jsonObject.addProperty("table_member", "尚未入坐");
+                    }
+                    Thread.sleep(1000);
+                    //送出
+                    if (checkWaiterWebSocketClient != null) {
+                        Log.d("aaaaaaaaaa", jsonObject.toString());
+                        checkWaiterWebSocketClient.send(jsonObject.toString());
+                    }
+                    //斷線
+                    if (checkWaiterWebSocketClient != null) {
+                        checkWaiterWebSocketClient.close();
+                        checkWaiterWebSocketClient = null;
+                    }
+                }catch (Exception e){
+                    Log.d("web123",e.toString());
                 }
-                //斷線
-                if (checkWaiterWebSocketClient != null) {
-                    checkWaiterWebSocketClient.close();
-                    checkWaiterWebSocketClient = null;
-                }
-
 
                     Gson gson = new GsonBuilder().setDateFormat("yyyy-mm-dd hh:mm:ss").create();
                     JsonObject jsonObject_return = gson.fromJson(oderID_re.toString(),JsonObject.class);

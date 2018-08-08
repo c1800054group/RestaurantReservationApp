@@ -32,6 +32,8 @@ import com.example.peggytsai.restaurantreservationapp.Main.Common;
 import com.example.peggytsai.restaurantreservationapp.Main.MyTask;
 import com.example.peggytsai.restaurantreservationapp.Menu.Menu;
 import com.example.peggytsai.restaurantreservationapp.R;
+import com.example.peggytsai.restaurantreservationapp.Rating.RatingFragment;
+import com.example.peggytsai.restaurantreservationapp.Rating.RatingNewFragment;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -42,14 +44,15 @@ import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
-public class MenuModifyFragmentInsert extends Fragment implements View.OnClickListener{
+public class MenuModifyFragmentInsert extends Fragment implements View.OnClickListener {
 
     private EditText et_name;
     private EditText et_price;
-    private Button button,bt_cancel,bt_insert;
+    private Button button, bt_cancel;
+    private TextView bt_insert;
     private ImageView imageView;
     private RadioGroup radioGroup;
-    private int selectRadio=1;
+    private int selectRadio = 1;
 
     private TextView tt_toolbar;
     private TextView btMenuModifyInsert;
@@ -63,6 +66,7 @@ public class MenuModifyFragmentInsert extends Fragment implements View.OnClickLi
     private Uri croppedImageUri;
 
     private final static String TAG = "MenuInsert";
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -77,10 +81,10 @@ public class MenuModifyFragmentInsert extends Fragment implements View.OnClickLi
 
     private void findbutton(View view) {
         tt_toolbar = view.findViewById(R.id.tvTool_bar_title);
-        btMenuModifyInsert = view.findViewById(R.id.btMenuModifyInsert);
+        bt_insert = view.findViewById(R.id.bt_insert);
         tt_toolbar.setText("新增菜單");
-        btMenuModifyInsert.setText("");
-        btMenuModifyInsert.setOnClickListener(new View.OnClickListener() {
+//        btMenuModifyInsert.setText("");
+        bt_insert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                Use_fragment useFragment = new Use_fragment();
@@ -88,12 +92,12 @@ public class MenuModifyFragmentInsert extends Fragment implements View.OnClickLi
             }
         });
 
-        et_name= view.findViewById(R.id.et_name);
-        et_price= view.findViewById(R.id.et_price);
-        button= view.findViewById(R.id.button);
+        et_name = view.findViewById(R.id.et_name);
+        et_price = view.findViewById(R.id.et_price);
+        button = view.findViewById(R.id.button);
         imageView = view.findViewById(R.id.image);
-;       bt_cancel= view.findViewById(R.id.bt_cancel);
-        bt_insert= view.findViewById(R.id.bt_insert);
+        bt_cancel = view.findViewById(R.id.bt_cancel);
+        bt_insert = view.findViewById(R.id.bt_insert);
 
         bt_cancel.setOnClickListener(this);
         bt_insert.setOnClickListener(this);
@@ -106,10 +110,13 @@ public class MenuModifyFragmentInsert extends Fragment implements View.OnClickLi
                 // if rbByDate is checked, show date picker dialog
                 if (checkedId == R.id.rb_select_insert_main) {
                     //加入主餐list
-                    selectRadio=1;
-                } else {
+                    selectRadio = 1;
+                } else if (checkedId == R.id.rb_select_insert_sub){
                     //加入副餐list
-                    selectRadio=2;
+                    selectRadio = 2;
+                } else {
+                    //加入加購list
+                    selectRadio = 3;
                 }
             }
         });
@@ -135,11 +142,11 @@ public class MenuModifyFragmentInsert extends Fragment implements View.OnClickLi
 
                 if (Common.isIntentAvailable(getActivity(), intent)) {
 
-                    int x=0;
-                    try{
+                    int x = 0;
+                    try {
                         startActivityForResult(intent, REQ_TAKE_PICTURE);
-                    }catch (Exception e){
-                        Log.e("123",e.toString());
+                    } catch (Exception e) {
+                        Log.e("123", e.toString());
                     }
 
                 } else {
@@ -149,12 +156,12 @@ public class MenuModifyFragmentInsert extends Fragment implements View.OnClickLi
                 break;
             case R.id.bt_insert:
 
-                if( et_name.getText().toString().trim().isEmpty()){
+                if (et_name.getText().toString().trim().isEmpty()) {
                     et_name.setError("請輸入正確格式");
                     return;
                 }
 
-                if( et_price.getText().toString().trim().isEmpty()){
+                if (et_price.getText().toString().trim().isEmpty()) {
                     et_price.setError("請輸入正確格式");
                     return;
                 }
@@ -164,8 +171,7 @@ public class MenuModifyFragmentInsert extends Fragment implements View.OnClickLi
                     return;
                 }
 
-                Menu menu = new Menu(et_name.getText().toString().trim(),et_price.getText().toString().trim(),selectRadio);
-
+                Menu menu = new Menu(et_name.getText().toString().trim(), et_price.getText().toString().trim(), selectRadio);
 
 
                 //聯網 成功回傳Toast
@@ -175,20 +181,21 @@ public class MenuModifyFragmentInsert extends Fragment implements View.OnClickLi
                     JsonObject jsonObject = new JsonObject();
 
                     jsonObject.addProperty("action", "menuInsert");
-                    jsonObject.addProperty("menu", new Gson().toJson( menu  ));
+                    jsonObject.addProperty("menu", new Gson().toJson(menu));
                     jsonObject.addProperty("imageBase64", imageBase64);
 
-                    MenuInertTask = new MyTask(Common.URL+"/MenuServlet", jsonObject.toString());
+                    MenuInertTask = new MyTask(Common.URL + "/MenuServlet", jsonObject.toString());
                     MenuInertTask.execute();
                 } else {
                     Common.showToast(getContext(), "text_NoNetwork");
                 }
                 //返回主取單
-                Toast.makeText(getActivity(), "送出: "+selectRadio+" "+et_name.getText()+" "+et_price.getText(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "送出: " + selectRadio + " " + et_name.getText() + " " + et_price.getText(), Toast.LENGTH_SHORT).show();
 
             case R.id.bt_cancel:
 
-                getFragmentManager().popBackStack();
+                Fragment Fragment = new MenuManagerFragment();
+                Common.switchFragment(Fragment, getActivity(), false);
                 break;
         }
 
@@ -263,8 +270,6 @@ public class MenuModifyFragmentInsert extends Fragment implements View.OnClickLi
             Common.showToast(getActivity(), "This device doesn't support the crop action!");
         }
     }
-
-
 
 
 }

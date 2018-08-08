@@ -51,6 +51,7 @@ public class MemberIndexFragment extends Fragment {
         tvPhone = view.findViewById(R.id.tvPhone);
         btRevise = view.findViewById(R.id.btRevise);
         tvMemberLogOut = view.findViewById(R.id.tvMemberLogOut);
+        tvMemberLogOut = view.findViewById(R.id.tvMemberLogOut);
 
         tvMemberLogOut.setOnClickListener(new View.OnClickListener() {
             @Override

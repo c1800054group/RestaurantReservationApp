@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,6 +27,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.ByteArrayOutputStream;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -37,7 +39,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class MessageDetailFragment extends Fragment {
 
     private static final String TAG = "MessageDetailFragment";
-    private TextView btCoupon;
+    private TextView btCoupon, btMessageEdit;
 
     private int imageSize;
     private MessageGetImageTask messageGetImageTask;
@@ -48,28 +50,55 @@ public class MessageDetailFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_message_detail, container, false);
 
-        Message message = (Message) getArguments().getSerializable("message");
-        byte [] b = getArguments().getByteArray("image");
+        final Message message = (Message) getArguments().getSerializable("message");
+        final byte [] b = getArguments().getByteArray("image");
 
         TextView tvtoolBarTitle = view.findViewById(R.id.tvTool_bar_title);
         tvtoolBarTitle.setText(R.string.text_message);
 
-        btCoupon = view.findViewById(R.id.btCoupon);
-        btCoupon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharedPreferences pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
-                int memberID = pref.getInt("memberID", 0);
-                Message message = (Message) getArguments().getSerializable("message");
-                int couponID = message.getCoupon_id();
+        SharedPreferences pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
+        int authority_id = pref.getInt("authority_id", 1);
 
-                getCoupon(memberID,couponID);
+        //優惠卷領取
+        if (authority_id == 1) {
+            tvtoolBarTitle.setText(R.string.text_message);
+            btCoupon = view.findViewById(R.id.btCoupon);
+            btCoupon.setVisibility(BottomNavigationView.VISIBLE);
+            btCoupon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SharedPreferences pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
+                    int memberID = pref.getInt("memberID", 0);
+                    Message message = (Message) getArguments().getSerializable("message");
+                    int couponID = message.getCoupon_id();
 
-                Toast.makeText(getActivity(), "成功取得優惠券!", Toast.LENGTH_SHORT).show();
-            }
-        });
+                    getCoupon(memberID, couponID);
+                    Toast.makeText(getActivity(), "成功取得優惠券!", Toast.LENGTH_SHORT).show();
+                }
+            });
+        //編輯
+        } else if (authority_id == 4) {
+            tvtoolBarTitle.setText(R.string.text_MessageManager);
+            btMessageEdit = view.findViewById(R.id.btMessageEdit);
+            btMessageEdit.setVisibility(BottomNavigationView.VISIBLE);
+            btMessageEdit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Fragment fragment = new MessageEditFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("message", message);
+                    bundle.putByteArray("image",b);
+                    Common.switchFragmentBundle(fragment, getActivity(), false,bundle);
+
+                }
+            });
+
+        }
+
+
         //圖片接收
-        String url = Common.URL + "/MessageServlet";
+//        String url = Common.URL + "/MessageServlet";
         ImageView ivMessageDetail = view.findViewById(R.id.ivMessageDetail);
         ivMessageDetail.setImageBitmap(BitmapFactory.decodeByteArray(b, 0, b.length));
 
@@ -106,9 +135,6 @@ public class MessageDetailFragment extends Fragment {
         }
 
     }
-
-
-
 
     @Override
     public void onStop() {

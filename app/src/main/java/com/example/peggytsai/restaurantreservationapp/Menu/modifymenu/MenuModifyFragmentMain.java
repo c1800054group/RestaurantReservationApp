@@ -20,7 +20,6 @@ import com.example.peggytsai.restaurantreservationapp.Main.MyTask;
 import com.example.peggytsai.restaurantreservationapp.Menu.Menu;
 import com.example.peggytsai.restaurantreservationapp.Menu.MenuGetAllTask;
 import com.example.peggytsai.restaurantreservationapp.Menu.MenuGetImageTask;
-import com.example.peggytsai.restaurantreservationapp.Order.OrderFragment;
 import com.example.peggytsai.restaurantreservationapp.R;
 import com.google.gson.JsonObject;
 
@@ -35,7 +34,6 @@ public class MenuModifyFragmentMain extends Fragment {
     private final static String TAG = "Mainfragment"; //log用
 
     private SwipeRefreshLayout swipeRefreshLayout;
-//    private  Fragment fragment;
 
     private MyTask MenuDeleteTask;
 
@@ -43,12 +41,8 @@ public class MenuModifyFragmentMain extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-//        getActivity().setTitle("菜單1");
         final View view = inflater.inflate(R.layout.fragment_cart, container, false);
-
-
         list_connect(view);
-
 
         swipeRefreshLayout =
                 view.findViewById(R.id.swipeRefreshLayout);
@@ -61,7 +55,6 @@ public class MenuModifyFragmentMain extends Fragment {
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
-
 
         return view;
 
@@ -83,7 +76,6 @@ public class MenuModifyFragmentMain extends Fragment {
             if (menus_list == null || menus_list.isEmpty()) {
                 Common.showToast(getActivity(), "text_NoCategoriesFound");
                 //連不到 帶入本機 項目 但無法下單 僅能觀看餐點項目 並要求更新 新版本的清單列表
-//                item_list2 = getitem();
 
             } else {
                 //連線到 將清單 儲存至頁面供 該頁面上所有ftagment 使用
@@ -95,7 +87,6 @@ public class MenuModifyFragmentMain extends Fragment {
             }
         } else {
             Common.showToast(getActivity(), "text_NoNetwork");
-//            item_list2 = getitem();
         }
         //都做
 
@@ -105,15 +96,7 @@ public class MenuModifyFragmentMain extends Fragment {
     public void onDestroy() {
         super.onDestroy();
 
-
-//        if (MenuGetImageTask != null) {
-//            MenuGetImageTask.cancel(true);
-//            MenuGetImageTask = null;
-//        }
-
     }
-
-
 
     public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.MyViewHolder> {
         private List<Menu> item_list;
@@ -140,19 +123,16 @@ public class MenuModifyFragmentMain extends Fragment {
         }
 
         class MyViewHolder extends RecyclerView.ViewHolder {
-            private ImageView imageView;
+            private ImageView image_menu_view;
 
-            private TextView tt_name;
-            private TextView tt_money;
+            private TextView text_menu_name,menu_money;
 
 
             public MyViewHolder(View itemview) {
                 super(itemview);//  可接view 建構式   表示RecyclerView.ViewHolder 可能會有 view屬性
-                imageView = itemview.findViewById(R.id.image_view);
-//            img_m = itemview.findViewById(R.id.img_minus);
-//            img_p = itemview.findViewById(R.id.img_plus);
-                tt_name = itemview.findViewById(R.id.text_name);
-                tt_money = itemview.findViewById(R.id.money);
+                image_menu_view = itemview.findViewById(R.id.image_menu_view);
+                text_menu_name = itemview.findViewById(R.id.text_menu_name);
+                menu_money = itemview.findViewById(R.id.menu_money);
 
             }
         }
@@ -163,10 +143,10 @@ public class MenuModifyFragmentMain extends Fragment {
 
             String url = Common.URL + "/MenuServlet";
             int id = menu.getId();
-            new MenuGetImageTask(holder.imageView).execute(url, id, imageSize);
+            new MenuGetImageTask(holder.image_menu_view).execute(url, id, imageSize);
 
-            holder.tt_name.setText(menu.getName());
-            holder.tt_money.setText("$"+ String.valueOf(menu.getPrice()));
+            holder.text_menu_name.setText(menu.getName());
+            holder.menu_money.setText("$"+ String.valueOf(menu.getPrice()));
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -176,7 +156,6 @@ public class MenuModifyFragmentMain extends Fragment {
                     Fragment update = new MenuModifyFragmentUpdate();
                     update.setArguments(bundle);
 
-//                    getParentFragment().getFragmentManager().beginTransaction().replace(,update).addToBackStack("").commit();
                     Common.switchFragment(update, getActivity(), true);
                 }
             });
@@ -199,20 +178,13 @@ public class MenuModifyFragmentMain extends Fragment {
 
                         recyclerView.getAdapter().notifyDataSetChanged();
 
-//                        notifyDataSetChanged
                     }
                     Toast.makeText(context, "delete", Toast.LENGTH_SHORT).show();
                     return true;
                 }
             });
 
-
         }
 
-
-
-
-    }//ItemAdapter extends RecyclerView.Adapter <ItemAdapter.MyViewHolder>{
-
-
+    }
 }

@@ -38,7 +38,6 @@ public class MenuFragmentMain extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-//        getActivity().setTitle("菜單1");
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
 
 
@@ -96,7 +95,6 @@ public class MenuFragmentMain extends Fragment {
             }
         } else {
             Common.showToast(getActivity(), "text_NoNetwork");
-//            item_list2 = getitem();
         }
         //都做
 
@@ -106,17 +104,9 @@ public class MenuFragmentMain extends Fragment {
     public void onDestroy() {
         super.onDestroy();
 
-
-//        if (MenuGetImageTask != null) {
-//            MenuGetImageTask.cancel(true);
-//            MenuGetImageTask = null;
-//        }
-
     }
 
     private void findbutton1(View view) {
-//        tt_toolbar = view.findViewById(R.id.tvTool_bar_title);
-//        tt_action = view.findViewById(R.id.tvMemberLogOut);
     }
 
 
@@ -154,11 +144,9 @@ public class MenuFragmentMain extends Fragment {
 
             public MyViewHolder(View itemview) {
                 super(itemview);//  可接view 建構式   表示RecyclerView.ViewHolder 可能會有 view屬性
-                imageView = itemview.findViewById(R.id.image_view);
-//            img_m = itemview.findViewById(R.id.img_minus);
-//            img_p = itemview.findViewById(R.id.img_plus);
-                tt_name = itemview.findViewById(R.id.text_name);
-                tt_money = itemview.findViewById(R.id.money);
+                imageView = itemview.findViewById(R.id.image_menu_view);
+                tt_name = itemview.findViewById(R.id.text_menu_name);
+                tt_money = itemview.findViewById(R.id.menu_money);
             }
         }
 

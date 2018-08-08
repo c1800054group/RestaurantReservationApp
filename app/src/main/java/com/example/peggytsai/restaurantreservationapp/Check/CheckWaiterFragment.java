@@ -155,7 +155,11 @@ public class CheckWaiterFragment extends Fragment {
         public void onBindViewHolder(CheckWaiterViewHolder holder, int position) {
             final CheckOrder order = checkOrderList.get(position);
             holder.tvCheckWaiterOrderName.setText(order.getOrderName());
-            holder.tvCheckWaiterTableName.setText("第"+order.getTableName()+"桌");
+            if (order.getTableName().equals("尚未入坐")){
+                holder.tvCheckWaiterTableName.setText(order.getTableName());
+            }else {
+                holder.tvCheckWaiterTableName.setText("第"+order.getTableName()+"桌");
+            }
             holder.tvCheckWaiterOrderCount.setText(order.getCount());
             holder.tvCheckOrderWaiterConfirm.setText(order.getStatus());
 

@@ -104,11 +104,9 @@ public class MenuFragmentSub extends Fragment {
 
             public MyViewHolder(View itemview) {
                 super(itemview);//  可接view 建構式   表示RecyclerView.ViewHolder 可能會有 view屬性
-                imageView = itemview.findViewById(R.id.image_view);
-//            img_m = itemview.findViewById(R.id.img_minus);
-//            img_p = itemview.findViewById(R.id.img_plus);
-                tt_name = itemview.findViewById(R.id.text_name);
-                tt_money = itemview.findViewById(R.id.money);
+                imageView = itemview.findViewById(R.id.image_menu_view);
+                tt_name = itemview.findViewById(R.id.text_menu_name);
+                tt_money = itemview.findViewById(R.id.menu_money);
             }
         }
 

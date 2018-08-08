@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
+
     <include layout="@layout/tool_bar_title"></include>
 
     <RelativeLayout
@@ -49,6 +50,7 @@
                 android:layout_marginTop="20dp"
                 android:padding="6dp"
                 android:src="@drawable/pic_pot" />
+
 
             <TextView
                 android:id="@+id/tvNews"
@@ -101,6 +103,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="10dp"
                     android:layout_toRightOf="@id/imageDate"
                     android:text="@string/dateName"
                     android:textColor="@color/colorContent"
@@ -160,6 +163,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="10dp"
                     android:layout_toRightOf="@id/imageDate"
                     android:text="@string/timeName"
                     android:textColor="@color/colorContent"
@@ -191,6 +195,7 @@
                 android:layout_height="1dp"
                 android:background="@color/ColorListViewLine" />
 
+
             <LinearLayout
                 android:id="@+id/personButton"
                 android:layout_width="match_parent"
@@ -219,6 +224,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="10dp"
                     android:layout_toRightOf="@id/imageDate"
                     android:text="@string/personName"
                     android:textColor="@color/colorContent"
@@ -257,5 +263,6 @@
 
 
     </ScrollView>
+
 
 </RelativeLayout>

@@ -55,7 +55,7 @@ public class MenuGetImageTask extends AsyncTask<Object, Integer, Bitmap> {
         if (bitmap != null) {
             imageView.setImageBitmap(bitmap);
         } else {
-            imageView.setImageResource(R.drawable.house);
+            imageView.setImageResource(R.drawable.pic_pot);
         }
     }
 

@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,19 +21,30 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
+import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.peggytsai.restaurantreservationapp.Check.OrderDetail;
 import com.example.peggytsai.restaurantreservationapp.Main.Common;
 import com.example.peggytsai.restaurantreservationapp.Main.MainActivity;
 
 import com.example.peggytsai.restaurantreservationapp.Cart.CartFragmentShow;
 import com.example.peggytsai.restaurantreservationapp.R;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
+import static android.content.DialogInterface.BUTTON_NEGATIVE;
+import static android.content.DialogInterface.BUTTON_POSITIVE;
 
 
 public class ReservationFragment extends Fragment {
@@ -53,7 +67,8 @@ public class ReservationFragment extends Fragment {
         tvtoolBarTitle.setText(R.string.text_Reservaton);
 
         findView();
-        dateButton.setOnClickListener(new View.OnClickListener() {
+        dateButton.setOnClickListener(
+                new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showDate();
@@ -106,8 +121,7 @@ public class ReservationFragment extends Fragment {
                 } else if (person1.trim().isEmpty()) {
                     Common.showToast(getActivity(), "人數尚未填寫");
                 } else {
-                    insertDateData();
-                    view = LayoutInflater.from(getActivity()).inflate(R.layout.custom_layout, null);
+                    view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_order_reservation_layout, null);
                     Button customConButton = view.findViewById(R.id.CustomConButton);
                     Button customNotButton = view.findViewById(R.id.CustomNotButton);
                     Button CustomCancelButton = view.findViewById(R.id.CustomCancelButton);
@@ -118,6 +132,7 @@ public class ReservationFragment extends Fragment {
                     customConButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            insertDateData();
                             Common.switchFragment(new CartFragmentShow(), getActivity(), true);
                             alertDialog.cancel();
                         }
@@ -133,9 +148,34 @@ public class ReservationFragment extends Fragment {
                     customNotButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+
+//                            AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+//                            alertDialog.setTitle( Html.fromHtml("<font color='#005B4F'>"+getResources()
+//                                    .getString(R.string.text_LiveOrdering)+"</font>"));
+//                            alertDialog.setMessage(message);
+//                            alertDialog.setCancelable(true);
+//                            alertDialog.setButton(BUTTON_POSITIVE,"確定", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    Fragment cartFragmentShow = new CartFragmentShow();
+//                                    Common.FragmentSwitch = 1;
+//                                    Common.switchFragment(cartFragmentShow,getActivity(),true);
+//                                }
+//                            });
+//                            alertDialog.setButton(BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    dialog.dismiss();
+//                                }
+//                            });
+//                            alertDialog.show();
+//
+
+                            insertDateData();
+
                             alertDialog.dismiss();
                             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                            builder.setTitle("訂位完成");
+                            builder.setTitle(Html.fromHtml("<font color='#009688'>"+"訂位完成"+"</font>"));
                             builder.setMessage("若要稍後點餐\n請至\"訂單查詢\"修改");
                             builder.setNegativeButton("前往訂單查詢", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
@@ -158,6 +198,7 @@ public class ReservationFragment extends Fragment {
 
                         }
                     });
+
                 }
 
             }
@@ -196,20 +237,29 @@ public class ReservationFragment extends Fragment {
                     .apply();
         }
 
+
         if (isVaild) {
             if (Common.networkConnected(getActivity())) {
                 JsonObject jsonObject = new JsonObject();
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Common.PREF_FILE,Context.MODE_PRIVATE);
+                int member_Id = sharedPreferences.getInt("memberID",0);
                 jsonObject.addProperty("action", "insert");
                 jsonObject.addProperty("date", d);
                 jsonObject.addProperty("person", person);
+                jsonObject.addProperty("memberId",member_Id);
 
                 try {
                     reservationTask = new ReservationInsertTask(Common.URL
-                            + "/ReserveSerVlet", jsonObject.toString());
-                    int count = Integer.valueOf(reservationTask.execute().get());
+                            + "/CheckOrderServlet", jsonObject.toString());
+                    String t = reservationTask.execute().get();
+                    Type listType = new TypeToken<List<OrderDetail>>(){ }.getType();
+                    List<OrderDetail> orderDetailList = new Gson().fromJson(t,listType);
 
-                    if (count == 0) {
+
+                    if (orderDetailList == null) {
                         Toast.makeText(getActivity(), "Reservation failed", Toast.LENGTH_LONG).show();
+                    } else {
+
                     }
 
                 } catch (Exception e) {
@@ -294,6 +344,7 @@ public class ReservationFragment extends Fragment {
         dialog_list.show();
 
     }
+
     private void showPerson() {
 
         final String[] setPerson = {"1","2","3","4","5","6","7","8","9","10","11","12",

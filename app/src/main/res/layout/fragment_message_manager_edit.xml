@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/tool_bar_title"></include>
+
+    <RelativeLayout
+        android:id="@+id/rv_btMessageSave"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        tools:ignore="RtlCompat">
+
+        <TextView
+            android:id="@+id/btMessageEditSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:paddingEnd="10dp"
+            android:text="@string/text_save"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp" />
+
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/rv_btMessageSave">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="20dp"
+            android:layout_below="@id/rv_btMessageSave"
+            tools:ignore="RtlCompat">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/message_text_title"
+                        android:textColor="@color/colorContent"
+                        android:textSize="20dp" />
+
+                    <EditText
+                        android:id="@+id/etMessageEditTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/edittext"
+                        android:paddingStart="10dp"
+                        android:hint="@string/hint_message_title"
+                        android:textSize="20sp"
+                        tools:ignore="RtlCompat" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_message_message_start_time"
+                        android:textColor="@color/colorContent"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/tvMessageEditStartTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/edittext"
+                        android:paddingStart="10dp"
+                        android:hint="@string/hint_message_start_time"
+                        android:textSize="20sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_message_message_end_time"
+                        android:textColor="@color/colorContent"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/tvMessageEditEndTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/edittext"
+                        android:paddingStart="10dp"
+                        android:hint="@string/hint_message_end_time"
+                        android:textSize="20sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_message_discount"
+                        android:textColor="@color/colorContent"
+                        android:textSize="20dp" />
+
+                    <EditText
+                        android:id="@+id/etMessageEditDiscount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/edittext"
+                        android:paddingStart="10dp"
+                        android:hint="@string/hint_message_discount"
+                        android:inputType="numberDecimal"
+                        android:textSize="20dp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/message_text_promotion_message"
+                    android:textColor="@color/colorContent"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/etMessageEditPromotionMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:background="@drawable/edittext"
+                    android:layout_marginTop="5dp"
+                    android:paddingTop="8dp"
+                    android:paddingStart="10dp"
+                    android:gravity="top"
+                    android:hint="@string/hint_message_text_promotion_message"
+                    android:textSize="20dp"
+                    android:inputType="textMultiLine" />
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/ivMessageEditImage"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/pic_pot" />
+
+                    <Button
+                        android:id="@+id/btMessageEditPicture"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginStart="16dp"
+                        android:background="@drawable/button_corners"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="20dp"
+                        android:text="@string/message_text_inset_image" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

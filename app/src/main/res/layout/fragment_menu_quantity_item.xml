@@ -2,47 +2,113 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:id="@+id/LinearLayout">
+    android:orientation="vertical">
 
-    <ImageView
-        android:layout_weight="1"
-        android:layout_marginStart="10dp"
-        android:id="@+id/image_view"
-        android:layout_width="0dp"
-        android:layout_height="80dp"
-        android:src="@drawable/house" />
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@color/ColorListViewLine" />
+
+    <LinearLayout
+        android:id="@+id/lv_set_quantity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        tools:ignore="RtlCompat">
+
+        <ImageView
+            android:id="@+id/image_quantity_view"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="15dp"
+            android:layout_weight="1.5"
+            android:src="@drawable/pic_pot"
+            tools:ignore="RtlCompat" />
 
         <TextView
-            android:layout_weight="1.5"
-            android:textAlignment="center"
-            android:layout_gravity="center"
-            android:id="@+id/text_name"
+            android:id="@+id/text_quantity_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="編號1"
+            android:layout_gravity="center"
+            android:layout_marginStart="15dp"
+            android:layout_weight="2"
+            android:text="大眾牛"
+            android:textColor="@color/colorContent"
+            android:textAlignment="center"
             android:textSize="20sp" />
 
         <TextView
-            android:layout_weight="0.4"
-            android:textAlignment="center"
-            android:layout_gravity="center"
             android:id="@+id/quantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
             android:text="1"
+            android:textColor="@color/colorContent"
+            android:textAlignment="center"
             android:textSize="20sp" />
 
-        <EditText
-            android:layout_marginEnd="10dp"
-            android:inputType="number"
-            android:layout_weight="1"
-            android:hint="補貨數量"
-            android:layout_gravity="center"
-            android:id="@+id/set_quantity"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+
+
+
+    </LinearLayout>
+
+
+    <!--<LinearLayout-->
+    <!--tools:ignore="RtlCompat"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginEnd="10dp"-->
+    <!--android:layout_marginStart="16dp">-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/image_view"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="80dp"-->
+    <!--android:layout_marginStart="10dp"-->
+    <!--android:layout_weight="1.5"-->
+    <!--android:src="@drawable/pic_pot" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/text_name"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:layout_weight="1.5"-->
+    <!--android:text="編號1"-->
+    <!--android:textAlignment="center"-->
+    <!--android:textSize="20sp" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/quantity"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:layout_weight="0.4"-->
+    <!--android:text="1"-->
+    <!--android:textAlignment="center"-->
+    <!--android:textSize="20sp" />-->
+
+    <!--<EditText-->
+    <!--android:id="@+id/set_quantity"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:layout_marginEnd="10dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:hint="補貨數量"-->
+    <!--android:inputType="number" />-->
+
+    <!--</LinearLayout>-->
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@color/ColorListViewLine" />
 
 </LinearLayout>

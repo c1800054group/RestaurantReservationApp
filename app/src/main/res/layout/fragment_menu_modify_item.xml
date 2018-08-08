@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:id="@+id/LinearLayout">
+    android:orientation="vertical">
 
     <include layout="@layout/tool_bar_title"></include>
 
@@ -18,110 +18,281 @@
         tools:ignore="RtlCompat">
 
         <TextView
-            android:id="@+id/btMenuModifyItem"
+            android:id="@+id/bt_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="10dp"
             android:paddingEnd="10dp"
-            android:text="評價"
+            android:text="@string/text_save"
             android:textColor="@color/colorWhite"
             android:textSize="20sp" />
 
     </RelativeLayout>
 
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rv_btMenuModifyItem"
+        android:layout_marginEnd="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
         android:orientation="vertical"
-        android:layout_below="@id/rv_btMenuModifyItem">
+        tools:ignore="RtlCompat">
 
-        <ImageView
-            android:layout_marginTop="20dp"
-            android:id="@+id/image_view"
-            android:layout_width="76dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center"
-            android:src="@drawable/house"/>
 
-        <Button
-            android:id="@+id/bt_img"
-            android:layout_marginTop="20dp"
-            android:text="更換圖片"
-            android:layout_gravity="center"
-            android:layout_width="240dp"
-            android:layout_height="wrap_content" />
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_marginTop="10dp"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp">
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="@string/menu_name"
+                android:textColor="@color/colorContent"
+                android:textSize="20dp" />
 
             <EditText
-                android:inputType="text"
                 android:id="@+id/et_name"
-                android:layout_gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="菜名"/>
-        </android.support.design.widget.TextInputLayout>
+                android:background="@drawable/edittext"
+                android:hint="@string/hint_menu_name"
+                android:paddingStart="10dp"
+                android:textSize="20sp"
+                tools:ignore="RtlCompat" />
+        </LinearLayout>
 
-
-        <android.support.design.widget.TextInputLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp">
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
 
 
-            <EditText
-                android:inputType="number"
-                android:id="@+id/et_price"
-                android:layout_gravity="center"
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="@string/menu_type"
+                android:textColor="@color/colorContent"
+                android:textSize="20dp" />
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="價錢"/>
+                android:orientation="horizontal">
 
-        </android.support.design.widget.TextInputLayout>
+                <RadioGroup
+                    android:id="@+id/rg_select_insert"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_marginTop="30sp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+                    <RadioButton
+                        android:id="@+id/rb_select_insert_main"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:checked="true"
+                        android:text="主"
+                        android:textSize="18sp" />
+
+                    <RadioButton
+                        android:id="@+id/rb_select_insert_sub"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_toEndOf="@id/rb_select_insert_main"
+                        android:text="附"
+                        android:textSize="18sp" />
+
+
+                    <RadioButton
+                        android:id="@+id/rb_select_insert_add"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="加購"
+                        android:textSize="18sp"
+                        tools:ignore="ObsoleteLayoutParam" />
+                </RadioGroup>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="@string/menu_price"
+                android:textColor="@color/colorContent"
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/et_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext"
+                android:hint="@string/hint_menu_price"
+                android:inputType="number"
+                android:paddingStart="10dp"
+                android:textSize="20sp"
+                tools:ignore="RtlCompat" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/image_view"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="0dp"
+                android:src="@drawable/pic_pot" />
+
+            <Button
+                android:id="@+id/bt_img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:background="@drawable/button_corners"
+                android:text="更換圖片"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp" />
+
+        </LinearLayout>
 
         <Button
-            android:layout_gravity="center"
-            android:textSize="24sp"
-            android:layout_marginStart="70dp"
-            android:id="@+id/bt_delete"
-            android:text="刪除"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <Button
-            android:textSize="24sp"
-            android:layout_marginStart="60dp"
             android:id="@+id/bt_cancel"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30sp"
             android:text="取消"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:textSize="24sp"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/bt_delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button_corners"
+            android:text="@string/menu_delete"
+            android:textColor="@color/colorWhite"
+            android:textSize="24sp" />
 
     </LinearLayout>
 
-    <Button
-        android:layout_gravity="center"
-        android:id="@+id/bt_save"
 
-        android:textSize="24sp"
-        android:layout_marginTop="30sp"
-        android:text="儲存"
-        android:layout_width="240dp"
-        android:layout_height="wrap_content" />
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:orientation="vertical"-->
+    <!--android:layout_below="@id/rv_btMenuModifyItem">-->
 
-    </LinearLayout>
+    <!--<ImageView-->
+    <!--android:layout_marginTop="20dp"-->
+    <!--android:id="@+id/image_view"-->
+    <!--android:layout_width="76dp"-->
+    <!--android:layout_height="80dp"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:src="@drawable/house"/>-->
+
+    <!--<Button-->
+    <!--android:id="@+id/bt_img"-->
+    <!--android:layout_marginTop="20dp"-->
+    <!--android:text="更換圖片"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:layout_width="240dp"-->
+    <!--android:layout_height="wrap_content" />-->
+
+    <!--<android.support.design.widget.TextInputLayout-->
+    <!--android:layout_marginTop="10dp"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginStart="25dp"-->
+    <!--android:layout_marginEnd="25dp">-->
+
+    <!--<EditText-->
+    <!--android:inputType="text"-->
+    <!--android:id="@+id/et_name"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:hint="菜名"/>-->
+    <!--</android.support.design.widget.TextInputLayout>-->
+
+
+    <!--<android.support.design.widget.TextInputLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginStart="25dp"-->
+    <!--android:layout_marginEnd="25dp">-->
+
+
+    <!--<EditText-->
+    <!--android:inputType="number"-->
+    <!--android:id="@+id/et_price"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:hint="價錢"/>-->
+
+    <!--</android.support.design.widget.TextInputLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_marginTop="30sp"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content">-->
+
+    <!--<Button-->
+    <!--android:layout_gravity="center"-->
+    <!--android:textSize="24sp"-->
+    <!--android:layout_marginStart="70dp"-->
+    <!--android:id="@+id/bt_delete"-->
+    <!--android:text="刪除"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content" />-->
+
+    <!--<Button-->
+    <!--android:textSize="24sp"-->
+    <!--android:layout_marginStart="60dp"-->
+    <!--android:id="@+id/bt_cancel"-->
+    <!--android:text="取消"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content" />-->
+
+    <!--</LinearLayout>-->
+
+    <!--<Button-->
+    <!--android:layout_gravity="center"-->
+    <!--android:id="@+id/bt_save"-->
+
+    <!--android:textSize="24sp"-->
+    <!--android:layout_marginTop="30sp"-->
+    <!--android:text="儲存"-->
+    <!--android:layout_width="240dp"-->
+    <!--android:layout_height="wrap_content" />-->
+
+    <!--</LinearLayout>-->
 
 </RelativeLayout>

@@ -22,6 +22,7 @@ import com.example.peggytsai.restaurantreservationapp.Cart.CartFragmentConfirmTe
 import com.example.peggytsai.restaurantreservationapp.Cart.CartFragmentShow;
 import com.example.peggytsai.restaurantreservationapp.Check.CheckFragment;
 import com.example.peggytsai.restaurantreservationapp.Check.CheckManagerFragment;
+import com.example.peggytsai.restaurantreservationapp.Check.CheckOrderFragment;
 import com.example.peggytsai.restaurantreservationapp.Check.CheckWaiterFragment;
 import com.example.peggytsai.restaurantreservationapp.Check.CheckWaiterTabFragment;
 import com.example.peggytsai.restaurantreservationapp.Manager.FoodManagerFragment;
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                     setTitle(R.string.text_menu);
                     return true;
                 case R.id.item_Check:
-                    fragment = new CheckFragment();
+                    fragment = new CheckOrderFragment();
                     switchFragment(fragment);
                     setTitle(R.string.text_check);
                     return true;
