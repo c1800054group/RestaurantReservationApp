@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
+import com.example.peggytsai.restaurantreservationapp.Main.Common;
 import com.google.gson.Gson;
 
 import org.java_websocket.client.WebSocketClient;
@@ -37,13 +38,27 @@ public class ChatWebSocketClient extends WebSocketClient {
 
     @Override
     public void onMessage(String message) {
+
+
+        String url = Common.URL + "/MenuServlet";
+        try {
+
+            Common.MENU_list = new MenuGetAllTask().execute(url).get();
+
+        } catch (Exception e) {
+
+        }
+
 //        JsonObject jsonObject = gson.fromJson(message, JsonObject.class);
         // type: 訊息種類，有open(有user連線), close(有user離線), chat(其他user傳送來的聊天訊息)
 //        String type = jsonObject.get("type").getAsString();
         sendMessageBroadcast("stock", message);
 //        Log.d(TAG, "onMessage: " + message);
 
-        if(message=="1"){
+//        if(message=="1"){
+//            Log.d(TAG, "onMessage: " + message);
+//        }
+        if(message=="105"){
             Log.d(TAG, "onMessage: " + message);
         }
     }

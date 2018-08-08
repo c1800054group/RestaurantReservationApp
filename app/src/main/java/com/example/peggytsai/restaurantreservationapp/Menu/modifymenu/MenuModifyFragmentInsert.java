@@ -224,7 +224,12 @@ public class MenuModifyFragmentInsert extends Fragment implements View.OnClickLi
                     jsonObject.addProperty("imageBase64", imageBase64);
 
                     MenuInertTask = new MyTask(Common.URL + "/MenuServlet", jsonObject.toString());
-                    MenuInertTask.execute();
+                    try {
+                        MenuInertTask.execute().get();  //need use get() ending for send notifyDataSetChanged
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
 
                     if (Socket.SocketClient != null){
                         Socket.SocketClient.send("notifyDataSetChanged");

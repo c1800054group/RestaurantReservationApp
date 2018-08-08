@@ -39,6 +39,7 @@ import com.google.gson.JsonObject;
 
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -166,6 +167,7 @@ public class FoodManagerFragment extends Fragment {
     }
     private void veiw_set() {
         viewPager = (ViewPager) view.findViewById(R.id.viewPager_all);
+        viewPager.setOffscreenPageLimit(3);
 //        viewPager.setAdapter(  new MyPagerAdapter(getChildFragmentManager())  );  //直接返回 嵌套的子fragment
         viewPager.setAdapter(new SamplePagerAdapter());  //直接返回 嵌套的子fragment
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabFoodLayout);
@@ -316,16 +318,19 @@ public class FoodManagerFragment extends Fragment {
 
                                     JsonObject jsonObject = new JsonObject();
                                     jsonObject.addProperty("action", "menuUpdata_stock");
-                                    jsonObject.addProperty("menu_stock", String.valueOf(quantity_total));
+                                    jsonObject.addProperty("menu_stock", String.valueOf(quantity_add));
                                     jsonObject.addProperty("menu_id", String.valueOf(menu.getId()));
 
                                     MenuUpdataTask = new MyTask(Common.URL + "/MenuServlet", jsonObject.toString());
-                                    MenuUpdataTask.execute();
+                                    try {
+                                        MenuUpdataTask.execute().get();  //need use get() ending for send notifyDataSetChanged
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
 
-                                    Common.showToast(getActivity(), menu.getName() + " 庫儲貨更新為: " + String.valueOf(quantity_total));
-                                    holder.quantity.setText(String.valueOf(quantity_total));
+                                    Common.showToast(getActivity(), menu.getName() + " 庫儲貨更新為: " + String.valueOf(quantity_add));
+                                    holder.quantity.setText(String.valueOf(quantity_add));
                                     menu.setStock(Integer.parseInt(holder.quantity.getText().toString().trim()));
-
 
                                     if (Socket.SocketClient != null){
                                         Socket.SocketClient.send("notifyDataSetChanged");
@@ -337,6 +342,7 @@ public class FoodManagerFragment extends Fragment {
                                         Common.showToast(getActivity(),"disconnect");
                                     }
 
+
                                 } else {
                                     Common.showToast(getContext(), "text_NoNetwork");
                                 }
@@ -344,8 +350,13 @@ public class FoodManagerFragment extends Fragment {
                             }
 
                         }
+
+
+
                     });
                     dialog_list.show();
+
+
 
                 }
             });

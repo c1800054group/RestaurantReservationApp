@@ -15,6 +15,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,12 +25,16 @@ import android.widget.TextView;
 
 
 import com.example.peggytsai.restaurantreservationapp.Main.Common;
+import com.example.peggytsai.restaurantreservationapp.Menu.MenuGetAllTask;
 import com.example.peggytsai.restaurantreservationapp.Menu.Page;
+import com.example.peggytsai.restaurantreservationapp.Menu.Socket;
 import com.example.peggytsai.restaurantreservationapp.Order.OrderFragment;
 import com.example.peggytsai.restaurantreservationapp.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
 
 //MenuFragment
 public class MenuFragment extends Fragment {
@@ -64,15 +70,15 @@ public class MenuFragment extends Fragment {
         });
 
 
-//        swipeRefreshLayout =
-//                view.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout =
+                view.findViewById(R.id.swipeRefreshLayout);
 
         broadcastManager = LocalBroadcastManager.getInstance(getActivity());
         stockFilter = new IntentFilter("stock");    //ChatWebSocketClient
         StockReceiver stockReceiver = new StockReceiver(view);
         broadcastManager.registerReceiver(stockReceiver, stockFilter);
 
-
+        flash();
         veiw_set();
 
         return view;
@@ -91,6 +97,8 @@ public class MenuFragment extends Fragment {
             if(  message.equals("notifyDataSetChanged")  ){
 
 
+                veiw_set();
+
 //                Common.showToast(getActivity(),message);
             }
 
@@ -104,7 +112,7 @@ public class MenuFragment extends Fragment {
             public void onRefresh() {
                 swipeRefreshLayout.setRefreshing(true); //開啟刷新
 
-
+                veiw_set();
 
                 swipeRefreshLayout.setRefreshing(false);
             }
@@ -112,6 +120,23 @@ public class MenuFragment extends Fragment {
     }
 
     private void veiw_set() {
+
+//        if (Common.networkConnected(getActivity())) {//檢查網路連線
+//
+//            String url = Common.URL + "/MenuServlet";
+//            try {
+//
+//                Common.MENU_list = new MenuGetAllTask().execute(url).get();
+//
+//            } catch (Exception e) {
+//
+//            }
+//
+//        } else {
+//            Common.showToast(getActivity(), "text_NoNetwork");
+//        }
+
+
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewPager_all);
         viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(adapter);  //直接返回 嵌套的子fragment
@@ -126,10 +151,10 @@ public class MenuFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-//        SharedPreferences pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
-//        String memberName = String.valueOf(  pref.getInt("memberID",0)    );
-//
-//        Socket.connectServer(getActivity(),memberName);
+        SharedPreferences pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
+        String memberName = String.valueOf(  pref.getInt("memberID",0)    );
+
+        Socket.connectServer(getActivity(),memberName);
 //        Common.showToast(getActivity(),memberName);
     }
 
@@ -138,6 +163,9 @@ public class MenuFragment extends Fragment {
 
         public MyPagerAdapter(FragmentManager fragmentManager, Fragment a, Fragment b) {
             super(fragmentManager);
+
+
+
             pageList = new ArrayList<>();
             pageList.add(new Page(a, "主餐"));
             pageList.add(new Page(b, "附餐"));

@@ -120,8 +120,9 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
                             }
                             holder.tt_count.setText(String.valueOf(   orderMenu.getQuantity()  )); //所以使用區域變數 替代顯示的內容
 
-                            holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.colorBackground));
+
                         }
+                        holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.colorBackground));
 
                         break;
 

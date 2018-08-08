@@ -1,6 +1,9 @@
 package com.example.peggytsai.restaurantreservationapp.Cart;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,7 +11,9 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.peggytsai.restaurantreservationapp.Main.Common;
+import com.example.peggytsai.restaurantreservationapp.Manager.FoodManagerFragment;
 import com.example.peggytsai.restaurantreservationapp.Menu.Page;
 import com.example.peggytsai.restaurantreservationapp.Order.OrderFragment;
 import com.example.peggytsai.restaurantreservationapp.Other.QrCodeFragment;
@@ -37,6 +43,13 @@ public class CartFragmentShow extends Fragment {
 
     private String TableNamer="0";
     private SharedPreferences pref;
+
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private ViewPager viewPager;
+    private View view2;
+
+    private LocalBroadcastManager broadcastManager;
+    private IntentFilter stockFilter;
 
     @Nullable
     @Override
@@ -69,11 +82,19 @@ public class CartFragmentShow extends Fragment {
         }
 
 
-        ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewPager_all);
-        viewPager.setOffscreenPageLimit(2);
-        viewPager.setAdapter(new MyPagerAdapter(getChildFragmentManager()));  //直接返回 嵌套的子fragment
-        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabMenuLayout);
-        tabLayout.setupWithViewPager(viewPager);
+
+        swipeRefreshLayout =
+                view.findViewById(R.id.swipeRefreshLayout);
+
+        veiw_set();
+        flash();
+
+
+        broadcastManager = LocalBroadcastManager.getInstance(getActivity());
+        stockFilter = new IntentFilter("stock");    //ChatWebSocketClient
+        StockReceiver stockReceiver = new StockReceiver(view);
+        broadcastManager.registerReceiver(stockReceiver, stockFilter);
+
 
 
         btMenuShowMenu = view.findViewById(R.id.btMenuShowMenu);
@@ -100,6 +121,46 @@ public class CartFragmentShow extends Fragment {
 
 
         return view;
+    }
+
+    private class StockReceiver extends BroadcastReceiver {
+        private View view;
+        public StockReceiver(View view) {
+            this.view = view;
+        }
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            String message = intent.getStringExtra("message");
+            if(  message.equals("notifyDataSetChanged")  ){
+
+                veiw_set();
+
+            }
+
+        }
+    }
+
+    private void veiw_set() {
+        ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewPager_all);
+        viewPager.setOffscreenPageLimit(2);
+        viewPager.setAdapter(new MyPagerAdapter(getChildFragmentManager()));  //直接返回 嵌套的子fragment
+        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabMenuLayout);
+        tabLayout.setupWithViewPager(viewPager);
+    }
+
+    private void flash() {
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(true); //開啟刷新
+
+                veiw_set();
+
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
     }
 
     @Override

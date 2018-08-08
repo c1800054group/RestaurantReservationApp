@@ -165,7 +165,12 @@ public class MenuModifyFragmentUpdate extends Fragment implements View.OnClickLi
 
 
                     MenuUpdataTask = new MyTask(Common.URL + "/MenuServlet", jsonObject.toString());
-                    MenuUpdataTask.execute();
+                    try {
+                        MenuUpdataTask.execute().get();  //need use get() ending for send notifyDataSetChanged
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
 
                     if (Socket.SocketClient != null){
                         Socket.SocketClient.send("notifyDataSetChanged");
@@ -263,7 +268,11 @@ public class MenuModifyFragmentUpdate extends Fragment implements View.OnClickLi
                     jsonObject.addProperty("menu_id", menu.getId());
 
                     MenuDeleteTask = new MyTask(Common.URL + "/MenuServlet", jsonObject.toString());
-                    MenuDeleteTask.execute();
+                    try {
+                        MenuDeleteTask.execute().get();  //need use get() ending for send notifyDataSetChanged
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
                     if (Socket.SocketClient != null){
                         Socket.SocketClient.send("notifyDataSetChanged");
@@ -314,7 +323,11 @@ public class MenuModifyFragmentUpdate extends Fragment implements View.OnClickLi
 
 
                     MenuUpdataTask = new MyTask(Common.URL + "/MenuServlet", jsonObject.toString());
-                    MenuUpdataTask.execute();
+                    try {
+                        MenuUpdataTask.execute().get();  //need use get() ending for send notifyDataSetChanged
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
                     if (Socket.SocketClient != null){
                         Socket.SocketClient.send("notifyDataSetChanged");
