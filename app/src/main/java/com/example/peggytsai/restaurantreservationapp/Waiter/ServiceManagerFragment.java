@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
@@ -19,10 +20,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.peggytsai.restaurantreservationapp.Check.CheckOrder;
 import com.example.peggytsai.restaurantreservationapp.Main.Common;
 import com.example.peggytsai.restaurantreservationapp.R;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -36,6 +41,7 @@ public class ServiceManagerFragment extends Fragment {
     private static final String TAG = "ServiceManagerFragment";
     private LocalBroadcastManager broadcastManager;
     private List<String> tableList;
+    private List<ServiceMessage> serviceMessage;
     private RecyclerView rvService;
     private ServiceWebSocketClient serviceWebSocketClient;
     private String memberName;
@@ -45,6 +51,30 @@ public class ServiceManagerFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_service_manager, container, false);
 
+        //取得偏好設定的帳號
+        SharedPreferences pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
+        memberName = pref.getString("memberName","");
+
+        URI uri = null;
+        try {
+            uri = new URI(Common.URL+"/CheckOrderWebSocket/" + memberName);
+        } catch (URISyntaxException e) {
+            Log.e(TAG, e.toString());
+        }
+        if (serviceWebSocketClient == null) {
+            serviceWebSocketClient = new ServiceWebSocketClient(uri, getActivity());
+            serviceWebSocketClient.connect();
+//            Handler handler = new Handler();
+//            handler.postDelayed()
+            try{
+                // delay 1 second
+                Thread.sleep(1000);
+
+            } catch(InterruptedException e){
+                e.printStackTrace();
+
+            }
+        }
 
         navigationView = getActivity().findViewById(R.id.Navigation);
         if (!(navigationView.getSelectedItemId()== R.id.item_ServiceWaiter)){
@@ -58,26 +88,18 @@ public class ServiceManagerFragment extends Fragment {
         registerFriendStateReceiver();
 
         tableList = new ArrayList<>();
+        serviceMessage = new ArrayList<>();
         rvService = view.findViewById(R.id.rvService);
         rvService.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvService.setAdapter(new ServiceAdapter(getActivity()));
 
 
-        //取得偏好設定的帳號
-        SharedPreferences pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
-        memberName = pref.getString("memberName","");
-
-        URI uri = null;
-        try {
-            uri = new URI(Common.URL+"/ServerBellServer/" + memberName);
-        } catch (URISyntaxException e) {
-            Log.e(TAG, e.toString());
+        if (serviceWebSocketClient != null) {
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("action", "getAllService");
+            Log.d("aaaaaaaaaa",jsonObject.toString());
+            serviceWebSocketClient.send(jsonObject.toString());
         }
-        if (serviceWebSocketClient == null) {
-            serviceWebSocketClient = new ServiceWebSocketClient(uri, getActivity());
-            serviceWebSocketClient.connect();
-        }
-
 
         return view;
     }
@@ -85,7 +107,7 @@ public class ServiceManagerFragment extends Fragment {
 
     // 攔截user連線或斷線的Broadcast
     private void registerFriendStateReceiver() {
-        IntentFilter openFilter = new IntentFilter("open");
+        IntentFilter openFilter = new IntentFilter("callService");
         ServiceBellStateReceiver serviceBellStateReceiver = new ServiceBellStateReceiver();
         broadcastManager.registerReceiver(serviceBellStateReceiver, openFilter);
     }
@@ -94,26 +116,36 @@ public class ServiceManagerFragment extends Fragment {
         @Override
         public void onReceive(Context context, Intent intent) {
             String message = intent.getStringExtra("message");
-            StateMessage stateMessage = new Gson().fromJson(message, StateMessage.class);
-            String type = stateMessage.getType();
-            String tableName = stateMessage.getUser();
-            switch (type) {
-                // 有user連線
-                case "open":
-
-                    if (tableName.equals(memberName)){
-                        tableList = new ArrayList<>(stateMessage.getUsers());
-                        tableList.remove(memberName);
-                    }else {
-                        // 如果其他user連線且尚未加入，就加上
-                        if (!tableList.contains(tableName)) {
-                            tableList.add(tableName);
-                        }
-                    }
-                    // 重刷清單
-                    rvService.getAdapter().notifyDataSetChanged();
-                    break;
-            }
+            Log.d("message: ",message);
+            JsonObject jsonObject = new Gson().fromJson(message, JsonObject.class);
+//            StateMessage stateMessage = new Gson().fromJson(message, StateMessage.class);
+            Type listType = new TypeToken<ArrayList<ServiceMessage>>(){}.getType();
+            serviceMessage = new Gson().fromJson(jsonObject.get("listServiceMessage").getAsJsonArray(),listType);
+            Log.d("serviceMessage: ",serviceMessage.get(0).getTableNumber());
+//            ServiceMessage serviceMessage = new Gson().fromJson(jsonObject.get("listServiceMessage").getAsJsonArray(), ServiceMessage.class);
+//            String tableName = serviceMessage.getTableNumber();
+//            String type = stateMessage.getType();
+//            String tableName = stateMessage.getUser();
+//            tableList.add(tableName);
+//            Log.d("tableName: ",tableList.get(0));
+            rvService.getAdapter().notifyDataSetChanged();
+//            switch (type) {
+//                // 有user連線
+//                case "open":
+//
+//                    if (tableName.equals(memberName)){
+//                        tableList = new ArrayList<>(stateMessage.getUsers());
+//                        tableList.remove(memberName);
+//                    }else {
+//                        // 如果其他user連線且尚未加入，就加上
+//                        if (!tableList.contains(tableName)) {
+//                            tableList.add(tableName);
+//                        }
+//                    }
+//                    // 重刷清單
+//                    rvService.getAdapter().notifyDataSetChanged();
+//                    break;
+//            }
             Log.d(TAG, message);
         }
     }
@@ -139,7 +171,7 @@ public class ServiceManagerFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return tableList.size();
+            return serviceMessage.size();
         }
 
         @Override
@@ -151,15 +183,15 @@ public class ServiceManagerFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(final ServiceViewHolder holder, int position) {
-            final String tableName = tableList.get(position);
-            holder.tvServiceTableNumber.setText(tableName);
+            final String tableName = serviceMessage.get(position).getTableNumber();
+            holder.tvServiceTableNumber.setText("桌號：" + tableName);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     String tableNumber = holder.tvServiceTableNumber.getText().toString();
                     tableList.remove(tableNumber);
                     rvService.getAdapter().notifyDataSetChanged();
-                    serviceWebSocketClient.send(tableName);
+//                    serviceWebSocketClient.send(tableName);
 
 //                    WaiterTabFragment.a = "8";
                     ServiceAlreadyManagerFragment.renew(tableName);

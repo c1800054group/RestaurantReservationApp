@@ -109,9 +109,10 @@ public class CheckWaiterFragment extends Fragment {
             JsonObject jsonObject = new Gson().fromJson(message,JsonObject.class);
             StateMessage stateMessage = new Gson().fromJson(message, StateMessage.class);
             String type = jsonObject.get("type").getAsString();
-            String checkOrder = jsonObject.get("jsonCheckOrderList").getAsString();
+//            String checkOrder = jsonObject.get("jsonCheckOrderList").getAsString();
             Type listType = new TypeToken<ArrayList<CheckOrder>>(){}.getType();
-            checkOrderList = new Gson().fromJson(checkOrder,listType);
+            checkOrderList = new Gson().fromJson(jsonObject.get("jsonCheckOrderList").getAsJsonArray(),listType);
+//            checkOrderList = new Gson().fromJson(checkOrder,listType);
             rvCheckOrderWaiter.getAdapter().notifyDataSetChanged();
 //            CheckWaiterTabFragment.vpService.getAdapter().notifyDataSetChanged();
 
