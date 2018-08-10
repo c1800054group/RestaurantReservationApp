@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,9 +16,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.peggytsai.restaurantreservationapp.Cart.menu.Menu;
+import com.example.peggytsai.restaurantreservationapp.Cart.menu.MenuAdapter;
 import com.example.peggytsai.restaurantreservationapp.Main.Common;
-import com.example.peggytsai.restaurantreservationapp.Menu.Menu;
-import com.example.peggytsai.restaurantreservationapp.Menu.MenuAdapter;
 import com.example.peggytsai.restaurantreservationapp.R;
 
 import java.util.ArrayList;

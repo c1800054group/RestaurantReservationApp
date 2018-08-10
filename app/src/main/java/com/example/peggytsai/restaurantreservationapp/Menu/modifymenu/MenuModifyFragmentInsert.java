@@ -31,11 +31,9 @@ import android.widget.Toast;
 
 import com.example.peggytsai.restaurantreservationapp.Main.Common;
 import com.example.peggytsai.restaurantreservationapp.Main.MyTask;
-import com.example.peggytsai.restaurantreservationapp.Menu.Menu;
+import com.example.peggytsai.restaurantreservationapp.Cart.menu.Menu;
 import com.example.peggytsai.restaurantreservationapp.Menu.Socket;
 import com.example.peggytsai.restaurantreservationapp.R;
-import com.example.peggytsai.restaurantreservationapp.Rating.RatingFragment;
-import com.example.peggytsai.restaurantreservationapp.Rating.RatingNewFragment;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 

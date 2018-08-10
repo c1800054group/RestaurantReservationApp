@@ -7,31 +7,21 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.peggytsai.restaurantreservationapp.Main.Common;
 import com.example.peggytsai.restaurantreservationapp.Main.MyTask;
-import com.example.peggytsai.restaurantreservationapp.Manager.FoodManagerFragment;
-import com.example.peggytsai.restaurantreservationapp.Menu.Coupon;
-import com.example.peggytsai.restaurantreservationapp.Menu.Menu;
-import com.example.peggytsai.restaurantreservationapp.Menu.MenuGetImageTask;
-import com.example.peggytsai.restaurantreservationapp.Menu.OrderMenu;
+import com.example.peggytsai.restaurantreservationapp.Cart.menu.OrderMenu;
 import com.example.peggytsai.restaurantreservationapp.Menu.Socket;
 import com.example.peggytsai.restaurantreservationapp.Order.OrderFragment;
 import com.example.peggytsai.restaurantreservationapp.R;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +67,16 @@ public class CartFragmentConfirmText extends Fragment {
         String orderID="";
         orderid.setText(orderID = String.valueOf(pref.getInt("orderID",0)));
         date.setText("");
-        discount_checkout.setText(pref.getString("Discount",""));
+
+        if(pref.getString("Discount","")==""){
+            discount_checkout.setText("");
+        }else{
+            Double Discount_num1 =  Double.valueOf( pref.getString("Discount","")  );
+            int Discount_num = (int) (Discount_num1 * 10);
+
+            discount_checkout.setText(String.valueOf(  Discount_num  )+"折");
+        }
+
         total_checkout.setText(pref.getString("money",""));
 
 

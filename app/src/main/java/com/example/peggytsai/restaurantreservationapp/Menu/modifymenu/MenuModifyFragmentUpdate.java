@@ -28,7 +28,7 @@ import android.widget.TextView;
 
 import com.example.peggytsai.restaurantreservationapp.Main.Common;
 import com.example.peggytsai.restaurantreservationapp.Main.MyTask;
-import com.example.peggytsai.restaurantreservationapp.Menu.Menu;
+import com.example.peggytsai.restaurantreservationapp.Cart.menu.Menu;
 import com.example.peggytsai.restaurantreservationapp.Menu.MenuGetImageTask;
 import com.example.peggytsai.restaurantreservationapp.Menu.Socket;
 import com.example.peggytsai.restaurantreservationapp.R;
