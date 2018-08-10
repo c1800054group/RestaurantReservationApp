@@ -49,14 +49,6 @@ public class FoodManagerFragment extends Fragment {
         TextView tvtoolBarTitle = view.findViewById(R.id.tvTool_bar_title);
         tvtoolBarTitle.setText(R.string.text_FoodManager);
 
-        navigationView = getActivity().findViewById(R.id.Navigation);
-        if (!(navigationView.getSelectedItemId() == R.id.item_FoodManager)){
-            navigationView.getMenu().clear();
-            navigationView.inflateMenu(R.menu.navigate_menu_manager);
-        }
-
-
-
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewPager_all);
 //        viewPager.setAdapter(  new MyPagerAdapter(getChildFragmentManager())  );  //直接返回 嵌套的子fragment
         viewPager.setAdapter(new SamplePagerAdapter());  //直接返回 嵌套的子fragment

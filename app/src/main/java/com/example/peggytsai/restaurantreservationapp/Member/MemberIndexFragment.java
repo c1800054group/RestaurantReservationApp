@@ -37,7 +37,6 @@ public class MemberIndexFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_member_index,container,false);
         TextView tvtoolBarTitle = view.findViewById(R.id.tvTool_bar_title);
         tvtoolBarTitle.setText(R.string.text_member);
-
         findView();
 
         return view;

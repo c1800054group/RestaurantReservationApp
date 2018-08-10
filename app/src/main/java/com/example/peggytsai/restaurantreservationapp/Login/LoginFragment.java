@@ -23,6 +23,7 @@ import com.example.peggytsai.restaurantreservationapp.Main.Common;
 import com.example.peggytsai.restaurantreservationapp.Main.MyTask;
 import com.example.peggytsai.restaurantreservationapp.Manager.FoodManagerFragment;
 import com.example.peggytsai.restaurantreservationapp.Member.RegisterFragment;
+import com.example.peggytsai.restaurantreservationapp.Message.MessageFragment;
 import com.example.peggytsai.restaurantreservationapp.R;
 import com.example.peggytsai.restaurantreservationapp.Waiter.ServiceManagerFragment;
 import com.example.peggytsai.restaurantreservationapp.Waiter.WaiterTabFragment;
@@ -38,7 +39,7 @@ public class LoginFragment extends Fragment {
     private Button btLogin;
     private View view;
     private MyTask loginTask;
-    private BottomNavigationView navigation;
+    public BottomNavigationView navigation;
 
     @Nullable
     @Override
@@ -46,6 +47,7 @@ public class LoginFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_login,container,false);
         findView();
         navigation = getActivity().findViewById(R.id.Navigation);
+        navigation.getMenu().clear();
         navigation.setVisibility(BottomNavigationView.GONE);
 
         SharedPreferences pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
@@ -102,20 +104,31 @@ public class LoginFragment extends Fragment {
     private void authority(int authority_id) {
         switch (authority_id){
             case 1:
-                navigation.setSelectedItemId(R.id.item_Message);
+//                if (!(navigation.getSelectedItemId() == R.id.item_Message)){
+                    navigation.inflateMenu(R.menu.navigate_menu);
+//                }
+                Fragment messageFragment = new MessageFragment();
+                Common.switchFragment(messageFragment,getActivity(),false);
+
                 break;
             case 2:
                 Fragment chefFragment = new CheckFragment();
                 Common.switchFragment(chefFragment,getActivity(),false);
                 break;
             case 3:
+//                if (!(navigation.getSelectedItemId() == R.id.item_CheckWaiter)){
+                    navigation.inflateMenu(R.menu.navigate_menu_waiter);
+//                }
                 Fragment waiterTabFragment = new WaiterTabFragment();
                 Common.switchFragment(waiterTabFragment,getActivity(),false);
-
                 break;
             case 4:
+//                if (!(navigation.getSelectedItemId() == R.id.item_FoodManager)){
+                    navigation.inflateMenu(R.menu.navigate_menu_manager);
+//                }
                 Fragment foodManagerFragment = new FoodManagerFragment();
-                Common.switchFragment(foodManagerFragment,getActivity(),false);
+                Common.switchFragment(foodManagerFragment,getActivity(), false);
+                break;
         }
     }
 
