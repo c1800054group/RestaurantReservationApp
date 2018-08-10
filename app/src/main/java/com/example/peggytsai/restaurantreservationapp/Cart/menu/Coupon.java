@@ -1,4 +1,4 @@
-package com.example.peggytsai.restaurantreservationapp.Menu;
+package com.example.peggytsai.restaurantreservationapp.Cart.menu;
 
 public class Coupon {  //�˸�ƥ�
 	

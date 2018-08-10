@@ -1,8 +1,14 @@
 package com.example.peggytsai.restaurantreservationapp.Cart;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,9 +16,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.peggytsai.restaurantreservationapp.Cart.menu.Menu;
+import com.example.peggytsai.restaurantreservationapp.Cart.menu.MenuAdapter;
 import com.example.peggytsai.restaurantreservationapp.Main.Common;
-import com.example.peggytsai.restaurantreservationapp.Menu.Menu;
-import com.example.peggytsai.restaurantreservationapp.Menu.MenuAdapter;
 import com.example.peggytsai.restaurantreservationapp.R;
 
 import java.util.ArrayList;
@@ -26,6 +32,12 @@ public class CartFragmentAdd extends Fragment {
     private List<Menu> menus_list;
     private TextView tt_toolbar;
     private TextView btMenuAdd;
+
+
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private LocalBroadcastManager broadcastManager;
+    private IntentFilter stockFilter;
+
 
     @Nullable
     @Override
@@ -44,8 +56,19 @@ public class CartFragmentAdd extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));//MainActivity.this
         recyclerView.setAdapter(new MenuAdapter(menus_list, getContext()));
 
+
+        swipeRefreshLayout =
+                view.findViewById(R.id.swipeRefreshLayout);
+        flash();
+
         tt_toolbar = view.findViewById(R.id.tvTool_bar_title);
         btMenuAdd = view.findViewById(R.id.btMenuAdd);
+
+
+        broadcastManager = LocalBroadcastManager.getInstance(getActivity());
+        stockFilter = new IntentFilter("stock");    //ChatWebSocketClient
+        StockReceiver stockReceiver = new StockReceiver(view);
+        broadcastManager.registerReceiver(stockReceiver, stockFilter);
 
         tt_toolbar.setText("優惠加購");
         btMenuAdd.setText("下一步");
@@ -65,8 +88,45 @@ public class CartFragmentAdd extends Fragment {
     }
 
 
+    private class StockReceiver extends BroadcastReceiver {
+        private View view;
+        public StockReceiver(View view) {
+            this.view = view;
+        }
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            String message = intent.getStringExtra("message");
+            if(  message.equals("notifyDataSetChanged")  ){
+
+                veiw_set(context);
+
+            }
+
+        }
+    }
 
 
+    private void veiw_set(Context context){
+        menus_list = Common.MENU_list.get(2);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));//MainActivity.this
+        recyclerView.setAdapter(new MenuAdapter(menus_list, context));
+    }
 
+    private void flash() {
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(true); //開啟刷新
+
+                menus_list = Common.MENU_list.get(2);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));//MainActivity.this
+                recyclerView.setAdapter(new MenuAdapter(menus_list, getContext()));
+
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+    }
 
 }

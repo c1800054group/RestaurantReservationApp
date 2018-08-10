@@ -1,4 +1,4 @@
-package com.example.peggytsai.restaurantreservationapp.Menu;
+package com.example.peggytsai.restaurantreservationapp.Cart.menu;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,10 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import com.example.peggytsai.restaurantreservationapp.Main.Common;
+import com.example.peggytsai.restaurantreservationapp.Menu.MenuGetImageTask;
 import com.example.peggytsai.restaurantreservationapp.R;
 
 import java.util.List;
@@ -20,7 +20,9 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
     private List<Menu> item_list;
     private Context context;
     private int imageSize;
-
+    private int colorset =0;
+//    private LocalBroadcastManager broadcastManager;
+//    private  IntentFilter stockFilter;
 
     public MenuAdapter(List<Menu> item_list, Context context) {   //要加入 項目20~30的變數  (項目數量)
         this.item_list = item_list;
@@ -93,6 +95,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
 
         holder.tt_count.setText(String.valueOf(   orderMenu.getQuantity()  ));
 
+//
 
         View.OnClickListener view_listener = new View.OnClickListener() {
             @Override
@@ -116,26 +119,33 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
                                 Common.CART.remove(orderMenu);
                             }
                             holder.tt_count.setText(String.valueOf(   orderMenu.getQuantity()  )); //所以使用區域變數 替代顯示的內容
+
+
                         }
+                        holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.colorBackground));
 
                         break;
 
                     case R.id.img_plus:
                         //項目++
+                        if(menu.getStock() > orderMenu.getQuantity()){
+                            if(orderMenu.getQuantity()<9){
+
+                                orderMenu.setQuantity(orderMenu.getQuantity() + 1);
+                                holder.tt_count.setText(String.valueOf( orderMenu.getQuantity() ));
+                                if(index == -1){
+                                    Common.CART.add(orderMenu);
+                                }
 
 
-                        if(orderMenu.getQuantity()<9){
-
-                            orderMenu.setQuantity(orderMenu.getQuantity() + 1);
-                            holder.tt_count.setText(String.valueOf( orderMenu.getQuantity() ));
-                            if(index == -1){
-                                Common.CART.add(orderMenu);
+                            }
+                        }else {
+                            if(menu.getStock() <= orderMenu.getQuantity()){
+                                holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.colorWarning));
+                                Common.showToast(context,"選擇已經到達庫存上線了呦");
                             }
                         }
-
                         break;
-//                        case R.id.bt_cart_submit:
-//                            break;
 
                 }
 
