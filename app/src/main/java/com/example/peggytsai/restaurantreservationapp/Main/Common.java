@@ -8,16 +8,14 @@ import android.content.pm.ResolveInfo;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.Toast;
 
-import com.example.peggytsai.restaurantreservationapp.Check.CheckOrder;
-import com.example.peggytsai.restaurantreservationapp.Menu.Menu;
-import com.example.peggytsai.restaurantreservationapp.Menu.OrderMenu;
+import com.example.peggytsai.restaurantreservationapp.Cart.menu.Menu;
+import com.example.peggytsai.restaurantreservationapp.Cart.menu.OrderMenu;
 import com.example.peggytsai.restaurantreservationapp.R;
 
 import java.util.ArrayList;

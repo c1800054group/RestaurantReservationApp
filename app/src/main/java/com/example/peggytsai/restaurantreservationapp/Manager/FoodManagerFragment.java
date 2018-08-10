@@ -27,10 +27,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.peggytsai.restaurantreservationapp.Cart.CartFragmentShow;
 import com.example.peggytsai.restaurantreservationapp.Main.Common;
 import com.example.peggytsai.restaurantreservationapp.Main.MyTask;
-import com.example.peggytsai.restaurantreservationapp.Menu.Menu;
+import com.example.peggytsai.restaurantreservationapp.Cart.menu.Menu;
 import com.example.peggytsai.restaurantreservationapp.Menu.MenuGetAllTask;
 import com.example.peggytsai.restaurantreservationapp.Menu.MenuGetImageTask;
 import com.example.peggytsai.restaurantreservationapp.Menu.Socket;
@@ -39,7 +38,6 @@ import com.google.gson.JsonObject;
 
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -163,7 +161,7 @@ public class FoodManagerFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
 
-        Socket.disconnectServer();
+//        Socket.disconnectServer();
     }
     private void veiw_set() {
         viewPager = (ViewPager) view.findViewById(R.id.viewPager_all);
@@ -335,9 +333,6 @@ public class FoodManagerFragment extends Fragment {
                                     if (Socket.SocketClient != null){
                                         Socket.SocketClient.send("notifyDataSetChanged");
 
-                                        SharedPreferences pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
-                                        int num = pref.getInt("memberID",0);
-                                        Socket.connectServer(getActivity(),  String.valueOf(num)  );
                                     }else {
                                         Common.showToast(getActivity(),"disconnect");
                                     }
