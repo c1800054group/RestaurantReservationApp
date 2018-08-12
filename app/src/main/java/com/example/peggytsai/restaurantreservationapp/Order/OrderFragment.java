@@ -35,7 +35,7 @@ import static android.content.DialogInterface.BUTTON_POSITIVE;
 
 public class OrderFragment extends Fragment {
     private ListView lvOrder;
-    private String message = "請將手機給服務生掃描QR code";
+    private String message = "請掃描桌面的QR code，以利進行點餐服務";
 
     @Nullable
     @Override
