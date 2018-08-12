@@ -9,6 +9,7 @@
         android:layout_height="150dp"
         android:layout_marginTop="80dp"
         android:src="@drawable/pic_pot"
+        android:layout_marginStart="30dp"
         android:layout_gravity="center"/>
 
     <EditText

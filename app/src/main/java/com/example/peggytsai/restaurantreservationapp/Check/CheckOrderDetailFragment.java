@@ -49,6 +49,9 @@ public class CheckOrderDetailFragment extends Fragment {
         tvOrderNumber.setText(String.valueOf(orderId));
       orderDetailRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        TextView tvtoolBarTitle = view.findViewById(R.id.tvTool_bar_title);
+        tvtoolBarTitle.setText(R.string.text_order);
+
 
 //      int order_id =
               showOrderMasterDetail();

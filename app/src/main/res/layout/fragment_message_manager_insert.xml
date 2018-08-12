@@ -69,7 +69,6 @@
                         android:id="@+id/etMessageInsertTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/edittext"
                         android:paddingStart="10dp"
                         android:hint="@string/hint_message_title"
                         android:textSize="20sp"
@@ -93,7 +92,6 @@
                         android:id="@+id/tvMessageInsertStartTime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/edittext"
                         android:paddingStart="10dp"
                         android:hint="@string/hint_message_start_time"
                         android:textSize="20sp" />
@@ -116,7 +114,6 @@
                         android:id="@+id/tvMessageInsertEndTime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/edittext"
                         android:paddingStart="10dp"
                         android:hint="@string/hint_message_end_time"
                         android:textSize="20sp" />
@@ -139,7 +136,6 @@
                         android:id="@+id/etMessageInsertDiscount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/edittext"
                         android:paddingStart="10dp"
                         android:hint="@string/hint_message_discount"
                         android:inputType="numberDecimal"

@@ -37,6 +37,9 @@ public class ReservationDetailFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_order_reservation, container, false);
 //        tvReserveResult.findViewById(R.id.tvReserveResult);
 
+        TextView tvtoolBarTitle = view.findViewById(R.id.tvTool_bar_title);
+        tvtoolBarTitle.setText(R.string.text_check);
+
 
         List<Orders> orderList = getOrders();
 
