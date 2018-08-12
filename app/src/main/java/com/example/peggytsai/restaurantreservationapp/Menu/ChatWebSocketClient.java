@@ -1,12 +1,12 @@
-package com.example.peggytsai.restaurantreservationapp.Waiter;
+package com.example.peggytsai.restaurantreservationapp.Menu;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
+import com.example.peggytsai.restaurantreservationapp.Main.Common;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.drafts.Draft_17;
@@ -15,13 +15,12 @@ import org.java_websocket.handshake.ServerHandshake;
 import java.net.URI;
 import java.util.Locale;
 
-
-public class ServiceWebSocketClient extends WebSocketClient {
-    private static final String TAG = "ServiceWebSocketClient";
+public class ChatWebSocketClient extends WebSocketClient {
+    private static final String TAG = "ChatWebSocketClient";
     private LocalBroadcastManager broadcastManager;
     private Gson gson;
 
-    public ServiceWebSocketClient(URI serverURI, Context context) {
+    public ChatWebSocketClient(URI serverURI, Context context) {
         // Draft_17是連接協議，就是標準的RFC 6455（JSR256）
         super(serverURI, new Draft_17());
         broadcastManager = LocalBroadcastManager.getInstance(context);
@@ -29,27 +28,43 @@ public class ServiceWebSocketClient extends WebSocketClient {
     }
 
     @Override
-    public void onOpen(ServerHandshake handshakedata) {
+    public void onOpen(ServerHandshake handshakeData) {
         String text = String.format(Locale.getDefault(),
                 "onOpen: Http status code = %d; status message = %s",
-                handshakedata.getHttpStatus(),
-                handshakedata.getHttpStatusMessage());
+                handshakeData.getHttpStatus(),
+                handshakeData.getHttpStatusMessage());
         Log.d(TAG, "onOpen: " + text);
     }
 
     @Override
     public void onMessage(String message) {
-        Log.d(TAG, "onMessage123: " + message);
-        JsonObject jsonObject = gson.fromJson(message, JsonObject.class);
-        // type: 訊息種類，有open(有user連線), close(有user離線), chat(其他user傳送來的聊天訊息)
-        String type = jsonObject.get("action").getAsString();
-        sendMessageBroadcast(type, message);
-        Log.d(TAG, "onMessage: " + message);
 
+
+        String url = Common.URL + "/MenuServlet";
+        try {
+
+            Common.MENU_list = new MenuGetAllTask().execute(url).get();
+
+        } catch (Exception e) {
+
+        }
+
+//        JsonObject jsonObject = gson.fromJson(message, JsonObject.class);
+        // type: 訊息種類，有open(有user連線), close(有user離線), chat(其他user傳送來的聊天訊息)
+//        String type = jsonObject.get("type").getAsString();
+        sendMessageBroadcast("stock", message);
+//        Log.d(TAG, "onMessage: " + message);
+
+//        if(message=="1"){
+//            Log.d(TAG, "onMessage: " + message);
+//        }
+        if(message=="105"){
+            Log.d(TAG, "onMessage: " + message);
+        }
     }
 
     @Override
-    public void onClose(int code, String reason, boolean remote) {
+    public void onClose(int code, String reason, boolean remote) {  //  是clinet端的 close去呼叫 server的  而且必須結束目前的頁面才會呼叫onClose
         String text = String.format(Locale.getDefault(),
                 "code = %d, reason = %s, remote = %b",
                 code, reason, remote);
@@ -59,10 +74,10 @@ public class ServiceWebSocketClient extends WebSocketClient {
     @Override
     public void onError(Exception ex) {
         Log.d(TAG, "onError: exception = " + ex.toString());
-
     }
+
     private void sendMessageBroadcast(String messageType, String message) {
-        Intent intent = new Intent(messageType); //設ＩＤ
+        Intent intent = new Intent(messageType);
         intent.putExtra("message", message);
         broadcastManager.sendBroadcast(intent);
     }

@@ -93,14 +93,25 @@ public class MessageFragment extends Fragment {
                     if (!tableNumber.equals("")) {
                         URI uri = null;
                         try {
-                            uri = new URI(Common.URL + "/ServerBellServer/" + tableNumber);
+                            uri = new URI(Common.URL + "/CheckOrderWebSocket/" + tableNumber);
                         } catch (URISyntaxException e) {
                             Log.e(TAG, e.toString());
                         }
                         if (serviceWebSocketClient == null) {
                             serviceWebSocketClient = new ServiceWebSocketClient(uri, getContext());
                             serviceWebSocketClient.connect();
+                            try{
+                                // delay 1 second
+                                Thread.sleep(1000);
+
+                            } catch(InterruptedException e){
+                                e.printStackTrace();
+                            }
                         }
+                        JsonObject json = new JsonObject();
+                        json.addProperty("action","callService");
+                        json.addProperty("tableNumber",tableNumber);
+                        serviceWebSocketClient.send(json.toString());
                         if (serviceWebSocketClient != null) {
                             serviceWebSocketClient.close();
                             serviceWebSocketClient = null;

@@ -1,6 +1,7 @@
-package com.example.peggytsai.restaurantreservationapp.Menu;
+package com.example.peggytsai.restaurantreservationapp.Cart.menu;
 
 
+import com.example.peggytsai.restaurantreservationapp.Cart.menu.Menu;
 
 @SuppressWarnings("serial")
 public class OrderMenu extends Menu {

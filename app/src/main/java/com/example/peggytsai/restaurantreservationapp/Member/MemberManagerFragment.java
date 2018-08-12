@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.example.peggytsai.restaurantreservationapp.Login.LoginFragment;
 import com.example.peggytsai.restaurantreservationapp.Main.Common;
 import com.example.peggytsai.restaurantreservationapp.Main.MyTask;
+import com.example.peggytsai.restaurantreservationapp.Menu.Socket;
 import com.example.peggytsai.restaurantreservationapp.R;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -68,6 +69,11 @@ public class MemberManagerFragment extends Fragment {
         boolean login = pref.getBoolean("login", false);//後面是沒取得值的話預設給false
         if (login){
             prefID = pref.getInt("memberID",0);
+
+            //寫入 socket
+//            Socket.connectServer(getActivity(),  String.valueOf(prefID)  );
+
+
         }else{
             Common.showToast(getActivity(),R.string.msg_noLogin);
             //尚未登入回到登入畫面

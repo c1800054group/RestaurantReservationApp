@@ -1,7 +1,6 @@
-package com.example.peggytsai.restaurantreservationapp.Menu;
+package com.example.peggytsai.restaurantreservationapp.Cart.menu;
 
 import java.io.Serializable;
-
 
 
 public class Menu implements Serializable {
@@ -45,7 +44,14 @@ public class Menu implements Serializable {
 			this.stock = stock;
 		}
 
-		public Menu(String name, String price, int type) {
+        public Menu(String name, String price, int type, int stock) {
+            this.name = name;
+            this.price = price;
+            this.type = type;
+            this.stock = stock;
+        }
+
+        public Menu(String name, String price, int type) {
 			super();
 			this.name = name;
 			this.price = price;

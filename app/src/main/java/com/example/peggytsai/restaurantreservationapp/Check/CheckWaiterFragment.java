@@ -1,6 +1,5 @@
 package com.example.peggytsai.restaurantreservationapp.Check;
 
-import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -10,12 +9,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -25,9 +20,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.peggytsai.restaurantreservationapp.Main.Common;
-import com.example.peggytsai.restaurantreservationapp.Menu.OrderMenu;
 import com.example.peggytsai.restaurantreservationapp.R;
-import com.example.peggytsai.restaurantreservationapp.Waiter.ServiceWebSocketClient;
 import com.example.peggytsai.restaurantreservationapp.Waiter.StateMessage;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -109,9 +102,10 @@ public class CheckWaiterFragment extends Fragment {
             JsonObject jsonObject = new Gson().fromJson(message,JsonObject.class);
             StateMessage stateMessage = new Gson().fromJson(message, StateMessage.class);
             String type = jsonObject.get("type").getAsString();
-            String checkOrder = jsonObject.get("jsonCheckOrderList").getAsString();
+//            String checkOrder = jsonObject.get("jsonCheckOrderList").getAsString();
             Type listType = new TypeToken<ArrayList<CheckOrder>>(){}.getType();
-            checkOrderList = new Gson().fromJson(checkOrder,listType);
+            checkOrderList = new Gson().fromJson(jsonObject.get("jsonCheckOrderList").getAsJsonArray(),listType);
+//            checkOrderList = new Gson().fromJson(checkOrder,listType);
             rvCheckOrderWaiter.getAdapter().notifyDataSetChanged();
 //            CheckWaiterTabFragment.vpService.getAdapter().notifyDataSetChanged();
 

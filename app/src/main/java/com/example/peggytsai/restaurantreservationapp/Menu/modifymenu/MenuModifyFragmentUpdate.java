@@ -3,6 +3,7 @@ package com.example.peggytsai.restaurantreservationapp.Menu.modifymenu;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -27,8 +28,9 @@ import android.widget.TextView;
 
 import com.example.peggytsai.restaurantreservationapp.Main.Common;
 import com.example.peggytsai.restaurantreservationapp.Main.MyTask;
-import com.example.peggytsai.restaurantreservationapp.Menu.Menu;
+import com.example.peggytsai.restaurantreservationapp.Cart.menu.Menu;
 import com.example.peggytsai.restaurantreservationapp.Menu.MenuGetImageTask;
+import com.example.peggytsai.restaurantreservationapp.Menu.Socket;
 import com.example.peggytsai.restaurantreservationapp.R;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -39,6 +41,7 @@ import java.io.FileNotFoundException;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.Context.MODE_PRIVATE;
 
 public class MenuModifyFragmentUpdate extends Fragment implements View.OnClickListener {
 
@@ -162,7 +165,22 @@ public class MenuModifyFragmentUpdate extends Fragment implements View.OnClickLi
 
 
                     MenuUpdataTask = new MyTask(Common.URL + "/MenuServlet", jsonObject.toString());
-                    MenuUpdataTask.execute();
+                    try {
+                        MenuUpdataTask.execute().get();  //need use get() ending for send notifyDataSetChanged
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+                    if (Socket.SocketClient != null){
+                        Socket.SocketClient.send("notifyDataSetChanged");
+
+                        SharedPreferences pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
+                        int num = pref.getInt("memberID",0);
+                        Socket.connectServer(getActivity(),  String.valueOf(num)  );
+                    }else {
+                        Common.showToast(getActivity(),"disconnect");
+                    }
                 } else {
                     Common.showToast(getContext(), "text_NoNetwork");
                 }
@@ -200,6 +218,22 @@ public class MenuModifyFragmentUpdate extends Fragment implements View.OnClickLi
 
 
     @Override
+    public void onStart() {
+        super.onStart();
+
+        SharedPreferences pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
+        String memberName = String.valueOf(  pref.getInt("memberID",0)    );
+
+        Socket.connectServer(getActivity(),memberName);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Socket.disconnectServer();
+    }
+
+    @Override
     public void onClick(View v) {
 
         switch (v.getId()) {
@@ -234,8 +268,21 @@ public class MenuModifyFragmentUpdate extends Fragment implements View.OnClickLi
                     jsonObject.addProperty("menu_id", menu.getId());
 
                     MenuDeleteTask = new MyTask(Common.URL + "/MenuServlet", jsonObject.toString());
-                    MenuDeleteTask.execute();
+                    try {
+                        MenuDeleteTask.execute().get();  //need use get() ending for send notifyDataSetChanged
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
+                    if (Socket.SocketClient != null){
+                        Socket.SocketClient.send("notifyDataSetChanged");
+
+                        SharedPreferences pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
+                        int num = pref.getInt("memberID",0);
+                        Socket.connectServer(getActivity(),  String.valueOf(num)  );
+                    }else {
+                        Common.showToast(getActivity(),"disconnect");
+                    }
 
                     getFragmentManager().popBackStack();
 
@@ -276,7 +323,24 @@ public class MenuModifyFragmentUpdate extends Fragment implements View.OnClickLi
 
 
                     MenuUpdataTask = new MyTask(Common.URL + "/MenuServlet", jsonObject.toString());
-                    MenuUpdataTask.execute();
+                    try {
+                        MenuUpdataTask.execute().get();  //need use get() ending for send notifyDataSetChanged
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    if (Socket.SocketClient != null){
+                        Socket.SocketClient.send("notifyDataSetChanged");
+
+                        SharedPreferences pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
+                        int num = pref.getInt("memberID",0);
+                        Socket.connectServer(getActivity(),  String.valueOf(num)  );
+                    }else {
+                        Common.showToast(getActivity(),"disconnect");
+                    }
+
+
+
                 } else {
                     Common.showToast(getContext(), "text_NoNetwork");
                 }

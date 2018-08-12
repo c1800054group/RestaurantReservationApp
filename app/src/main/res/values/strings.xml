@@ -133,6 +133,8 @@
     <string name="menu_type">\t種\t\t類</string>
     <string name="hint_menu_price">請輸入價格</string>
     <string name="menu_delete">刪除此菜單</string>
+    <string name="menu_count">\t數\t\t量</string>
+    <string name="hint_menu_count">請輸入數量</string>
 
 
 </resources>
