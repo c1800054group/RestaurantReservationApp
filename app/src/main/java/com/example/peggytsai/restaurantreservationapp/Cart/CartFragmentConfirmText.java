@@ -40,10 +40,8 @@ public class CartFragmentConfirmText extends Fragment {
     private SharedPreferences pref;
     private RecyclerView recyclerView;
     private List<OrderMenu> menus_list = new ArrayList<>();
-
     private MyTask getTimestamp;
-
-
+    
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -51,11 +49,8 @@ public class CartFragmentConfirmText extends Fragment {
         getActivity().setTitle("訂單完成");
 
         View view = inflater.inflate(R.layout.fragment_cart_confirm_text, container, false);
-
         menus_list = Common.CART;
-
         pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
-
 
         tt_toolbar = view.findViewById(R.id.tvTool_bar_title);
         btCartText = view.findViewById(R.id.btCartText);
@@ -112,7 +107,6 @@ public class CartFragmentConfirmText extends Fragment {
 
 
                     result = getTimestamp.execute().get();
-
                     date.setText(result);
 
 
@@ -123,17 +117,11 @@ public class CartFragmentConfirmText extends Fragment {
                 Common.showToast(getContext(), "text_NoNetwork");
             }
 
-
         }
-
 
         pref.edit().putString("人數","").putString("日期時間","").putString("Coupon","").putString("Discount","").putString("money","").apply(); //clear
 
-
-
-
         return view;
-
 
     }
 
@@ -145,7 +133,6 @@ public class CartFragmentConfirmText extends Fragment {
     }
 
     public void KeyDown() {
-//        getFragmentManager().beginTransaction().replace(R.id.main_activty, new CartFragmentConfirmText()).commit();
         Common.switchFragment(new OrderFragment(), getActivity(), true);
         Common.CART.clear();
     }
@@ -185,8 +172,6 @@ public class CartFragmentConfirmText extends Fragment {
 
             public MyViewHolder(View itemview) {
                 super(itemview);//  可接view 建構式   表示RecyclerView.ViewHolder 可能會有 view屬性
-//                imageView = itemview.findViewById(R.id.image_view);
-
                 text_item = itemview.findViewById(R.id.text_item);
                 text_quantity = itemview.findViewById(R.id.text_quantity);
                 text_subtotal = itemview.findViewById(R.id.text_subtotal);
@@ -203,23 +188,7 @@ public class CartFragmentConfirmText extends Fragment {
             holder.text_quantity.setText(String.valueOf(menu.getQuantity()));
             holder.text_subtotal.setText(String.valueOf(  (menu.getQuantity() * Integer.valueOf(menu.getPrice()))    ));
 
-//            holder.itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//
-//
-//
-//
-//                }
-//            });
-
-
-
-
         }
-
-
-
 
     }//ItemAdapter extends RecyclerView.Adapter <ItemAdapter.MyViewHolder>{
 

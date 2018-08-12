@@ -42,10 +42,6 @@ public class OrderFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_order, container, false);
 
-        TextView tvtoolBarTitle = view.findViewById(R.id.tvTool_bar_title);
-        tvtoolBarTitle.setText(R.string.text_order);
-
-
         lvOrder = view.findViewById(R.id.lvOrder);
         List<Order> orderList = getOrder();
         lvOrder.setAdapter(new OrderAdapter(getContext(), orderList));
@@ -156,7 +152,7 @@ public class OrderFragment extends Fragment {
         List<Order> orderlist = new ArrayList<>();
         orderlist.add(new Order(R.drawable.reservation, "預約餐廳與座位", R.drawable.next));
         orderlist.add(new Order(R.drawable.order, "現場點餐", R.drawable.next));
-        orderlist.add(new Order(R.drawable.reservation, "外送點餐", R.drawable.next));
+//        orderlist.add(new Order(R.drawable.reservation, "外送點餐", R.drawable.next));
 
         return orderlist;
     }
