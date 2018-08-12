@@ -30,6 +30,7 @@ import com.example.peggytsai.restaurantreservationapp.R;
 import com.google.gson.JsonObject;
 
 
+import java.util.HashMap;
 import java.util.List;
 
 public class FoodManagerFragment extends Fragment {
@@ -59,6 +60,7 @@ public class FoodManagerFragment extends Fragment {
 
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewPager_all);
 //        viewPager.setAdapter(  new MyPagerAdapter(getChildFragmentManager())  );  //直接返回 嵌套的子fragment
+        viewPager.setOffscreenPageLimit(3);
         viewPager.setAdapter(new SamplePagerAdapter());  //直接返回 嵌套的子fragment
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabFoodLayout);
         tabLayout.setupWithViewPager(viewPager);
@@ -110,6 +112,10 @@ public class FoodManagerFragment extends Fragment {
     private class SamplePagerAdapter extends PagerAdapter {
 
 
+        HashMap<Integer,ShowAdapter> adapterHashMap;
+        public SamplePagerAdapter(){
+            adapterHashMap = new HashMap<>();
+        }
         @Override
         public int getCount() {
             return 3;
@@ -151,7 +157,13 @@ public class FoodManagerFragment extends Fragment {
 
             recyclerView = view.findViewById(R.id.recyceleview);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-            recyclerView.setAdapter(new ShowAdapter(menus_list, getContext()));
+            if (adapterHashMap.containsKey(position)){
+                recyclerView.setAdapter(adapterHashMap.get(position));
+            }else{
+                adapterHashMap.put(position,new ShowAdapter(menus_list, getContext()));
+                recyclerView.setAdapter(adapterHashMap.get(position));
+            }
+
 
             return view;
         }

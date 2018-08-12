@@ -69,9 +69,8 @@
                         android:id="@+id/etMessageEditTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/edittext"
-                        android:paddingStart="10dp"
                         android:hint="@string/hint_message_title"
+                        android:paddingStart="10dp"
                         android:textSize="20sp"
                         tools:ignore="RtlCompat" />
                 </LinearLayout>
@@ -93,9 +92,8 @@
                         android:id="@+id/tvMessageEditStartTime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/edittext"
-                        android:paddingStart="10dp"
                         android:hint="@string/hint_message_start_time"
+                        android:paddingStart="10dp"
                         android:textSize="20sp" />
                 </LinearLayout>
 
@@ -116,9 +114,8 @@
                         android:id="@+id/tvMessageEditEndTime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/edittext"
-                        android:paddingStart="10dp"
                         android:hint="@string/hint_message_end_time"
+                        android:paddingStart="10dp"
                         android:textSize="20sp" />
                 </LinearLayout>
 
@@ -139,10 +136,9 @@
                         android:id="@+id/etMessageEditDiscount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/edittext"
-                        android:paddingStart="10dp"
                         android:hint="@string/hint_message_discount"
                         android:inputType="numberDecimal"
+                        android:paddingStart="10dp"
                         android:textSize="20dp" />
                 </LinearLayout>
 
@@ -158,15 +154,14 @@
                     android:id="@+id/etMessageEditPromotionMessage"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
-                    android:background="@drawable/edittext"
                     android:layout_marginTop="5dp"
-                    android:paddingTop="8dp"
-                    android:paddingStart="10dp"
+                    android:background="@drawable/edittext"
                     android:gravity="top"
                     android:hint="@string/hint_message_text_promotion_message"
-                    android:textSize="20dp"
-                    android:inputType="textMultiLine" />
-
+                    android:inputType="textMultiLine"
+                    android:paddingStart="10dp"
+                    android:paddingTop="8dp"
+                    android:textSize="20dp" />
 
 
                 <LinearLayout
@@ -189,9 +184,9 @@
                         android:layout_marginEnd="16dp"
                         android:layout_marginStart="16dp"
                         android:background="@drawable/button_corners"
+                        android:text="@string/message_text_inset_image"
                         android:textColor="@color/colorWhite"
-                        android:textSize="20dp"
-                        android:text="@string/message_text_inset_image" />
+                        android:textSize="20dp" />
 
                 </LinearLayout>
 
