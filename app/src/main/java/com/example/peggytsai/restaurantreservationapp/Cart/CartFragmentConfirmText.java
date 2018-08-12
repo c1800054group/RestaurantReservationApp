@@ -41,7 +41,7 @@ public class CartFragmentConfirmText extends Fragment {
     private RecyclerView recyclerView;
     private List<OrderMenu> menus_list = new ArrayList<>();
     private MyTask getTimestamp;
-    
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
