@@ -161,11 +161,11 @@
                 android:textColor="@color/colorContent"
                 android:textSize="20dp" />
 
+
             <EditText
                 android:id="@+id/et_count"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/edittext"
                 android:hint="@string/hint_menu_count"
                 android:inputType="number"
                 android:paddingStart="10dp"

@@ -123,11 +123,6 @@ public class MainActivity extends AppCompatActivity {
                     switchFragment(fragment);
                     setTitle(R.string.text_CheckWaiter);
                     return true;
-                case R.id.item_CheckManager:
-                    fragment = new CheckManagerFragment();
-                    switchFragment(fragment);
-                    setTitle(R.string.text_CheckManager);
-                    return true;
                 case R.id.item_ServiceWaiter:
                     fragment = new WaiterTabFragment();
                     switchFragment(fragment);
