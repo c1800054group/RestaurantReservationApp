@@ -42,6 +42,9 @@ public class OrderFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_order, container, false);
 
+        TextView tvtoolBarTitle = view.findViewById(R.id.tvTool_bar_title);
+        tvtoolBarTitle.setText(R.string.text_order);
+
         lvOrder = view.findViewById(R.id.lvOrder);
         List<Order> orderList = getOrder();
         lvOrder.setAdapter(new OrderAdapter(getContext(), orderList));

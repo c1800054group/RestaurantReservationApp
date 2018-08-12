@@ -50,6 +50,8 @@ public class CheckRecordFragment extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_check_2, container, false);
         tv21Check = view.findViewById(R.id.tv21Check);
+        TextView tvtoolBarTitle = view.findViewById(R.id.tvTool_bar_title);
+        tvtoolBarTitle.setText(R.string.checkRecord);
 
         swipeRecordRefreshLayout = view.findViewById(R.id.swipeRecordRefreshLayoutt);
         swipeRecordRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

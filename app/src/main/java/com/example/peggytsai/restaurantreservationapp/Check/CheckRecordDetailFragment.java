@@ -46,6 +46,10 @@ public class CheckRecordDetailFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_check2_record_pager_detail, container, false);
 
+
+        TextView tvtoolBarTitle = view.findViewById(R.id.tvTool_bar_title);
+        tvtoolBarTitle.setText(R.string.text_order);
+
         Bundle bundle = getArguments();
 
         orderId = bundle.getInt("orderId");

@@ -16,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -172,7 +171,7 @@ public class CartFragmentConfirm extends Fragment {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.select_dialog_item,list);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(Html.fromHtml("<font color='#009688'>"+"選擇優惠卷 ："+"</font>"));
+        builder.setTitle(Html.fromHtml("<font color='#009688'>"+"選擇優惠券"+"</font>"));
         builder.setPositiveButton(Html.fromHtml("<font color='#009688'>"+"略過"+"</font>"), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -180,9 +179,6 @@ public class CartFragmentConfirm extends Fragment {
                 connect();
             }
         });
-//        Button pbutton = builder.getButton(DialogInterface.BUTTON_POSITIVE);
-//        pbutton.setTextColor(getResources().getColor(R.color.colorButton));
-
 
         builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
             @Override

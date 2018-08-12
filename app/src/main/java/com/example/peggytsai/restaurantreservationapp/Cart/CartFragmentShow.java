@@ -87,7 +87,7 @@ public class CartFragmentShow extends Fragment {
         btMenuShowMenu = view.findViewById(R.id.btMenuShowMenu);
         btMenuShowMenu.setText("下一步");
         tt_toolbar = view.findViewById(R.id.tvTool_bar_title);
-        tt_toolbar.setText("帶外點餐");
+        tt_toolbar.setText("點餐");
 
         //Common.FragmentSwitch    //為了分別顯示 已改變 標題
         btMenuShowMenu.setText("下一步");

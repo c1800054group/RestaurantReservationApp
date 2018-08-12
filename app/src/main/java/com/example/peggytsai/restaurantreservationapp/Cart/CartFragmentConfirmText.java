@@ -75,7 +75,7 @@ public class CartFragmentConfirmText extends Fragment {
         total_checkout.setText(pref.getString("money",""));
 
 
-        tt_toolbar.setText("內用/外帶/外送");
+        tt_toolbar.setText("完成點餐");
         btCartText.setText("繼續訂單");
         btCartText.setOnClickListener(new View.OnClickListener() {
             @Override

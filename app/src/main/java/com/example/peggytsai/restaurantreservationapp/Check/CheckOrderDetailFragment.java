@@ -41,7 +41,11 @@ public class CheckOrderDetailFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
       view = inflater.inflate(R.layout.fragment_check1_order_pager_detail, container, false);
-      findView();
+
+        TextView tvtoolBarTitle = view.findViewById(R.id.tvTool_bar_title);
+        tvtoolBarTitle.setText(R.string.checkRecord);
+
+        findView();
         Bundle bundle = getArguments();
         orderId = bundle.getInt("orderId3");
         orderDate = bundle.getString("tvOrderDate");
@@ -49,8 +53,6 @@ public class CheckOrderDetailFragment extends Fragment {
         tvOrderNumber.setText(String.valueOf(orderId));
       orderDetailRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        TextView tvtoolBarTitle = view.findViewById(R.id.tvTool_bar_title);
-        tvtoolBarTitle.setText(R.string.text_order);
 
 
 //      int order_id =

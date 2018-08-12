@@ -65,8 +65,8 @@ public class MessageFragment extends Fragment {
         if (authority_id == 4) {
             tvtoolBarTitle.setText(R.string.text_MessageManager);
 
-//            btService.setVisibility(BottomNavigationView.GONE);
-//            btMessageNew.setVisibility(BottomNavigationView.VISIBLE);
+            btService.setVisibility(BottomNavigationView.GONE);
+            btMessageNew.setVisibility(BottomNavigationView.VISIBLE);
 
             btMessageNew.setOnClickListener(new View.OnClickListener() {
                 @Override
