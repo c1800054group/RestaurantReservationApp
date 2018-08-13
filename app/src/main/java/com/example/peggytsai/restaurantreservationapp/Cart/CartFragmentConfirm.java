@@ -94,7 +94,9 @@ public class CartFragmentConfirm extends Fragment {
                 coupon = new Gson().fromJson(couponString, Coupon.class);
 
 //                Common.showToast(getActivity(),coupon.getCoupon());
-                list.add(coupon.getCoupon());
+
+//                list.add(coupon.getCoupon());//加入的選項
+                list.add("父親節優惠卷");  //修改2018 08 13
 
                 if(list.size()>0){
                     pref.edit().putString("Coupon",coupon.getCoupon()).putString("Discount",String.valueOf(coupon.getDiscount())).apply();

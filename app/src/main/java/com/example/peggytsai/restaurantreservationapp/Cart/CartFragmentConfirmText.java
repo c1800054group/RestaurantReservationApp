@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -42,6 +43,8 @@ public class CartFragmentConfirmText extends Fragment {
     private List<OrderMenu> menus_list = new ArrayList<>();
     private MyTask getTimestamp;
 
+    private BottomNavigationView navigation;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -58,6 +61,8 @@ public class CartFragmentConfirmText extends Fragment {
         date = view.findViewById(R.id.date);
         total_checkout = view.findViewById(R.id.total_checkout);
         discount_checkout = view.findViewById(R.id.discount_checkout);
+
+        navigation = getActivity().findViewById(R.id.Navigation);
 
         String orderID="";
         orderid.setText(orderID = String.valueOf(pref.getInt("orderID",0)));
@@ -76,12 +81,14 @@ public class CartFragmentConfirmText extends Fragment {
 
 
         tt_toolbar.setText("完成點餐");
-        btCartText.setText("繼續訂單");
+        btCartText.setText("完成");
         btCartText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Common.CART.clear();
                 Common.switchFragment(new OrderFragment(), getActivity(), true);
+
+                navigation.setSelectedItemId(R.id.item_Check);
             }
         });
 
