@@ -103,9 +103,6 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/reCheckout"
                     android:layout_width="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
                     android:layout_height="243dp">
 
                 </android.support.v7.widget.RecyclerView>
@@ -117,8 +114,9 @@
                     android:background="@color/ColorListViewLine" />
 
                 <LinearLayout
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="40dp"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -134,7 +132,6 @@
                         android:textAlignment="textEnd"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="60dp"
                         android:text="折"
                         android:textSize="16sp" />
 
@@ -142,7 +139,8 @@
 
                 <LinearLayout
                     android:layout_marginTop="5dp"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="40dp"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -156,7 +154,6 @@
 
                     <TextView
                         android:id="@+id/total_checkout"
-                        android:layout_marginEnd="60dp"
                         android:textAlignment="textEnd"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

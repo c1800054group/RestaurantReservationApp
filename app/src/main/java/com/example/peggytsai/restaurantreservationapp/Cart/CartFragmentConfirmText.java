@@ -72,7 +72,7 @@ public class CartFragmentConfirmText extends Fragment {
             discount_checkout.setText(String.valueOf(  Discount_num  )+"折");
         }
 
-        total_checkout.setText(pref.getString("money",""));
+        total_checkout.setText( "$" +  pref.getString("money",""));
 
 
         tt_toolbar.setText("完成點餐");

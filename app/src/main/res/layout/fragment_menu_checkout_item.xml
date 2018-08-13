@@ -7,11 +7,10 @@
     android:orientation="horizontal"
     android:layout_marginTop="10dp"
     android:layout_marginStart="20dp"
-    android:layout_marginEnd="20dp"
+    android:layout_marginEnd="40dp"
     android:id="@+id/LinearLayout">
 
     <TextView
-        android:layout_marginStart="10dp"
         android:layout_gravity="center"
         android:id="@+id/text_item"
         android:layout_width="160dp"
@@ -20,7 +19,7 @@
         android:textSize="16sp" />
 
     <TextView
-             android:textAlignment="textEnd"
+             android:textAlignment="center"
             android:id="@+id/text_quantity"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
@@ -29,7 +28,6 @@
 
     <TextView
         android:textAlignment="textEnd"
-        android:layout_marginEnd="60dp"
         android:id="@+id/text_subtotal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
